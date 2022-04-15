@@ -13,6 +13,9 @@
   />
 
   <div id="page" :class="openedBigCart ? 'opened' : ''">
+
+    <div class="darken-for-opened-cart" />
+
     <Menu
       @switchBigCart="callSwitchStatusBigCart"
     />
@@ -51,22 +54,39 @@ export default {
     },
     eventSwitchedOpenedBigCart (value) {
       this.openedBigCart = value
-      let page = $('#page')
+      let page = $('.darken-for-opened-cart')
       if (value) {
+        $('body').css('overflow', 'hidden');
         setTimeout(() => {
           console.log(page)
-          $('#page').click(() => {
+          page.click(() => {
             if (this.openedBigCart) {
               this.callSwitchStatusBigCart()
             }
           })
         }, 100)
       } else {
+        $('body').css('overflow', 'auto');
         page.unbind('click')
       }
     }
   },
   created() {
+    this.$nextTick(() => {
+      document.querySelector('.darken-for-opened-cart').addEventListener('animationstart', function (e) {
+        console.log(123)
+        if (e.animationName === 'fade-in') {
+          e.target.classList.add('did-fade-in');
+        }
+      });
+
+      document.querySelector('.darken-for-opened-cart').addEventListener('animationend', function (e) {
+        console.log(1111)
+        if (e.animationName === 'fade-out') {
+          e.target.classList.remove('did-fade-in');
+        }
+      });
+    })
   },
   beforeMount () {
     let bool = this.currencies.last_update !== null

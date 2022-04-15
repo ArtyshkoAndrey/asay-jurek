@@ -17,4 +17,5 @@ mix
   .vue(3)
   .sass("resources/scss/app.scss", "public/css")
   .sourceMaps()
-  .version();
+  .version()
+  .disableNotifications();
