@@ -1,12 +1,5 @@
 <template>
-  <Head>
-    <title>Home</title>
-    <meta
-      type="description"
-      content="Home information"
-      head-key="description"
-    >
-  </Head>
+
   <div class="container">
     <h1>Test</h1>
     <Link href="/about">На about</Link>
@@ -19,7 +12,8 @@
 import Layout from "../../Shared/Layout";
 export default {
   name: "Index",
-  layout: Layout
+  layout: Layout,
+
 }
 </script>
 

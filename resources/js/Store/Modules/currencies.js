@@ -21,6 +21,12 @@ const currencies = {
       state.currency = currency
       state.currency_id = currency.id
       state.last_update = new Date();
+    },
+
+  //  Сохранение выбранной валюты
+    setCurrency (state, payload) {
+      state.currency = payload
+      state.currency_id = payload.id
     }
   },
 
@@ -60,6 +66,11 @@ const currencies = {
               })
           }
         })
+    },
+
+    // Запрос на выбор другой валюты
+    setCurrency ({commit}, payload) {
+     commit('setCurrency', payload);
     }
   }
 }

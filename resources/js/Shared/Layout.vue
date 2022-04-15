@@ -1,8 +1,9 @@
 <template>
   <Head>
+    <title>{{ seo.title }}</title>
     <meta
       type="description"
-      content="Information about my app"
+      content="{{ seo.description}}"
       head-key="description"
     >
   </Head>
@@ -16,7 +17,9 @@
 
     <div class="darken-for-opened-cart" />
 
-    <Menu
+    <Menu />
+
+    <SubMenu
       @switchBigCart="callSwitchStatusBigCart"
     />
 
@@ -29,12 +32,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Menu from "./Menu";
+import SubMenu from "./SubMenu";
+import Menu from './Menu';
 import BigCart from "./BigCart";
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/inertia-vue3'
 export default {
   name: "Layout",
   components: {
     Menu,
+    SubMenu,
     BigCart
   },
   data: () => ({
@@ -44,6 +51,10 @@ export default {
     // map this.count to store.state.count
     'currencies'
   ]),
+  setup() {
+    const seo = computed(() => usePage().props.value.seo)
+    return { seo }
+  },
   methods: {
     ...mapActions({
       initialCurrencies: 'currencies/initial'
