@@ -1,5 +1,10 @@
 #navbarNavPrimary {
   margin-top: 65px;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 32px;
+  }
+
   .nav-item {
     height: 100%;
 
@@ -29,4 +34,23 @@
       border-right: 1px solid #C1C1C1;
     }
   }
+
+  img.logo {
+    height: 100%;
+
+    @include media-breakpoint-down(md) {
+      width: 117px;
+      margin-top: -15px;
+    }
+  }
+}
+
+#left-menu {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: $white;
+  z-index: 98;
 }

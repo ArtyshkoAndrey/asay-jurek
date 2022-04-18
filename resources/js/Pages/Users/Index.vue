@@ -5,6 +5,7 @@
     <Link href="/about">На about</Link>
 
     <p>{{ $store.state.currencies.currency.name }}</p>
+    <i class="fa-light fa-angle-down"></i>
   </div>
 </template>
 

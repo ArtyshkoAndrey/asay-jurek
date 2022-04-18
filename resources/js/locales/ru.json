@@ -13,5 +13,12 @@
     "BigCart": {
       "close": "Закрыть"
     }
+  },
+  "dropdown-user": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "profile": "Профиль",
+    "order": "Мои заказы",
+    "logout": "Выйти"
   }
 }

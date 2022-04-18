@@ -13,5 +13,12 @@
     "BigCart": {
       "close": "Close"
     }
+  },
+  "dropdown-user": {
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "order": "My Order",
+    "logout": "Logout"
   }
 }

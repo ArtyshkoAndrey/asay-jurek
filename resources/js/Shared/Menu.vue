@@ -3,11 +3,17 @@
     <div class="container">
       <div class="collapse navbar-collapse" id="navbarNavPrimary">
         <ul class="navbar-nav text-uppercase w-100">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item ps-3 d-flex d-md-none">
+            <button class="nav-link btn bg-transparent p-0" @click="openLeftMenu">
+              <i class="fa-regular fa-bars"></i>
+            </button>
+          </li>
+
+          <li class="nav-item dropdown d-none d-md-flex">
+            <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ currency.short_name }}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="currencyDropdown">
               <li v-for="c in currencies">
                 <a class="dropdown-item"
                    :class="c.id === currency.id ? 'active' : ''"
@@ -21,11 +27,11 @@
             </ul>
           </li>
 
-          <li class="nav-item dropdown me-auto">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item dropdown me-auto d-none d-md-flex">
+            <a class="nav-link dropdown-toggle" href="#" id="localeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ $i18n.locale === "ru" ? "RUS" : "ENG" }}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="localeDropdown">
               <li>
                 <a class="dropdown-item"
                    :class="$i18n.locale === 'ru' ? 'active' : ''"
@@ -51,10 +57,10 @@
           </li>
           
           <li class="nav-item mx-auto">
-            <img src="public/img/menu-logo.png" class="img-fluid" alt="Asay Jurek Logo">
+            <img src="public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
           </li>
 
-          <li class="nav-item dropdown ms-auto pe-3 left-border">
+          <li class="nav-item dropdown ms-auto pe-3 left-border d-none d-md-flex">
             <a href="#"
                class="nav-link btn bg-transparent dropdown-toggle p-0"
                id="userDropdown"
@@ -66,10 +72,10 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
               <li class="">
-                <Link href="/" class="dropdown-item">Вход</Link>
+                <Link href="/login" class="dropdown-item">{{ $t('dropdown-user.login') }}</Link>
               </li>
               <li class="">
-                <Link href="/" class="dropdown-item">Регистрация</Link>
+                <Link href="/register" class="dropdown-item">{{ $t('dropdown-user.register') }}</Link>
               </li>
             </ul>
           </li>
@@ -83,14 +89,18 @@
         </ul>
       </div>
     </div>
+
+    <LeftMenu ref="LeftMenu" />
   </nav>
 </template>
 
 <script>
 import {mapState, mapActions} from "vuex";
 import { useI18n } from "vue-i18n";
+import LeftMenu from "./LeftMenu";
 export default {
   name: "Menu",
+  components: {LeftMenu},
   emits: ['switchBigCart'],
   computed: {
     ...mapState('currencies', {
@@ -113,6 +123,10 @@ export default {
         locale: locale,
         i18n: this.$i18n
       })
+    },
+    openLeftMenu () {
+      console.log(this.$refs)
+      this.$refs['LeftMenu'].switchStatusOpened()
     }
   }
 }
