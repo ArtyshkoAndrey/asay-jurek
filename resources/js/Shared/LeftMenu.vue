@@ -10,6 +10,37 @@
                   <i class="fa-regular fa-xmark"></i>
                 </button>
               </li>
+
+              <li class="nav-item dropdown ms-auto pe-3">
+                <a href="#"
+                   class="nav-link btn bg-transparent dropdown-toggle p-0"
+                   id="userDropdown"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false"
+                >
+                  <i class="far fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" @click="opened = !opened" aria-labelledby="userDropdown">
+
+                  <li class="" v-if="user !== null" >
+                    <Link href="/" class="dropdown-item">{{ $t('dropdown-user.profile') }}</Link>
+                  </li>
+                  <li class="" v-if="user !== null" >
+                    <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
+                  </li>
+                  <li class="" v-if="user !== null" >
+                    <Link href="/logout" method="post" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>
+                  </li>
+
+                  <li class="" v-if="user === null">
+                    <Link href="/login" class="dropdown-item">{{ $t('dropdown-user.login') }}</Link>
+                  </li>
+                  <li class="" v-if="user === null">
+                    <Link href="/register" class="dropdown-item">{{ $t('dropdown-user.register') }}</Link>
+                  </li>
+                </ul>
+              </li>
               <li class="nav-item pe-3">
                 <button class="nav-link btn bg-transparent p-0" @click="openCart">
                   <i class="far fa-shopping-bag"></i>
@@ -54,6 +85,11 @@ export default {
     opened: false,
     smallWidth: false,
   }),
+  computed: {
+    user () {
+      return this.$page.props.auth.user
+    }
+  },
   mounted() {
     if ($(document).width() <= 768) {
       this.smallWidth = true

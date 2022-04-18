@@ -2,19 +2,40 @@
   <section class="container mt-5">
    <div class="row justify-content-center">
      <div class="col-12 col-sm-10 col-md-6 col-lg-4">
-       <form>
+       <form @submit.prevent="submit">
+
          <div class="mb-3">
            <label for="email" class="form-label">Email</label>
-           <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+           <input v-model="form.email"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  :class="form.errors.email ? 'is-invalid' : ''"
+           >
+           <div v-if="form.errors.email" class="invalid-feedback">
+             {{ form.errors.email }}
+           </div>
          </div>
+
          <div class="mb-3">
            <label for="password" class="form-label">{{ $t('login.inputs.password') }}</label>
-           <input type="password" class="form-control" id="password">
+           <input v-model="form.password"
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  :class="form.errors.password ? 'is-invalid' : ''"
+           >
+           <div v-if="form.errors.password" class="invalid-feedback">
+             {{ form.errors.password }}
+           </div>
          </div>
+
          <div class="mb-3 form-check">
-           <input type="checkbox" class="form-check-input" id="remember">
+           <input v-model="form.remember" type="checkbox" class="form-check-input" id="remember">
            <label class="form-check-label" for="remember">{{ $t('login.inputs.remember') }}</label>
          </div>
+
          <button type="submit" class="btn btn-dark">{{ $t('login.buttons.login') }}</button>
        </form>
      </div>
@@ -24,10 +45,27 @@
 
 <script>
 import Layout from "../../Shared/Layout";
+import { useForm } from '@inertiajs/inertia-vue3'
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
   name: "Login",
   layout: Layout,
+  data: () => ({
+    form: useForm({
+      email: null,
+      password: null,
+      remember: false
+    })
+  }),
+  methods: {
+    submit () {
+      this.form.submit('post', '/login', {
+        preserveScroll: true,
+        onSuccess: () => Inertia.reload(),
+      })
+    }
+  }
 }
 </script>
 

@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Fruitcake\Cors\HandleCors;
+use App\Http\Middleware\setLocale;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\TrustProxies;
@@ -43,6 +44,7 @@ class Kernel extends HttpKernel
     ValidatePostSize::class,
     TrimStrings::class,
     ConvertEmptyStringsToNull::class,
+    setLocale::class
   ];
 
   /**

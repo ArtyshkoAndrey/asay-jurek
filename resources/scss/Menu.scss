@@ -18,6 +18,7 @@
 
       .dropdown-menu {
         .dropdown-item {
+          text-transform: uppercase;
           .name-currency {
             text-transform: lowercase !important;
             font-weight: 300;
@@ -80,45 +81,46 @@
       padding-top: 12px;
       text-transform: uppercase;
     }
-  }
 
-  .dropdown {
-    outline: none;
-
-    .dropdown-toggle {
+    .dropdown {
       outline: none;
 
-      &::after {
-        content: none;
-      }
-    }
-  }
+      .dropdown-toggle {
+        outline: none;
 
-  .dropdown-menu {
-    position: unset;
-    top: unset;
-    left: unset;
-    margin-top: 0;
-
-    background: transparent;
-    box-shadow: none;
-
-    .dropdown-item {
-
-      padding-top: 8px;
-      padding-bottom: 8px;
-
-      a {
-        color: $navbar-light-color;
-        font-weight: 300;
-        text-decoration: none;
-      }
-
-      &:hover, a:hover {
-        background: transparent;
-        color: $navbar-light-active-color;
+        &::after {
+          content: none;
+        }
       }
     }
 
+    .dropdown-menu {
+      position: unset;
+      top: unset;
+      left: unset;
+      margin-top: 0;
+
+      background: transparent;
+      box-shadow: none;
+
+      .dropdown-item {
+
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        a {
+          color: $navbar-light-color;
+          font-weight: 300;
+          text-decoration: none;
+        }
+
+        &:hover, a:hover {
+          background: transparent;
+          color: $navbar-light-active-color;
+        }
+      }
+
+    }
   }
+
 }

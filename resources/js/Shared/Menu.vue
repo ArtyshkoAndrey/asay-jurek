@@ -60,7 +60,7 @@
             <img src="public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
           </li>
 
-          <li class="nav-item dropdown ms-auto pe-3 left-border d-none d-md-flex">
+          <li class="nav-item dropdown ms-auto pe-3 left-border d-none d-md-flex" @click="logUser">
             <a href="#"
                class="nav-link btn bg-transparent dropdown-toggle p-0"
                id="userDropdown"
@@ -71,10 +71,21 @@
               <i class="far fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li class="">
+
+              <li class="" v-if="user !== null" >
+                <Link href="/" class="dropdown-item">{{ $t('dropdown-user.profile') }}</Link>
+              </li>
+              <li class="" v-if="user !== null" >
+                <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
+              </li>
+              <li class="" v-if="user !== null" >
+                <Link href="/logout" method="post" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>
+              </li>
+
+              <li class="" v-if="user === null">
                 <Link href="/login" class="dropdown-item">{{ $t('dropdown-user.login') }}</Link>
               </li>
-              <li class="">
+              <li class="" v-if="user === null">
                 <Link href="/register" class="dropdown-item">{{ $t('dropdown-user.register') }}</Link>
               </li>
             </ul>
@@ -107,8 +118,14 @@ export default {
       currency: state => state.currency,
       currencies: state => state.all_currencies
     }),
+    user () {
+      return this.$page.props.auth.user
+    }
   },
   methods: {
+    logUser () {
+      console.log(this.user === null)
+    },
     ...mapActions('currencies', [
       'setCurrency'
     ]),

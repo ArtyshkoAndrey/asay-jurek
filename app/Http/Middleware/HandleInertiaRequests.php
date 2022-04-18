@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use App\Models\Seo;
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -21,7 +22,7 @@ class HandleInertiaRequests extends Middleware
    *
    * @see https://inertiajs.com/asset-versioning
    *
-   * @param \Illuminate\Http\Request $request
+   * @param Request $request
    *
    * @return string|null
    */
@@ -35,7 +36,7 @@ class HandleInertiaRequests extends Middleware
    *
    * @see https://inertiajs.com/shared-data
    *
-   * @param \Illuminate\Http\Request $request
+   * @param Request $request
    *
    * @return array
    */
@@ -45,7 +46,13 @@ class HandleInertiaRequests extends Middleware
     $seo = $this->getSeo($url);
     return array_merge(parent::share($request), [
       'seo' => $seo,
-      'locale' => app()->getLocale()
+      'locale' => app()->getLocale(),
+      'auth.user' => function () use ($request) {
+        if ($request->user())
+          return $request->user()->only('id', 'name', 'email');
+        else
+          return null;
+      }
     ]);
   }
 
@@ -59,7 +66,16 @@ class HandleInertiaRequests extends Middleware
       'url' => $url,
       'title' => 'Asay Jurek',
       'description' => 'Попросите администратора заполнить сео',
-      'meta_description' => 'Попросите администратора заполнить сео'
+      'meta_description' => 'Попросите администратора заполнить сео',
     ]);
+  }
+
+  private function getUser(): ?\App\Models\User
+  {
+    if (Auth::user()) {
+      return Auth::user();
+    }
+
+    return null;
   }
 }
