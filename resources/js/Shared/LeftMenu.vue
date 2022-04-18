@@ -36,6 +36,15 @@ export default {
     openCart () {
       this.$parent.openCart()
     }
+  },
+  watch: {
+    opened: (newVal) => {
+      if (newVal) {
+        $('body').css('overflow', 'hidden')
+      } else {
+        $('body').css('overflow', 'auto')
+      }
+    }
   }
 }
 </script>

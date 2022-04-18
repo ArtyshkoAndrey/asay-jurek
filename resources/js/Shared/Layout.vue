@@ -81,8 +81,11 @@ export default {
           })
         }, 100)
       } else {
-        $('body').css('overflow', 'auto');
-        page.unbind('click')
+        if ($("#left-menu").css('display') !== 'block') {
+          $('body').css('overflow', 'auto');
+          page.unbind('click')
+
+        }
       }
     }
   },
