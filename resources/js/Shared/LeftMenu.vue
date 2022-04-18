@@ -19,6 +19,30 @@
           </div>
         </div>
       </nav>
+      <div class="container left-links-wrapper">
+        <div class="row">
+         <div class="col-12">
+           <ul class="navbar-nav navbar-expand-xxl nav" id="left-links">
+             <li class="nav-item dropdown" v-for="i in 20">
+               <a href="#"
+                  class="nav-link dropdown-toggle"
+                  id="category1Dropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+               >
+                 Одежда и аксессуары
+               </a>
+               <ul class="dropdown-menu" aria-labelledby="category1Dropdown">
+                 <li class="dropdown-item" v-for="j in 10">
+                   <Link href="/">Мужчинам</Link>
+                 </li>
+               </ul>
+             </li>
+           </ul>
+         </div>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
@@ -27,11 +51,20 @@
 export default {
   name: "LeftMenu",
   data: () => ({
-    opened: true
+    opened: false,
+    smallWidth: false,
   }),
+  mounted() {
+    if ($(document).width() <= 768) {
+      this.smallWidth = true
+    }
+  },
   methods: {
     switchStatusOpened () {
-      this.opened = !this.opened
+      if ($(document).width() <= 768) {
+        this.smallWidth = true
+        this.opened = !this.opened
+      }
     },
     openCart () {
       this.$parent.openCart()

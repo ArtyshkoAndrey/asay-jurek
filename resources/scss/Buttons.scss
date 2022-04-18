@@ -1,0 +1,17 @@
+.btn {
+  border-radius: 0 !important;
+  outline: none !important;
+}
+
+.form-check-input[type=checkbox] {
+  border-radius: 0 !important;
+}
+
+.form-check-input:checked {
+  border-color: $dark;
+  background-color: $dark;
+}
+
+input.form-control {
+  border-radius: 0 !important;
+}

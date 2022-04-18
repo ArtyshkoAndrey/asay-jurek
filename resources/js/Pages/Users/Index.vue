@@ -1,12 +1,14 @@
 <template>
 
-  <div class="container">
-    <h1>Test</h1>
-    <Link href="/about">На about</Link>
-
-    <p>{{ $store.state.currencies.currency.name }}</p>
-    <i class="fa-light fa-angle-down"></i>
-  </div>
+  <section class="container">
+    <div class="row">
+      <div class="col-12">
+        <Link href="/" class="d-block">
+          <img src="public/img/index-big-image.png" class="img-fluid" alt="index-page">
+        </Link>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>

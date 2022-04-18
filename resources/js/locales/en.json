@@ -20,5 +20,14 @@
     "profile": "Profile",
     "order": "My Order",
     "logout": "Logout"
+  },
+  "login": {
+    "inputs": {
+      "password": "Password",
+      "remember": "Remember me"
+    },
+    "buttons": {
+      "login": "Login"
+    }
   }
 }

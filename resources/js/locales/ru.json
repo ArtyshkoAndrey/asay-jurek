@@ -20,5 +20,14 @@
     "profile": "Профиль",
     "order": "Мои заказы",
     "logout": "Выйти"
+  },
+  "login": {
+    "inputs": {
+      "password": "Пароль",
+      "remember": "Запомнить меня"
+    },
+    "buttons": {
+      "login": "Войти"
+    }
   }
 }
