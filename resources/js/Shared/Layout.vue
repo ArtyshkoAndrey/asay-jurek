@@ -17,7 +17,9 @@
 
     <div class="darken-for-opened-cart" />
 
-    <Menu />
+    <Menu
+      @switchBigCart="callSwitchStatusBigCart"
+    />
 
     <SubMenu
       @switchBigCart="callSwitchStatusBigCart"
@@ -37,6 +39,8 @@ import Menu from './Menu';
 import BigCart from "./BigCart";
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
+import NProgress from "nprogress";
+
 export default {
   name: "Layout",
   components: {
@@ -114,6 +118,7 @@ export default {
         this.initialCurrencies()
       }
     }
+    NProgress.done()
   }
 }
 </script>

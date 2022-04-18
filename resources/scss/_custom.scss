@@ -1,7 +1,18 @@
 // Body
+$black: #34383d;
+$gray-900: #6F797C;
+$dark: $black;
+$body-color: $black;
+$light: #FFFFFF;
+
 $font-family-sans-serif: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $body-bg: #FFFFFF;
-$body-color: #272c33;
+
+
+$navbar-light-color: $dark;
+$navbar-light-active-color: $gray-900;
+
+
 
 // Buttons
 $btn-font-weight: 700;
@@ -9,3 +20,33 @@ $btn-font-weight: 700;
 // Links
 $link-decoration: underline dotted;
 $link-hover-decoration: underline;
+
+// Dropdown
+.dropdown {
+  -webkit-appearance:none;
+
+  .dropdown-menu {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    border: 0;
+    padding: 0;
+
+    .dropdown-item {
+      &.active, &:active {
+        color: #6F797C;
+        background: #FFFFFF;
+      }
+    }
+
+    li:nth-child(1), li:nth-child(1) .dropdown-item {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    li:last-child, li:last-child .dropdown-item {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
+}

@@ -44,7 +44,8 @@ class HandleInertiaRequests extends Middleware
     $url = $request->getPathInfo();
     $seo = $this->getSeo($url);
     return array_merge(parent::share($request), [
-      'seo' => $seo
+      'seo' => $seo,
+      'locale' => app()->getLocale()
     ]);
   }
 

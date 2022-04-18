@@ -21,6 +21,8 @@ const currencies = {
       state.currency = currency
       state.currency_id = currency.id
       state.last_update = new Date();
+
+      console.log(state.all_currencies)
     },
 
   //  Сохранение выбранной валюты
@@ -40,9 +42,10 @@ const currencies = {
         .catch((e) => {
           console.warn(e)
           if (e instanceof Error) {
+            let message = e.hasOwnProperty('response') ? e.response.data.payload.message : e.message
             Swal.fire({
               title: 'Ошибка загрузки данных валют',
-              html: e.message + '<br> <br> Обратитесь к администратору сайта',
+              html: message + '<br> <br> Обратитесь к администратору сайта',
               icon: 'error',
               allowOutsideClick: false,
               confirmButtonText: 'Перезагрузить'

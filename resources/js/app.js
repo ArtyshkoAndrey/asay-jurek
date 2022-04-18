@@ -1,10 +1,15 @@
+
+import NProgress from 'nprogress'
+
 require('./bootstrap');
 
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
-import store from './Store/store';
+import { Inertia } from '@inertiajs/inertia'
 
+import {setupI18n} from "./i18n";
+import store from './Store/store';
 const Layout = import("./Shared/Layout");
 
 createInertiaApp({
@@ -14,18 +19,29 @@ createInertiaApp({
 
     return page;
   },
-  setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
+  setup({el, App, props, plugin}) {
+    NProgress.start()
+    const i18n = setupI18n();
+    createApp({render: () => h(App, props)})
       .use(plugin)
+      .use(store)
+      .use(i18n)
       .component("Link", Link)
       .component("Head", Head)
-      .use(store)
       .mount(el)
   },
 
+}).then(r => {
+
 })
+
 InertiaProgress.init({
   delay: 10,
-  color: "red",
+  color: '#89171A',
+  includeCSS: true,
   showSpinner: true,
 });
+
+Inertia.on('start', () => NProgress.start())
+Inertia.on('finish', () => NProgress.done())
+

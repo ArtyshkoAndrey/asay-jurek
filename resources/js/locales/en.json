@@ -1,0 +1,17 @@
+{
+  "locales": {
+    "ru": {
+      "title": "RUS",
+      "description": "Russian"
+    },
+    "en": {
+      "title": "ENG",
+      "description": "English"
+    }
+  },
+  "components": {
+    "BigCart": {
+      "close": "Close"
+    }
+  }
+}

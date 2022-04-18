@@ -13,7 +13,8 @@ import Layout from "../../Shared/Layout";
 export default {
   name: "Index",
   layout: Layout,
-
+  components: {
+  }
 }
 </script>
 

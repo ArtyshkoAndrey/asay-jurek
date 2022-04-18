@@ -16,3 +16,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
+
+Route::get('/test', function () {
+  dd(\App\Models\Currency::first()->toArray());
+});

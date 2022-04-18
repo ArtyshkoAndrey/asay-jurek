@@ -1,17 +1,21 @@
 <template>
-  <transition name="nested" :duration="500">
-    <div id="big-cart" class="py-3" v-show="opened">
+  <transition :duration="500" name="nested">
+    <div v-show="opened" id="big-cart" class="py-3">
       <div class="row mx-0">
         <div class="col-12 bg-white">
-          <button class="btn bg-transparent fw-normal text-uppercase ms-auto w-auto d-flex px-3 py-3" @click="switchOpened">Закрыть</button>
+          <button class="btn bg-transparent fw-normal text-uppercase ms-auto w-auto d-flex px-3 py-3"
+                  @click="switchOpened"
+          >
+            {{ $t('components.BigCart.close') }}
+          </button>
         </div>
       </div>
 
       <div class="row big-cart-items-list mx-0 gy-md-3 gy-4 mt-0">
-        <div class="col-12 item" v-for="i in 20">
+        <div v-for="i in 20" class="col-12 item">
           <div class="row">
             <div class="col-4 col-md-4">
-              <img src="https://placeimg.com/720/1280/any" class="img-fluid border-0" alt="Item Name">
+              <img alt="Item Name" class="img-fluid border-0" src="https://placeimg.com/720/1280/any">
             </div>
             <div class="col">
               <div class="row">
@@ -31,7 +35,6 @@
       </div>
 
 
-
     </div>
   </transition>
 </template>
@@ -44,7 +47,7 @@ export default {
     opened: false
   }),
   methods: {
-    switchOpened () {
+    switchOpened() {
       this.opened = !this.opened
       this.$emit('switchedOpened', this.opened)
     }
@@ -56,6 +59,7 @@ export default {
 .nested-enter-active, .nested-leave-active {
   transition: all 0.3s ease-in-out;
 }
+
 /* delay leave of parent element */
 .nested-leave-active {
   transition-delay: .1s;
@@ -72,6 +76,7 @@ export default {
 .nested-leave-active .inner {
   transition: all 1s ease-in-out;
 }
+
 /* delay enter of nested element */
 .nested-enter-active .inner {
   transition-delay: 10s;
