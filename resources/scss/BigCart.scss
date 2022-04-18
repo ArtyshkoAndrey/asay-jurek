@@ -27,6 +27,11 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding-bottom: 30px;
+
+
+    @include media-breakpoint-down(md) {
+      padding-bottom: 90px;
+    }
   }
 }
 
