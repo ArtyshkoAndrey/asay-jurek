@@ -54,19 +54,35 @@
         <div class="row">
          <div class="col-12">
            <ul class="navbar-nav navbar-expand-xxl nav" id="left-links">
-             <li class="nav-item dropdown" v-for="i in 20">
-               <a href="#"
+             <li class="nav-item dropdown"
+                 v-for="category in categories"
+                 :key="category.id"
+             >
+<!--               Если есть дочерние то выпадающие -->
+               <Link :href="/catalog/ + category.id"
                   class="nav-link dropdown-toggle"
-                  id="category1Dropdown"
+                  :id="'category' + category.id + 'Dropdown'"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  v-if="category.childs.length > 0"
                >
-                 Одежда и аксессуары
-               </a>
-               <ul class="dropdown-menu" aria-labelledby="category1Dropdown">
-                 <li class="dropdown-item" v-for="j in 10">
-                   <Link href="/">Мужчинам</Link>
+                 {{ category.translate[locale].name }}
+               </Link>
+<!--               ЕСли нет дочерних то ссылка -->
+               <Link :href="/catalog/ + category.id"
+                     class="nav-link"
+                     v-if="category.childs.length === 0"
+                     @click="opened = !opened"
+               >
+                 {{ category.translate[locale].name }}
+               </Link>
+               <ul class="dropdown-menu"
+                   :aria-labelledby="'category' + category.id + 'Dropdown'"
+                   v-if="category.childs.length > 0"
+               >
+                 <li class="dropdown-item" v-for="child in category.childs">
+                   <Link :href="/catalog/ + child.id" @click="opened = !opened">{{ child.translate[locale].name }}</Link>
                  </li>
                </ul>
              </li>
@@ -79,6 +95,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "LeftMenu",
   data: () => ({
@@ -86,8 +104,14 @@ export default {
     smallWidth: false,
   }),
   computed: {
+    ...mapState('i18n', {
+      locale: 'locale'
+    }),
     user () {
       return this.$page.props.auth.user
+    },
+    categories () {
+      return this.$page.props.menu.categories
     }
   },
   mounted() {

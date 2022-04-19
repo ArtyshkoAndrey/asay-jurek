@@ -58,7 +58,7 @@
           
           <li class="nav-item mx-auto">
             <Link class="d-block" href="/">
-              <img src="public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
+              <img src="/public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
             </Link>
           </li>
 
@@ -122,7 +122,7 @@ export default {
     }),
     user () {
       return this.$page.props.auth.user
-    }
+    },
   },
   methods: {
     logUser () {

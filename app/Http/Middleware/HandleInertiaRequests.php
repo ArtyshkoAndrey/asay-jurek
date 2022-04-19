@@ -5,7 +5,9 @@ namespace App\Http\Middleware;
 use Auth;
 use App\Models\Seo;
 use Inertia\Middleware;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -47,11 +49,13 @@ class HandleInertiaRequests extends Middleware
     return array_merge(parent::share($request), [
       'seo' => $seo,
       'locale' => app()->getLocale(),
+      'menu.categories' => $this->getCategories(),
       'auth.user' => function () use ($request) {
-        if ($request->user())
+        if ($request->user()) {
           return $request->user()->only('id', 'name', 'email');
-        else
-          return null;
+        }
+
+        return null;
       }
     ]);
   }
@@ -77,5 +81,13 @@ class HandleInertiaRequests extends Middleware
     }
 
     return null;
+  }
+
+  private function getCategories ()
+  {
+    return Cache::remember(config('custom-cache.categories_menu'), 60*60*12, static function() {
+      $categories = Category::with('childs')->where('parent_id', null)->get();
+      return $categories;
+    });
   }
 }

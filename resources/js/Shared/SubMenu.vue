@@ -16,6 +16,14 @@
               Подборка недели
             </Link>
           </li>
+          <li  v-for="category in categories">
+            <Link class="nav-link"
+                  :class="{ 'active': $page.url === '/catalog/' + category.id }"
+                  :href="'/catalog/' + category.id"
+            >
+              {{ category.translate[locale].name }}
+            </Link>
+          </li>
           <li class="nav-item">
             <button class="btn border-0 shadow-none rounded-0 bg-transparent text-dark" @click="openCart">
               Корзина
@@ -29,9 +37,19 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "SubMenu",
   emits: ['switchBigCart'],
+  computed: {
+    ...mapState('i18n', {
+      locale: 'locale'
+    }),
+    categories () {
+      return this.$page.props.menu.categories
+    },
+  },
   methods: {
     openCart () {
       this.$emit('switchBigCart')
