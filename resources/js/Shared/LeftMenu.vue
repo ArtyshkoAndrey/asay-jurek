@@ -10,6 +10,51 @@
                   <i class="fa-regular fa-xmark"></i>
                 </button>
               </li>
+              <li class="nav-item dropdown ms-3">
+                <a class="nav-link dropdown-toggle dropdown-toggle-has-arrow left-border py-0" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ currency.short_name }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="currencyDropdown">
+                  <li v-for="c in currencies">
+                    <a class="dropdown-item"
+                       :class="c.id === currency.id ? 'active' : ''"
+                       href="#"
+                       @click="setCurrency(c)"
+                    >
+                      {{ c.short_name }}
+                      <span class="name-currency">{{ c.translate[$i18n.locale].name }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown me-auto ms-1">
+                <a class="nav-link dropdown-toggle dropdown-toggle-has-arrow py-0" href="#" id="localeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ $i18n.locale === "ru" ? "РУС" : "ENG" }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="localeDropdown">
+                  <li>
+                    <a class="dropdown-item"
+                       :class="$i18n.locale === 'ru' ? 'active' : ''"
+                       href="#"
+                       @click="setComponentLocale('ru')"
+                    >
+                      {{ $t('locales.ru.title') }}
+                      <span class="name-currency">{{ $t('locales.ru.description') }}</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item"
+                       :class="$i18n.locale === 'en' ? 'active' : ''"
+                       href="#"
+                       @click="setComponentLocale('en')"
+                    >
+                      {{ $t('locales.en.title') }}
+                      <span class="name-currency">{{ $t('locales.en.description') }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
               <li class="nav-item dropdown ms-auto pe-3">
                 <a href="#"
@@ -95,7 +140,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "LeftMenu",
@@ -106,6 +151,10 @@ export default {
   computed: {
     ...mapState('i18n', {
       locale: 'locale'
+    }),
+    ...mapState('currencies', {
+      currency: state => state.currency,
+      currencies: state => state.all_currencies
     }),
     user () {
       return this.$page.props.auth.user
@@ -120,11 +169,23 @@ export default {
     }
   },
   methods: {
+    ...mapActions('i18n', [
+      'setLocale'
+    ]),
+    ...mapActions('currencies', [
+      'setCurrency'
+    ]),
     switchStatusOpened () {
       if ($(document).width() <= 768) {
         this.smallWidth = true
         this.opened = !this.opened
       }
+    },
+    setComponentLocale (locale) {
+      this.setLocale({
+        locale: locale,
+        i18n: this.$i18n
+      })
     },
     openCart () {
       this.$parent.openCart()
