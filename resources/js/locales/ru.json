@@ -12,6 +12,10 @@
   "components": {
     "BigCart": {
       "close": "Закрыть"
+    },
+    "SubMenu": {
+      "new_products": "Новые поступления",
+      "weeks_products": "Подборка недели"
     }
   },
   "dropdown-user": {

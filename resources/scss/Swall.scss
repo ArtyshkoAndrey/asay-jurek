@@ -9,3 +9,22 @@ button.swal2-confirm {
     box-shadow: none !important;
   }
 }
+
+.swal2-title {
+  font-size: 24px !important;
+  font-weight: normal !important;
+
+  @include media-breakpoint-down(md) {
+    font-size: 18px !important;
+  }
+}
+
+.swal2-actions {
+  button {
+    font-size: 14px !important;
+
+    @include media-breakpoint-down(md) {
+      font-size: 12px !important;
+    }
+  }
+}

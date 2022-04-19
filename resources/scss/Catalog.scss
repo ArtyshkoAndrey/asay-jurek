@@ -1,0 +1,40 @@
+#catalog {
+  .category-name {
+    font-weight: 300;
+    font-size: 24px;
+    margin: 0;
+    text-transform: uppercase;
+    color: $dark;
+
+    @include media-breakpoint-down(md) {
+      font-size: 16px;
+    }
+  }
+
+  .dropdown {
+    outline: none !important;
+    .dropdown-toggle {
+      outline: none !important;
+      font-weight: 300;
+      font-size: 16px;
+
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+      }
+    }
+
+    .dropdown-item {
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
+
+  .spinner-border {
+    border-width: 0.15rem !important;
+  }
+}

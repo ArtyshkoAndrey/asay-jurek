@@ -8,12 +8,7 @@
         <ul class="navbar-nav text-uppercase">
           <li class="nav-item">
             <Link class="nav-link" :class="{ 'active': $page.component === 'Users/Index' }" href="/">
-              Новые поступления
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" :class="{ 'active': $page.component === 'Users/About' }" href="/about">
-              Подборка недели
+              {{ $t('components.SubMenu.new_products') }}
             </Link>
           </li>
           <li  v-for="category in categories">
@@ -25,9 +20,9 @@
             </Link>
           </li>
           <li class="nav-item">
-            <button class="btn border-0 shadow-none rounded-0 bg-transparent text-dark" @click="openCart">
-              Корзина
-            </button>
+            <Link class="nav-link" :class="{ 'active': $page.component === 'Users/About' }" href="/about">
+              {{ $t('components.SubMenu.weeks_products') }}
+            </Link>
           </li>
         </ul>
       </div>
