@@ -11,6 +11,8 @@ import { Inertia } from '@inertiajs/inertia'
 import {setupI18n} from "./i18n";
 import store from './Store/store';
 const Layout = import("./Shared/Layout");
+import ImageItem from "./components/ImageItem";
+import LazyLoadDirective from "./Directives/LazyLoadDirective";
 
 createInertiaApp({
   resolve: name => {
@@ -28,6 +30,8 @@ createInertiaApp({
       .use(i18n)
       .component("Link", Link)
       .component("Head", Head)
+      .component('ImageItem', ImageItem)
+      .directive("lazyload", LazyLoadDirective)
       .mount(el)
   },
 

@@ -11,7 +11,7 @@
     &.dropdown {
       .nav-link {
         box-shadow: none !important;
-        border: 0 !important;
+        border: 0;
         outline: none !important;
         -webkit-appearance:none;
       }
@@ -30,10 +30,6 @@
         }
       }
     }
-
-    &.left-border {
-      border-right: 1px solid #C1C1C1;
-    }
   }
 
   img.logo {
@@ -45,10 +41,14 @@
     }
   }
 
-  .dropdown-toggle {
+  .dropdown-toggle:not(.dropdown-toggle-has-arrow) {
     &::after {
       content: none !important;
     }
+  }
+
+  .left-border {
+    border-right: 1px solid #C1C1C1 !important;
   }
 }
 

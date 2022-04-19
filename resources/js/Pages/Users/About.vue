@@ -1,16 +1,21 @@
 <template>
   <div class="container">
-    <h1>About page</h1>
-    <Link href="/">На главнаую</Link>
+    <ImageItem
+      source="https://placeimg.com/640/480/any"
+    />
   </div>
 </template>
 
 <script>
 import Layout from "../../Shared/Layout";
+import ImageItem from "../../components/ImageItem";
 
 export default {
   name: "About",
-  layout: Layout
+  layout: Layout,
+  components: {
+    ImageItem
+  }
 }
 </script>
 

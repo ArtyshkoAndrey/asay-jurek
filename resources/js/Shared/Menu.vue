@@ -10,7 +10,7 @@
           </li>
 
           <li class="nav-item dropdown d-none d-md-flex">
-            <a class="nav-link dropdown-toggle" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle dropdown-toggle-has-arrow left-border py-0" href="#" id="currencyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ currency.short_name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="currencyDropdown">
@@ -28,8 +28,8 @@
           </li>
 
           <li class="nav-item dropdown me-auto d-none d-md-flex">
-            <a class="nav-link dropdown-toggle" href="#" id="localeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ $i18n.locale === "ru" ? "RUS" : "ENG" }}
+            <a class="nav-link dropdown-toggle dropdown-toggle-has-arrow py-0" href="#" id="localeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ $i18n.locale === "ru" ? "РУС" : "ENG" }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="localeDropdown">
               <li>
@@ -57,7 +57,9 @@
           </li>
           
           <li class="nav-item mx-auto">
-            <img src="public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
+            <Link class="d-block" href="/">
+              <img src="public/img/menu-logo.png" class="img-fluid logo" alt="Asay Jurek Logo">
+            </Link>
           </li>
 
           <li class="nav-item dropdown ms-auto pe-3 left-border d-none d-md-flex" @click="logUser">
