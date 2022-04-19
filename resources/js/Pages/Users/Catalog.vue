@@ -87,7 +87,7 @@ export default {
         .then(() => {
           Inertia.visit('/')
         })
-    }, 3000)
+    }, 5000)
   },
   methods: {
     setSort(sort) {
