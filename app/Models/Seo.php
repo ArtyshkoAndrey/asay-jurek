@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * App\Models\Seo
  *
- * @property int                             $id
- * @property string                          $url
- * @property string|null                     $title
- * @property string|null                     $description
- * @property string|null                     $meta_description
- * @property string|null                     $meta_keywords
+ * @property int         $id
+ * @property string      $url
+ * @property string|null $title
+ * @property string|null $description
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Seo newModelQuery()

@@ -34,6 +34,7 @@ export default {
     //justify-content: center;
     //align-items: center;
     //border-radius: 4px;
+    position: relative;
 
     &.loaded {
       .image {
@@ -57,6 +58,8 @@ export default {
     transition: all 0.4s ease-in-out;
     opacity: 0;
     visibility: hidden;
+    position: absolute;
+    top: 0;
   }
 }
 </style>

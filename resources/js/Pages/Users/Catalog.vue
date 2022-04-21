@@ -27,13 +27,21 @@
       </div>
     </div>
 
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border text-danger" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
+    <div class="row gy-md-5  gy-3 mt-5 mb-5 ">
+      <div class="col-lg-4 col-6" v-for="product in products">
+        <ProductCard :product="product" />
+      </div>
+      <div class="col-lg-4 col-6" v-for="product in products">
+        <ProductCard :product="product" />
+      </div>
+      <div class="col-lg-4 col-6" v-for="product in products">
+        <ProductCard :product="product" />
+      </div>
+      <div class="col-lg-4 col-6" v-for="product in products">
+        <ProductCard :product="product" />
+      </div>
+      <div class="col-lg-4 col-6" v-for="product in products">
+        <ProductCard :product="product" />
       </div>
     </div>
   </section>
@@ -44,10 +52,14 @@ import Layout from "../../Shared/Layout";
 import { mapState } from "vuex";
 import Swal from "sweetalert2";
 import {Inertia} from "@inertiajs/inertia";
+import ProductCard from "../../Shared/ProductCard";
 
 export default {
   name: "Catalog",
   layout: Layout,
+  components: {
+    ProductCard
+  },
   data: () => ({
     sorts: [
       {
@@ -74,20 +86,23 @@ export default {
     category () {
       return this.$page.props.category
     },
+    products () {
+      return this.$page.props.products
+    },
     sort () {
       console.log(this.sorts.find(e => e.check))
       return this.sorts.find(e => e.check)
     }
   },
   mounted() {
-    setTimeout(() => {
-      Swal.fire({
-        title: 'Ошибка прогрузки товара'
-      })
-        .then(() => {
-          Inertia.visit('/')
-        })
-    }, 5000)
+    // setTimeout(() => {
+    //   Swal.fire({
+    //     title: 'Ошибка прогрузки товара'
+    //   })
+    //     .then(() => {
+    //       Inertia.visit('/')
+    //     })
+    // }, 5000)
   },
   methods: {
     setSort(sort) {

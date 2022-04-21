@@ -45,6 +45,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
  * @method static Builder|Currency whereValue($value)
  * @method static Builder|Currency withTranslation()
  * @mixin Eloquent
+ * @property-read array                            $translate
  */
 class Currency extends Model implements TranslatableContract
 {
@@ -67,12 +68,11 @@ class Currency extends Model implements TranslatableContract
   ];
 
   protected $appends = [
-    'translate'
+    'translate',
   ];
 
-  public function getTranslateAttribute (): array
+  public function getTranslateAttribute(): array
   {
-    $translations = $this->getTranslationsArray();
-    return $translations;
+    return $this->getTranslationsArray();
   }
 }
