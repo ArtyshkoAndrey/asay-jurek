@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\CurrencyController;
 
 /*
@@ -16,3 +17,4 @@ use App\Http\Controllers\Api\CurrencyController;
 */
 
 Route::get('currencies', [CurrencyController::class, 'getData']);
+Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);

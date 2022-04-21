@@ -7,20 +7,16 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\Traits\CatalogGetData;
 
 class CatalogController extends Controller
 {
+  use CatalogGetData;
 
   public function index (Request $request, int $category_id): \Inertia\Response
   {
-    $category = Category::findOrFail($category_id);
-    $products = Product::whereHas('category', static function (Builder $q) use ($category) {
-      $q->where('id', $category->id);
-    })->get();
+    $data = $this->getProductsForCategory($category_id);
 
-    return Inertia::render('Users/Catalog', [
-      'category' => $category,
-      'products' => $products
-    ]);
+    return Inertia::render('Users/Catalog', $data);
   }
 }

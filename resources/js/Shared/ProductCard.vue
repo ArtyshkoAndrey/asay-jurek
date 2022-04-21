@@ -4,7 +4,6 @@
       <ImageItem
         :source="product.image.url"
       />
-<!--      <img :src="product.image.url" alt="">-->
       <div class="cart-product-info row justify-content-between">
         <div class="col-7 col-sm-auto pe-0">
           <span class="cart-product-info-name">{{ product.name }}</span>
