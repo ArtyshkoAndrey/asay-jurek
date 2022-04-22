@@ -52,6 +52,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
  * @property-read Collection|\App\Models\ImageProduct[] $images
  * @property-read int|null $images_count
  * @property-read \App\Models\Status|null $status
+ * @property-read mixed $image
  */
 class Product extends Model implements TranslatableContract
 {

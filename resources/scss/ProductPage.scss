@@ -1,6 +1,10 @@
 #product-page {
   color: $dark;
 
+  figure, img {
+    border-radius: 0;
+  }
+
   .product-info-sticky {
     top: 30px;
     height: 100%;
@@ -59,4 +63,57 @@
       }
     }
   }
+
+  input.input-count {
+    font-size: 18px;
+    font-weight: 300;
+    border: none;
+    text-align: center;
+    box-shadow: none;
+    outline: none;
+    width: 20px;
+    padding: 12px 0;
+  }
+
+  input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .number-input {
+    border: 1px solid #C1C1C1;
+    display: inline-flex;
+  }
+
+  .number-input,
+  .number-input * {
+    box-shadow: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .number-input button {
+    outline:none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    color: $dark;
+
+    &:disabled {
+      color: #6F797C;
+    }
+  }
+
 }

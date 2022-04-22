@@ -24,6 +24,7 @@ class CreateProductTranslationsTable extends Migration
       $table->string('name');
       $table->longText('description')->nullable();
       $table->longText('history')->nullable();
+      $table->unique(['product_id', 'locale']);
     });
 
     Schema::table('products', static function (Blueprint $table) {

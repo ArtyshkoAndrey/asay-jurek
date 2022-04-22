@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusTranslationsTable extends Migration
+class CreateSettingTranslationsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,16 +13,16 @@ class CreateStatusTranslationsTable extends Migration
    */
   public function up(): void
   {
-    Schema::create('status_translations', static function (Blueprint $table) {
+    Schema::create('setting_translations', static function (Blueprint $table) {
       $table->id();
-      $table->foreignId('status_id')
-        ->constrained('statuses')
+      $table->foreignId('setting_id')
+        ->constrained('settings')
         ->cascadeOnDelete()
         ->cascadeOnUpdate();
       $table->string('locale')->index();
 
-      $table->string('name');
-      $table->unique(['status_id', 'locale']);
+      $table->text('value')->nullable();
+      $table->unique(['setting_id', 'locale']);
     });
   }
 
@@ -33,6 +33,6 @@ class CreateStatusTranslationsTable extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('status_translations');
+    Schema::dropIfExists('setting_translations');
   }
 }

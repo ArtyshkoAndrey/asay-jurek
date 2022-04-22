@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|ImageProduct whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ImageProduct whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $url
  */
 class ImageProduct extends Model
 {

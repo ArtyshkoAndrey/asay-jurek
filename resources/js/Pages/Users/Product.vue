@@ -108,13 +108,32 @@
 
               </div>
               <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
-                Шёлковый платок Hermés, рисунок разработан художницей Annie Faivre.
-                Размеры: 90*90 см.
+                <div v-if="statusProduct" v-html="statusProduct.translate[locale].value">
+                </div>
               </div>
               <div class="tab-pane fade" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
-                Шёлковый платок Hermés, рисунок разработан художницей Annie Faivre.
-                Размеры: 90*90 см.
+                <div v-if="delivery" v-html="delivery.translate[locale].value"></div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-auto">
+<!--            <input type="number"-->
+<!--                   v-model.number="count"-->
+<!--                   @change="validateCount"-->
+<!--                   class="input-count"-->
+<!--            >-->
+
+            <div class="number-input">
+              <button @change="validateCount" @click="minusCount" class="minus" :disabled="count <= 1">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <input class="quantity input-count" min="1" v-model.number="count" value="1"  @change="validateCount" type="number">
+              <button @click="plusCount" class="plus" :disabled="count >= product.count">
+                <i class="fa-solid fa-plus"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -127,12 +146,15 @@
 import Layout from "../../Shared/Layout";
 import { mapState } from "vuex";
 import ImageSpinner from "../../components/ImageSpinner";
+import productCard from "../../Shared/ProductCard";
 
 export default {
   name: "Product",
   components: {ImageSpinner},
-
   layout: Layout,
+  data: () => ({
+    count: 1
+  }),
   computed: {
     ...mapState('i18n', {
       locale: 'locale'
@@ -143,6 +165,12 @@ export default {
     product () {
       return this.$page.props.product
     },
+    delivery () {
+      return this.$page.props.delivery
+    },
+    statusProduct () {
+      return this.$page.props.statusProduct
+    },
     cost () {
       let cost = this.product.cost
       cost = cost * this.currency.value
@@ -152,6 +180,25 @@ export default {
     },
     costWithPerfics () {
       return this.cost + ' ' + this.currency.symbol
+    },
+  },
+  methods: {
+    minusCount () {
+      if (this.count !== 1) {
+        this.count--
+      }
+    },
+    plusCount () {
+      if (this.count < this.product.count) {
+        this.count++
+      }
+    },
+    validateCount () {
+      if (this.count > this.product.count) {
+        this.count = this.product.count
+      } else if (this.count <= 0) {
+        this.count = 1
+      }
     }
   }
 }
