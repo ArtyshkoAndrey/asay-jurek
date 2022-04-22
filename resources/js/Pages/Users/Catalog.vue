@@ -15,12 +15,13 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownSort">
 
             <li v-for="{ name, sort, check } in sorts">
-              <button class="dropdown-item bg-transparent"
-                      :class="check ? 'active' : ''"
-                      @click="setSort(sort)"
+              <Link class="dropdown-item bg-transparent"
+                    :class="check ? 'active' : ''"
+                    :to="'/catalog/' + this.category.id"
+                    :data="{sort: sort}"
               >
                 {{ name }}
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
@@ -92,6 +93,7 @@ export default {
   },
   mounted () {
     console.log(this.$page.props.products)
+    this.setSort(this.$page.props.sort)
     this.productsList.push(...this.$page.props.products.data)
   },
   methods: {
@@ -104,7 +106,12 @@ export default {
     async loadDataFromServer($state){
       console.log("loading...");
       try {
-        const result = await axios.get('/api/catalog/' + this.category.id + '?page=' + this.page)
+        const result = await axios.get('/api/catalog/' + this.category.id, {
+          params: {
+            page: this.page,
+            sort: this.sort.sort
+          }
+        })
         if(result.data.payload.products.data.length > 0) {
           setTimeout(() => {
             this.page++;

@@ -1,0 +1,62 @@
+#product-page {
+  color: $dark;
+
+  .product-info-sticky {
+    top: 30px;
+    height: 100%;
+  }
+
+  .name {
+    font-weight: 300;
+    font-size: 24px;
+  }
+
+  .cost {
+    font-weight: 300;
+    font-size: 18px;
+    margin-top: 15px;
+    display: block;
+  }
+
+  .product-card-info {
+    font-weight: 300;
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid #C1C1C1;
+    margin-top: 23px;
+    display: block;
+  }
+
+  .row-tabs {
+    margin-top: 46px;
+    color: $dark;
+
+    .tab-pane {
+      margin-top: 23px;
+      color: $dark !important;
+      font-weight: 300 !important;
+    }
+
+    .nav-tabs {
+      border: 0;
+    }
+
+    .nav-link {
+      color: $dark;
+      border: 0;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 16px;
+      margin-right: 16px;
+
+      &:first-child {
+        margin-left: 0px;
+      }
+
+      &.active {
+        color: $navbar-light-active-color;
+        border-bottom: 1px solid $dark;
+      }
+    }
+  }
+}

@@ -110,6 +110,7 @@
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  :class="{ 'active': $page.url.startsWith('/catalog/' + category.id)}"
                   v-if="category.childs.length > 0"
                >
                  {{ category.translate[locale].name }}
@@ -117,6 +118,7 @@
 <!--               ЕСли нет дочерних то ссылка -->
                <Link :href="/catalog/ + category.id"
                      class="nav-link"
+                     :class="{ 'active': $page.url.startsWith('/catalog/' + category.id)}"
                      v-if="category.childs.length === 0"
                      @click="opened = !opened"
                >

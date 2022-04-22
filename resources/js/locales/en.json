@@ -33,5 +33,9 @@
     "buttons": {
       "login": "Login"
     }
+  },
+  "ProductPage": {
+    "status": "State: ",
+    "count": "In stock: "
   }
 }

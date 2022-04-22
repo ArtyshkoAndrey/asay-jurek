@@ -42,6 +42,7 @@ export default {
           visibility: visible;
           opacity: 1;
           border: 0;
+          position: unset;
         }
 
         &__spinner {

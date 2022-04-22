@@ -12,7 +12,7 @@ class CatalogController
 
   public function index(Request $request, int $category_id): \Illuminate\Http\JsonResponse
   {
-    $data = $this->getProductsForCategory($category_id);
+    $data = $this->getProductsForCategory($request, $category_id);
 
     return JsonResponse::success($data);
   }

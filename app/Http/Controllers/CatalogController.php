@@ -15,7 +15,7 @@ class CatalogController extends Controller
 
   public function index (Request $request, int $category_id): \Inertia\Response
   {
-    $data = $this->getProductsForCategory($category_id);
+    $data = $this->getProductsForCategory($request, $category_id);
 
     return Inertia::render('Users/Catalog', $data);
   }

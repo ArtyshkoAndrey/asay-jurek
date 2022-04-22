@@ -13,7 +13,7 @@
           </li>
           <li  v-for="category in categories">
             <Link class="nav-link"
-                  :class="{ 'active': $page.url === '/catalog/' + category.id }"
+                  :class="{ 'active': $page.url.startsWith('/catalog/' + category.id)}"
                   :href="'/catalog/' + category.id"
             >
               {{ category.translate[locale].name }}
