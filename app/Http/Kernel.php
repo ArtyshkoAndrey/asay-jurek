@@ -17,6 +17,7 @@ use Illuminate\Session\Middleware\StartSession;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use App\Http\Middleware\HandleInertiaAdminRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -62,6 +63,17 @@ class Kernel extends HttpKernel
       VerifyCsrfToken::class,
       SubstituteBindings::class,
       HandleInertiaRequests::class,
+    ],
+
+    'admin' => [
+      EncryptCookies::class,
+      AddQueuedCookiesToResponse::class,
+      StartSession::class,
+      // \Illuminate\Session\Middleware\AuthenticateSession::class,
+      ShareErrorsFromSession::class,
+      VerifyCsrfToken::class,
+      SubstituteBindings::class,
+      HandleInertiaAdminRequests::class,
     ],
 
     'api' => [

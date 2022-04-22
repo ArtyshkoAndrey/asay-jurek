@@ -2,11 +2,15 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
+        "dev-user": "npm --section=users run dev",
+        "dev-admin": "npm --section=admin run dev",
+        "watch-user": "npm --section=users run watch",
+        "watch-admin": "npm --section=admin run watch",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "npm run production",
+        "prod": "npm --section=users run production && npm --section=admin run production",
         "production": "mix --production"
     },
     "devDependencies": {
@@ -14,6 +18,7 @@
         "browser-sync": "^2.27.9",
         "browser-sync-webpack-plugin": "^2.3.0",
         "laravel-mix": "^6.0.6",
+        "laravel-mix-merge-manifest": "^2.0.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^5.0.0",
