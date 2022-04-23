@@ -2,7 +2,6 @@
 import NProgress from 'nprogress'
 
 require('../bootstrap');
-
 import { createApp, h } from 'vue'
 import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
@@ -13,6 +12,7 @@ import store from '../Store/store';
 const Layout = import("./Shared/Layout");
 import ImageItem from "../components/ImageItem";
 import LazyLoadDirective from "../Directives/LazyLoadDirective";
+
 
 createInertiaApp({
   resolve: name => {

@@ -47,6 +47,7 @@
 import Layout from "../../Shared/Layout";
 import { useForm } from '@inertiajs/inertia-vue3'
 import {Inertia} from "@inertiajs/inertia";
+import bs5 from "../../plugins/bs5";
 
 export default {
   name: "Login",
@@ -60,9 +61,19 @@ export default {
   }),
   methods: {
     submit () {
+      let words = this.$t('tooltips.login')
       this.form.submit('post', '/login', {
         preserveScroll: true,
-        onSuccess: () => Inertia.reload(),
+        onSuccess: () =>  {
+          new bs5.Toast({
+            body: words,
+            className: 'border-0 bg-dark text-white',
+            btnCloseWhite: true,
+            autohide: true,
+            delay: 5000
+          }).show()
+          // Inertia.reload()
+        }
       })
     }
   }

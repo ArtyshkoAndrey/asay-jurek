@@ -1,4 +1,9 @@
 {
+  "tooltips": {
+    "login": "You have successfully logged in",
+    "logout": "Goodbye! We are waiting for you again in our store",
+    "addProduct": "Product added to cart"
+  },
   "locales": {
     "ru": {
       "title": "РУС",
@@ -36,6 +41,14 @@
   },
   "ProductPage": {
     "status": "State: ",
-    "count": "In stock: "
+    "count": "In stock: ",
+    "count_label": "Quantity",
+    "addButton": {
+      "labels": {
+        "loading": "Adding",
+        "add": "Add to Cart",
+        "success": "Added"
+      }
+    }
   }
 }

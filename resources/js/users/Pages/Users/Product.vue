@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="row gx-1">
+        <div class="row gx-2">
           <div class="col-auto">
             <span class="product-card-info">
               {{ $t('ProductPage.status') }} {{ product.status.translate[locale].name }}
@@ -118,18 +118,41 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row align-items-end">
           <div class="col-auto">
-
+            <span class="w-100 span-count d-block">
+              {{ $t('ProductPage.count_label') }}
+            </span>
             <div class="number-input">
               <button @change="validateCount" @click="minusCount" class="minus" :disabled="count <= 1">
-                <i class="fa-solid fa-minus"></i>
+                <i class="fa-light fa-minus"></i>
               </button>
               <input class="quantity input-count" min="1" v-model.number="count" @change="validateCount" type="number">
               <button @click="plusCount" class="plus" :disabled="count >= product.count">
-                <i class="fa-solid fa-plus"></i>
+                <i class="fa-light fa-plus"></i>
               </button>
             </div>
+          </div>
+          <div class="col col-md-8">
+            <button class="btn btn-dark w-100 btn-add-cart" @click="addProduct" :disabled="product.count <= 0">
+              <transition appear name="fade" mode="out-in">
+
+                <div  v-if="addLoading" key="loading" class="d-flex justify-content-center align-items-center">
+                  <span class="spinner-border spinner-border-sm me-3" role="status" aria-hidden="true"></span>
+                  {{ $t('ProductPage.addButton.labels.loading') }}
+                </div>
+
+
+                <span v-else-if="!addAnimate" key="1">
+                  {{ $t('ProductPage.addButton.labels.add') }}
+                </span>
+
+                <span v-else key="2">
+                  {{ $t('ProductPage.addButton.labels.success') }}
+                  <i class="fa-light fa-check"></i>
+                </span>
+              </transition>
+            </button>
           </div>
         </div>
       </div>
@@ -142,13 +165,16 @@ import Layout from "../../Shared/Layout";
 import { mapState } from "vuex";
 import ImageSpinner from "../../../components/ImageSpinner";
 import productCard from "../../Shared/ProductCard";
+import bs5 from '../../plugins/bs5'
 
 export default {
   name: "Product",
   components: {ImageSpinner},
   layout: Layout,
   data: () => ({
-    count: 1
+    count: 1,
+    addAnimate: false,
+    addLoading: false
   }),
   computed: {
     ...mapState('i18n', {
@@ -193,6 +219,31 @@ export default {
         this.count = this.product.count
       } else if (this.count <= 0) {
         this.count = 1
+      }
+    },
+    addProduct () {
+
+
+      if (this.addLoading === false && this.addAnimate === false) {
+        this.addLoading = true
+        setTimeout(() => {
+          this.addLoading = false
+          this.addAnimate = true
+          new bs5.Toast({
+            body: this.$t('tooltips.addProduct'),
+            className: 'border-0 bg-dark text-white',
+            btnCloseWhite: true,
+            autohide: true,
+            delay: 5000
+          }).show()
+
+          setTimeout(() => {
+
+            this.addLoading = false
+            this.addAnimate = false
+          }, 2000)
+        }, 1500)
+
       }
     }
   }

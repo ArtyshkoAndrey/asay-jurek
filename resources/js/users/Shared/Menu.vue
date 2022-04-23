@@ -81,7 +81,7 @@
                 <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
               </li>
               <li class="" v-if="user !== null" >
-                <Link href="/logout" method="post" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>
+                <Link href="/logout" method="post" @click="tooltipLogout" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>
               </li>
 
               <li class="" v-if="user === null">
@@ -110,6 +110,7 @@
 <script>
 import {mapState, mapActions} from "vuex";
 import LeftMenu from "./LeftMenu";
+import bs5 from "../plugins/bs5";
 export default {
   name: "Menu",
   components: {LeftMenu},
@@ -145,6 +146,17 @@ export default {
     openLeftMenu () {
       console.log(this.$refs)
       this.$refs['LeftMenu'].switchStatusOpened()
+    },
+    tooltipLogout () {
+      setTimeout(() => {
+        new bs5.Toast({
+          body: this.$t('tooltips.logout'),
+          className: 'border-0 bg-dark text-white',
+          btnCloseWhite: true,
+          autohide: true,
+          delay: 5000
+        }).show()
+      })
     }
   }
 }
