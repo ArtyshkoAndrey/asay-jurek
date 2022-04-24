@@ -1,17 +1,16 @@
 <template>
   <section class="container" id="product-page">
     <div class="row gy-4 gy-md-0 position-relative">
-      <div class="col-lg-6 col-md-4 col-12">
-        <div class="row mb-3 position-relative" v-for="image in product.images">
-          <div class="col-12 position-relative">
-<!--            <img :src="image.url" class="img-fluid" :alt="product.name">-->
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="row gy-md-3 gx-3 gx-md-0 position-relative  flex-nowrap overflow-auto flex-md-wrap">
+          <div class="col-12 position-relative" v-for="image in product.images">
             <ImageItem
               :source="image.url"
             />
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-8 col-12 product-info-sticky position-sticky">
+      <div class="col-lg-6 col-md-6 col-12 product-info-sticky position-sticky">
         <div class="row">
           <div class="col-12">
             <h1 class="name">{{ product.translate[locale].name }}</h1>
@@ -40,8 +39,8 @@
           </div>
         </div>
 
-        <div class="row row-tabs">
-          <div class="col-12">
+        <div class="row">
+          <div class="col-12 row-tabs order-last order-md-first">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link ps-0 active"
@@ -98,7 +97,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab"
-               v-html="product.translate[locale].description">
+                   v-html="product.translate[locale].description">
               </div>
               <div class="tab-pane fade"
                    id="history"
@@ -116,43 +115,45 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row align-items-end">
-          <div class="col-auto">
+          <div class="col-12">
+            <div class="row align-items-end">
+              <div class="col-auto">
             <span class="w-100 span-count d-block">
               {{ $t('ProductPage.count_label') }}
             </span>
-            <div class="number-input">
-              <button @change="validateCount" @click="minusCount" class="minus" :disabled="count <= 1">
-                <i class="fa-light fa-minus"></i>
-              </button>
-              <input class="quantity input-count" min="1" v-model.number="count" @change="validateCount" type="number">
-              <button @click="plusCount" class="plus" :disabled="count >= product.count">
-                <i class="fa-light fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          <div class="col col-md-8">
-            <button class="btn btn-dark w-100 btn-add-cart" @click="addProduct" :disabled="product.count <= 0">
-              <transition appear name="fade" mode="out-in">
-
-                <div  v-if="addLoading" key="loading" class="d-flex justify-content-center align-items-center">
-                  <span class="spinner-border spinner-border-sm me-3" role="status" aria-hidden="true"></span>
-                  {{ $t('ProductPage.addButton.labels.loading') }}
+                <div class="number-input">
+                  <button @change="validateCount" @click="minusCount" class="minus" :disabled="count <= 1">
+                    <i class="fa-light fa-minus"></i>
+                  </button>
+                  <input class="quantity input-count" min="1" v-model.number="count" @change="validateCount" type="number">
+                  <button @click="plusCount" class="plus" :disabled="count >= product.count">
+                    <i class="fa-light fa-plus"></i>
+                  </button>
                 </div>
+              </div>
+              <div class="col col-md col-lg-8">
+                <button class="btn btn-dark w-100 btn-add-cart" @click="addProduct" :disabled="product.count <= 0">
+                  <transition appear name="fade" mode="out-in">
+
+                    <div  v-if="addLoading" key="loading" class="d-flex justify-content-center align-items-center">
+                      <span class="spinner-border spinner-border-sm me-3" role="status" aria-hidden="true"></span>
+                      {{ $t('ProductPage.addButton.labels.loading') }}
+                    </div>
 
 
-                <span v-else-if="!addAnimate" key="1">
+                    <span v-else-if="!addAnimate" key="1">
                   {{ $t('ProductPage.addButton.labels.add') }}
                 </span>
 
-                <span v-else key="2">
+                    <span v-else key="2">
                   {{ $t('ProductPage.addButton.labels.success') }}
                   <i class="fa-light fa-check"></i>
                 </span>
-              </transition>
-            </button>
+                  </transition>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -195,8 +196,7 @@ export default {
     cost () {
       let cost = this.product.cost
       cost = cost * this.currency.value
-      cost = Number(cost)
-      console.log(this.currency.value)
+      cost = cost.toFixed(0)
       return new Intl.NumberFormat('ru-RU').format(cost)
     },
     costWithPerfics () {
@@ -222,8 +222,6 @@ export default {
       }
     },
     addProduct () {
-
-
       if (this.addLoading === false && this.addAnimate === false) {
         this.addLoading = true
         setTimeout(() => {

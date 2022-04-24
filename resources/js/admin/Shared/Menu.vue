@@ -125,7 +125,6 @@ export default {
   },
   methods: {
     logUser () {
-      console.log(this.user === null)
     },
     ...mapActions('currencies', [
       'setCurrency'
@@ -143,7 +142,6 @@ export default {
       })
     },
     openLeftMenu () {
-      console.log(this.$refs)
       this.$refs['LeftMenu'].switchStatusOpened()
     }
   }

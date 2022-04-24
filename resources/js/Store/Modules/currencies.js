@@ -21,8 +21,6 @@ const currencies = {
       state.currency = currency
       state.currency_id = currency.id
       state.last_update = new Date();
-
-      console.log(state.all_currencies)
     },
 
   //  Сохранение выбранной валюты

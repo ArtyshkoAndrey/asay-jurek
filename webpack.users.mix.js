@@ -11,3 +11,4 @@ mix
   .sass("resources/scss/users/app.scss", "public/css/users")
   .sourceMaps()
   .version()
+  .browserSync('https://asay')

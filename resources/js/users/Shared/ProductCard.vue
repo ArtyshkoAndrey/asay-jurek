@@ -36,8 +36,7 @@ export default {
     cost () {
       let cost = this.product.cost
       cost = cost * this.currency.value
-      cost = Number(cost)
-      console.log(this.currency.value)
+      cost = cost.toFixed(0)
       return new Intl.NumberFormat('ru-RU').format(cost)
     },
     costWithPerfics () {

@@ -73,7 +73,6 @@ export default {
       if (value) {
         $('body').css('overflow', 'hidden');
         setTimeout(() => {
-          console.log(page)
           page.click(() => {
             if (this.openedBigCart) {
               this.callSwitchStatusBigCart()
@@ -92,14 +91,12 @@ export default {
   created() {
     this.$nextTick(() => {
       document.querySelector('.darken-for-opened-cart').addEventListener('animationstart', function (e) {
-        console.log(123)
         if (e.animationName === 'fade-in') {
           e.target.classList.add('did-fade-in');
         }
       });
 
       document.querySelector('.darken-for-opened-cart').addEventListener('animationend', function (e) {
-        console.log(1111)
         if (e.animationName === 'fade-out') {
           e.target.classList.remove('did-fade-in');
         }

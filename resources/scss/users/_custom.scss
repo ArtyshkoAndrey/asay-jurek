@@ -84,3 +84,14 @@ $link-hover-decoration: underline;
   font-weight: 300 !important;
   font-size: 14px !important;
 }
+
+.btn, button {
+  outline: none !important;
+  box-shadow: none !important;
+
+  &:focus, &:active, &:active:focus {
+    box-shadow: none !important;
+    outline: none !important;
+
+  }
+}

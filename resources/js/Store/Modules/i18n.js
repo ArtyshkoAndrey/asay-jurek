@@ -9,7 +9,6 @@ const currencies = {
 
   mutations: {
     setLocale (state, payload) {
-      console.log(payload)
       setI18nLanguage(payload.i18n, payload.locale)
       state.locale = payload.locale
       localStorage.setItem('locale', payload.locale)

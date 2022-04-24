@@ -87,24 +87,20 @@ export default {
       return this.$page.props.products
     },
     sort () {
-      console.log(this.sorts.find(e => e.check))
       return this.sorts.find(e => e.check)
     }
   },
   mounted () {
-    console.log(this.$page.props.products)
     this.setSort(this.$page.props.sort)
     this.productsList.push(...this.$page.props.products.data)
   },
   methods: {
     setSort(sort) {
-      console.log(sort)
       this.sorts.forEach(e => {
         e.check = e.sort === sort;
       })
     },
     async loadDataFromServer($state){
-      console.log("loading...");
       try {
         const result = await axios.get('/api/catalog/' + this.category.id, {
           params: {

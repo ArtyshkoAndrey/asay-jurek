@@ -3,16 +3,53 @@
 
   figure, img {
     border-radius: 0;
+
+    height: 100%;
+    min-height: 950px;
+
+    object-fit: cover;
+
+    @include media-breakpoint-only(lg) {
+      min-height: 604px;
+    }
+
+    @include media-breakpoint-only(md) {
+      min-height: 600px;
+    }
+    @include media-breakpoint-down(md) {
+      min-height: 700px;
+    }
+
+    @include media-breakpoint-only(xs) {
+      min-height: 514px;
+    }
+
+  }
+
+  figure .wrapper {
+    height: 100%;
   }
 
   .product-info-sticky {
     top: 30px;
     height: 100%;
+
+    @include media-breakpoint-down(md) {
+      top: 0;
+      margin-top: 16px;
+    }
   }
 
   .name {
     font-weight: 300;
     font-size: 24px;
+
+    @include media-breakpoint-down(md) {
+      text-transform: uppercase;
+
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 
   .cost {
@@ -20,6 +57,13 @@
     font-size: 18px;
     margin-top: 15px;
     display: block;
+
+    @include media-breakpoint-down(md) {
+      font-size: 14px;
+      line-height: 17px;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
   }
 
   .product-card-info {
@@ -29,12 +73,23 @@
     border: 1px solid #C1C1C1;
     margin-top: 23px;
     display: block;
+
+    @include media-breakpoint-down(md) {
+      font-size: 12px;
+      line-height: 15px;
+      margin-top: 16px;
+    }
   }
 
   .row-tabs {
     margin-top: 46px;
     margin-bottom: 48px;
     color: $dark;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 25px;
+      margin-bottom: 24px;
+    }
 
     .tab-pane {
       margin-top: 23px;
@@ -53,6 +108,11 @@
       padding-right: 0;
       margin-left: 16px;
       margin-right: 16px;
+
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+        line-height: 18px;
+      }
 
       &:first-child {
         margin-left: 0px;
@@ -74,6 +134,10 @@
     outline: none;
     width: 20px;
     padding: 12px 0;
+
+    @include media-breakpoint-down(md) {
+      font-size: 16px;
+    }
   }
 
   input[type="number"] {
@@ -122,6 +186,10 @@
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 8px;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 24px;
+    }
   }
 
   .btn-add-cart {
@@ -135,6 +203,11 @@
 
     &:disabled {
       background-color: rgba(35, 38, 41, 0.21);
+    }
+
+    @include media-breakpoint-down(md) {
+      font-size: 16px;
+      line-height: 20px;
     }
   }
 
