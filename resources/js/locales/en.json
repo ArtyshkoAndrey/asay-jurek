@@ -16,7 +16,12 @@
   },
   "components": {
     "BigCart": {
-      "close": "Close"
+      "close": "Close",
+      "count": "Count: ",
+      "remove": "Remove from cart",
+      "total": "Order price",
+      "by-order": "Checkout",
+      "empty-cart": "Your cart is currently empty"
     },
     "SubMenu": {
       "new_products": "New arrivals",
@@ -61,12 +66,8 @@
   "User": {
     "Tooltips": {
       "product-add-error-count": "In the cart, the maximum number of this product",
-      "cart-clear": "Your cart has been cleared"
-
+      "cart-clear": "Your cart has been cleared",
+      "cart-remove-deleted-product": "One of the items has finished and has been removed from the cart"
     }
-  },
-  "BigCart": {
-    "count": "Count: ",
-    "remove": "Remove from cart"
   }
 }

@@ -13,8 +13,7 @@ class CartController extends Controller
   public function fetch(Request $request): \Illuminate\Http\JsonResponse
   {
     $request->validate([
-      'ids' => 'required|array',
-      'ids.*' => 'required|exists:products,id',
+      'ids' => 'present|array|min:0',
     ]);
 
     $products = Product::findMany($request->get('ids'));

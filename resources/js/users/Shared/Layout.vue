@@ -60,8 +60,11 @@ export default {
     return { seo }
   },
   methods: {
-    ...mapActions({
-      initialCurrencies: 'currencies/initial'
+    ...mapActions('currencies', {
+      initialCurrencies: 'initial'
+    }),
+    ...mapActions('cart', {
+      initialCart: 'initialCart'
     }),
 
     callSwitchStatusBigCart () {
@@ -104,8 +107,11 @@ export default {
     })
   },
   beforeMount () {
-    let bool = this.currencies.last_update !== null
 
+    let bool = this.currencies.last_update !== null
+    this.initialCart({
+      user: this.$page.props.auth.user
+    })
     if (!bool) {
       this.initialCurrencies()
     } else {

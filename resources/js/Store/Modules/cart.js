@@ -1,6 +1,6 @@
 import bs5 from "../../users/plugins/bs5";
 import { setupI18n } from "../../i18n";
-import product from "../../users/Pages/Users/Product";
+import * as _ from 'lodash'
 
 export default {
   namespaced: true,
@@ -20,7 +20,7 @@ export default {
     },
 
     products_count: state => state.products.length,
-    cost: state => state.response_products.length > 0 ? state.response_products.map(i=>i.cost).reduce((a, b)=> a + b) : 0
+    cost: state => state.response_products.length > 0 ? state.response_products.map(i => i.cost * state.products.find(e => e.id === i.id).count).reduce((a, b)=> a + b) : 0
   },
 
   mutations: {
@@ -47,7 +47,7 @@ export default {
       const t = i18n.global.t
 
       new bs5.Toast({
-        body: t('Users.Tooltips.cart-clear'),
+        body: t('User.Tooltips.cart-clear'),
         className: 'border-0 bg-danger text-white',
         btnCloseWhite: true,
         autohide: true,
@@ -64,6 +64,54 @@ export default {
     remove (state, id) {
       state.products = state.products.filter(e => Number(e.id) !== Number(id))
       state.response_products = state.response_products.filter(e => Number(e.id) !== Number(id))
+    },
+
+    checkCountProducts (state) {
+      const i18n = setupI18n()
+      const t = i18n.global.t
+
+      state.products.forEach(e => {
+        let response = state.response_products.filter(el => el.id === e.id).pop()
+        if (response.count < e.count) {
+          if (response.count > 0) {
+            this.commit('cart/add', {
+              id: e.id,
+              count: response.count,
+              rewrite: true
+            })
+          } else {
+            this.commit('cart/remove', e.id)
+            new bs5.Toast({
+              body: t('User.Tooltips.cart-remove-deleted-product'),
+              className: 'border-0 bg-danger text-white',
+              btnCloseWhite: true,
+              autohide: true,
+              delay: 5000
+            }).show()
+          }
+
+        }
+      })
+    },
+
+    removeDeletedProducts(state) {
+      const i18n = setupI18n()
+      const t = i18n.global.t
+
+      state.products.forEach(e => {
+        let product = state.response_products.find(el => el.id === e.id)
+        if (product === undefined) {
+          this.commit('cart/remove', e.id)
+
+          new bs5.Toast({
+            body: t('User.Tooltips.cart-remove-deleted-product'),
+            className: 'border-0 bg-danger text-white',
+            btnCloseWhite: true,
+            autohide: true,
+            delay: 5000
+          }).show()
+        }
+      })
     }
   },
 
@@ -126,6 +174,15 @@ export default {
         .then(r => {
           if (r.data.success) {
             commit('addFetchProducts', r.data.payload.products)
+
+            let ids = _.sortBy(r.data.payload.products.map(e => e.id))
+            let idsState  = _.sortBy(state.products.map(e => e.id))
+
+            if(!_.isEqual(ids, idsState)) {
+              commit('removeDeletedProducts')
+            }
+            commit('checkCountProducts')
+
             return true
           }
 
@@ -143,8 +200,43 @@ export default {
       if (product) {
         commit('remove', id)
       }
+    },
+
+    initialCart ({commit, state}, payload) {
+      if (payload.user) {
+        axios.post('/user/cart')
+          .then(r => {
+            if (r.data.success) {
+              let products = r.data.payload.cart
+
+              products.forEach(e => {
+                let p = e.product
+                commit('add', {
+                  id: p.id,
+                  count: e.count,
+                  rewrite: true
+                })
+              })
+
+              state.products.forEach(e => {
+                if (products.find(el => el.product.id === e.id) === undefined) {
+                  commit('remove', e.id)
+                }
+              })
+
+              commit('addFetchProducts', products.map(e => e.product))
+
+              commit('checkCountProducts')
+            }
+          })
+          .catch(e => {
+            commit('clear')
+          })
+      } else {
+        this.dispatch('cart/fetch')
+      }
     }
 
-  }
+  },
 
 }

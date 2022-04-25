@@ -19,8 +19,8 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);
-Route::get('product/{product_id}', [ProductController::class, 'index']);
-
+Route::get('/product/{product_id}', [ProductController::class, 'index']);
+Route::post('/user/cart', [ProductController::class, 'userCart']);
 
 Auth::routes();
 

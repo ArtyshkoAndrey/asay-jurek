@@ -11,6 +11,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -43,6 +44,8 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read Collection|Cart[]                                     $cart
+ * @property-read int|null                                              $cart_count
  */
 class User extends Authenticatable
 {
@@ -77,4 +80,19 @@ class User extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  public function cart(): HasMany
+  {
+    return $this->hasMany(Cart::class);
+  }
+
+  public function cartProducts(): \Illuminate\Support\Collection
+  {
+    return $this->cart->map(function (Cart $cart) {
+      return [
+        'product' => $cart->product,
+        'count' => $cart->count
+      ];
+    });
+  }
 }

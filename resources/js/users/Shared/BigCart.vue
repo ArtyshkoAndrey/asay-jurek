@@ -12,10 +12,10 @@
       </div>
 
       <div class="row big-cart-items-list mx-0 gy-md-3 gy-4 mt-0">
-        <div v-for="product in response_products" class="col-12 item">
+        <div v-if="response_products.length > 0" v-for="product in response_products" class="col-12 item">
           <div class="row">
             <div class="col-4 col-md-4">
-              <img alt="Item Name" class="img-fluid border-0" :src="product.image.url">
+              <img :src="product.image.url" alt="Item Name" class="img-fluid border-0">
             </div>
             <div class="col">
               <div class="row">
@@ -27,15 +27,41 @@
                 </div>
 
                 <div class="col-12 mt-3 fw-light">
-                  <span class="">{{ $t('BigCart.count') }} {{ find(product.id).count }}</span>
+                  <span class="">{{ $t('components.BigCart.count') }} {{ find(product.id).count }}</span>
                 </div>
 
                 <div class="col-12">
-                  <button @click="remove(product.id)" class="btn bg-transparent px-0 py-3 mt-2 remove-item">{{ $t('BigCart.remove') }}</button>
+                  <button class="btn bg-transparent px-0 py-3 mt-2 remove-item" @click="remove(product.id)">
+                    {{ $t('components.BigCart.remove') }}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+          <hr class="mb-0">
+        </div>
+
+        <div v-if="response_products.length > 0" class="col-12">
+          <div class="row justify-content-between">
+            <div class="col-auto">
+              <span class="total-cost">{{ $t('components.BigCart.total') }}</span>
+            </div>
+
+            <div class="col-auto">
+              <span class="total-cost-price">{{ totalCostWithPrefics }}</span>
+            </div>
+            <div class="col-12">
+              <button id="by-order" class="btn btn-dark">
+                {{ $t('components.BigCart.by-order') }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="response_products.length === 0" class="col-12">
+          <span class="empty-cart">
+            {{ $t('components.BigCart.empty-cart') }}
+          </span>
         </div>
       </div>
 
@@ -55,7 +81,8 @@ export default {
   }),
   computed: {
     ...mapGetters('cart', {
-      response_products: "response_products"
+      response_products: "response_products",
+      total_cost: 'cost'
     }),
     ...mapState('i18n', {
       locale: 'locale'
@@ -65,19 +92,25 @@ export default {
     }),
     ...mapGetters('cart', {
       find: 'find'
-    })
+    }),
+    totalCostWithPrefics() {
+      let cost = this.total_cost * this.currency.value
+      cost = cost.toFixed(0)
+      cost = Number(cost)
+      return new Intl.NumberFormat('ru-RU').format(cost) + ' ' + this.currency.symbol
+    }
   },
   methods: {
     switchOpened() {
       this.opened = !this.opened
       this.$emit('switchedOpened', this.opened)
     },
-    cost (cost) {
+    cost(cost) {
       cost = cost * this.currency.value
       cost = cost.toFixed(0)
       return new Intl.NumberFormat('ru-RU').format(cost)
     },
-    costWithPerfics (cost) {
+    costWithPerfics(cost) {
       return this.cost(cost) + ' ' + this.currency.symbol
     },
     ...mapActions('cart', {
