@@ -12,21 +12,26 @@
       </div>
 
       <div class="row big-cart-items-list mx-0 gy-md-3 gy-4 mt-0">
-        <div v-for="i in 20" class="col-12 item">
+        <div v-for="product in response_products" class="col-12 item">
           <div class="row">
             <div class="col-4 col-md-4">
-              <img alt="Item Name" class="img-fluid border-0" src="https://placeimg.com/720/1280/any">
+              <img alt="Item Name" class="img-fluid border-0" :src="product.image.url">
             </div>
             <div class="col">
               <div class="row">
                 <div class="col-12">
-                  <h5 class="item-name">ВИНТАЖНОЕ ПАЛЬТО ИЗ ХЛОПКА</h5>
+                  <h5 class="item-name">{{ product.translate[locale].name }}</h5>
                 </div>
                 <div class="col-12">
-                  <span class="item-price">100 000 ₸ </span>
+                  <span class="item-price">{{ costWithPerfics(product.cost) }}</span>
                 </div>
+
+                <div class="col-12 mt-3 fw-light">
+                  <span class="">{{ $t('BigCart.count') }} {{ find(product.id).count }}</span>
+                </div>
+
                 <div class="col-12">
-                  <button class="btn bg-transparent px-0 py-3 mt-2 remove-item">Удалить из корзины</button>
+                  <button @click="remove(product.id)" class="btn bg-transparent px-0 py-3 mt-2 remove-item">{{ $t('BigCart.remove') }}</button>
                 </div>
               </div>
             </div>
@@ -40,17 +45,44 @@
 </template>
 
 <script>
+import {mapActions, mapGetters, mapState} from "vuex";
+
 export default {
   name: "BigCart",
   emits: ['switchedOpened'],
   data: () => ({
     opened: false
   }),
+  computed: {
+    ...mapGetters('cart', {
+      response_products: "response_products"
+    }),
+    ...mapState('i18n', {
+      locale: 'locale'
+    }),
+    ...mapState('currencies', {
+      currency: 'currency'
+    }),
+    ...mapGetters('cart', {
+      find: 'find'
+    })
+  },
   methods: {
     switchOpened() {
       this.opened = !this.opened
       this.$emit('switchedOpened', this.opened)
-    }
+    },
+    cost (cost) {
+      cost = cost * this.currency.value
+      cost = cost.toFixed(0)
+      return new Intl.NumberFormat('ru-RU').format(cost)
+    },
+    costWithPerfics (cost) {
+      return this.cost(cost) + ' ' + this.currency.symbol
+    },
+    ...mapActions('cart', {
+      remove: 'removeProduct'
+    })
   }
 }
 </script>

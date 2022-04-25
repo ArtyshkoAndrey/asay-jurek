@@ -16,6 +16,7 @@ export function setupI18n() {
   let locale = localStorage.getItem('locale') ? localStorage.getItem('locale'): 'ru'
   let options = {
     locale: locale,
+    mode: "composition",
     fallbackLocale: 'en',
     globalInjection: true,
     messages

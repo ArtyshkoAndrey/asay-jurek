@@ -1,9 +1,9 @@
 <template>
-  <section class="container" id="product-page">
+  <section id="product-page" class="container">
     <div class="row gy-4 gy-md-0 position-relative">
       <div class="col-lg-6 col-md-6 col-12">
         <div class="row gy-md-3 gx-3 gx-md-0 position-relative  flex-nowrap overflow-auto flex-md-wrap">
-          <div class="col-12 position-relative" v-for="image in product.images">
+          <div v-for="image in product.images" class="col-12 position-relative">
             <ImageItem
               :source="image.url"
             />
@@ -41,76 +41,76 @@
 
         <div class="row">
           <div class="col-12 row-tabs order-last order-md-first">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link ps-0 active"
-                        id="description-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#description"
-                        type="button"
-                        role="tab"
+                <button id="description-tab"
                         aria-controls="description"
                         aria-selected="true"
+                        class="nav-link ps-0 active"
+                        data-bs-target="#description"
+                        data-bs-toggle="tab"
+                        role="tab"
+                        type="button"
                 >
-                  Описание
+                  {{ $t('ProductPage.tabs.description') }}
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link"
-                        id="history-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#history"
-                        type="button"
-                        role="tab"
+                <button id="history-tab"
                         aria-controls="history"
                         aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#history"
+                        data-bs-toggle="tab"
+                        role="tab"
+                        type="button"
                 >
-                  История
+                  {{ $t('ProductPage.tabs.history') }}
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link"
-                        id="status-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#status"
-                        type="button"
-                        role="tab"
+                <button id="status-tab"
                         aria-controls="status"
                         aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#status"
+                        data-bs-toggle="tab"
+                        role="tab"
+                        type="button"
                 >
-                  Оценка состояния
+                  {{ $t('ProductPage.tabs.status') }}
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link"
-                        id="delivery-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#delivery"
-                        type="button"
-                        role="tab"
+                <button id="delivery-tab"
                         aria-controls="delivery"
                         aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#delivery"
+                        data-bs-toggle="tab"
+                        role="tab"
+                        type="button"
                 >
-                  Доставка
+                  {{ $t('ProductPage.tabs.delivery') }}
                 </button>
               </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab"
+            <div id="myTabContent" class="tab-content">
+              <div id="description" aria-labelledby="description-tab" class="tab-pane fade show active" role="tabpanel"
                    v-html="product.translate[locale].description">
               </div>
-              <div class="tab-pane fade"
-                   id="history"
-                   role="tabpanel"
+              <div id="history"
                    aria-labelledby="history-tab"
+                   class="tab-pane fade"
+                   role="tabpanel"
                    v-html="product.translate[locale].history">
 
               </div>
-              <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
+              <div id="status" aria-labelledby="status-tab" class="tab-pane fade" role="tabpanel">
                 <div v-if="statusProduct" v-html="statusProduct.translate[locale].value">
                 </div>
               </div>
-              <div class="tab-pane fade" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
+              <div id="delivery" aria-labelledby="delivery-tab" class="tab-pane fade" role="tabpanel">
                 <div v-if="delivery" v-html="delivery.translate[locale].value"></div>
               </div>
             </div>
@@ -123,33 +123,40 @@
               {{ $t('ProductPage.count_label') }}
             </span>
                 <div class="number-input">
-                  <button @change="validateCount" @click="minusCount" class="minus" :disabled="count <= 1">
+                  <button :disabled="count <= 1" class="minus" @change="validateCount" @click="minusCount">
                     <i class="fa-light fa-minus"></i>
                   </button>
-                  <input class="quantity input-count" min="1" v-model.number="count" @change="validateCount" type="number">
-                  <button @click="plusCount" class="plus" :disabled="count >= product.count">
+                  <input v-model.number="count" class="quantity input-count" min="1" type="number"
+                         @change="validateCount">
+                  <button :disabled="count >= product.count" class="plus" @click="plusCount">
                     <i class="fa-light fa-plus"></i>
                   </button>
                 </div>
               </div>
               <div class="col col-md col-lg-8">
-                <button class="btn btn-dark w-100 btn-add-cart" @click="addProduct" :disabled="product.count <= 0">
-                  <transition appear name="fade" mode="out-in">
+                <button :disabled="product.count <= 0" class="btn btn-dark w-100 btn-add-cart" @click="addProduct">
+                  <transition appear mode="out-in" name="fade">
 
-                    <div  v-if="addLoading" key="loading" class="d-flex justify-content-center align-items-center">
-                      <span class="spinner-border spinner-border-sm me-3" role="status" aria-hidden="true"></span>
+                    <div v-if="addLoading" key="loading" class="d-flex justify-content-center align-items-center">
+                      <span aria-hidden="true" class="spinner-border spinner-border-sm me-3" role="status"></span>
                       {{ $t('ProductPage.addButton.labels.loading') }}
                     </div>
 
 
-                    <span v-else-if="!addAnimate" key="1">
-                  {{ $t('ProductPage.addButton.labels.add') }}
-                </span>
 
-                    <span v-else key="2">
-                  {{ $t('ProductPage.addButton.labels.success') }}
-                  <i class="fa-light fa-check"></i>
-                </span>
+                    <span v-else-if="addAnimate" key="2">
+                      {{ $t('ProductPage.addButton.labels.success') }}
+                      <i class="fa-light fa-check"></i>
+                    </span>
+
+                    <span v-else-if="addError" key="3">
+                      {{ $t('ProductPage.addButton.labels.error') }}
+                      <i class="fa-light fa-circle-exclamation"></i>
+                    </span>
+
+                    <span v-else key="4">
+                      {{ $t('ProductPage.addButton.labels.add') }}
+                    </span>
                   </transition>
                 </button>
               </div>
@@ -163,9 +170,8 @@
 
 <script>
 import Layout from "../../Shared/Layout";
-import { mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 import ImageSpinner from "../../../components/ImageSpinner";
-import productCard from "../../Shared/ProductCard";
 import bs5 from '../../plugins/bs5'
 
 export default {
@@ -175,7 +181,8 @@ export default {
   data: () => ({
     count: 1,
     addAnimate: false,
-    addLoading: false
+    addLoading: false,
+    addError: false
   }),
   computed: {
     ...mapState('i18n', {
@@ -184,65 +191,109 @@ export default {
     ...mapState('currencies', {
       currency: 'currency'
     }),
-    product () {
+    product() {
       return this.$page.props.product
     },
-    delivery () {
+    delivery() {
       return this.$page.props.delivery
     },
-    statusProduct () {
+    statusProduct() {
       return this.$page.props.statusProduct
     },
-    cost () {
+    cost() {
       let cost = this.product.cost
       cost = cost * this.currency.value
       cost = cost.toFixed(0)
       return new Intl.NumberFormat('ru-RU').format(cost)
     },
-    costWithPerfics () {
+    costWithPerfics() {
       return this.cost + ' ' + this.currency.symbol
     },
   },
   methods: {
-    minusCount () {
+    ...mapActions('cart', {
+      add: 'add'
+    }),
+    minusCount() {
       if (this.count !== 1) {
         this.count--
       }
     },
-    plusCount () {
+    plusCount() {
       if (this.count < this.product.count) {
         this.count++
       }
     },
-    validateCount () {
+    validateCount() {
       if (this.count > this.product.count) {
         this.count = this.product.count
       } else if (this.count <= 0) {
         this.count = 1
       }
     },
-    addProduct () {
+    addProduct() {
       if (this.addLoading === false && this.addAnimate === false) {
         this.addLoading = true
-        setTimeout(() => {
-          this.addLoading = false
-          this.addAnimate = true
-          new bs5.Toast({
-            body: this.$t('tooltips.addProduct'),
-            className: 'border-0 bg-dark text-white',
-            btnCloseWhite: true,
-            autohide: true,
-            delay: 5000
-          }).show()
+        this.addAnimate = false
 
-          setTimeout(() => {
+        this.add({
+          id: this.product.id,
+          count: this.count
+        })
+          .then(r => {
+            if (r) {
+              setTimeout(() => {
+                this.addLoading = false
+                this.addAnimate = true
 
-            this.addLoading = false
-            this.addAnimate = false
-          }, 2000)
-        }, 1500)
+                new bs5.Toast({
+                  body: this.$t('tooltips.addProduct'),
+                  className: 'border-0 bg-dark text-white',
+                  btnCloseWhite: true,
+                  autohide: true,
+                  delay: 5000
+                }).show()
+
+                setTimeout(() => {
+                  this.addLoading = false
+                  this.addAnimate = false
+                }, 1500)
+              }, 1000)
+            } else {
+              this.addLoading = false
+              this.addAnimate = false
+              this.addError = true
+              setTimeout(() => {
+                this.addLoading = false
+                this.addAnimate = false
+                this.addError = false
+              }, 1500)
+
+            }
+          })
 
       }
+      // if (this.addLoading === false && this.addAnimate === false) {
+      //   this.addLoading = true
+      //   setTimeout(() => {
+      //     this.addLoading = false
+      //     this.addAnimate = true
+      //     new bs5.Toast({
+      //       body: this.$t('tooltips.addProduct'),
+      //       className: 'border-0 bg-dark text-white',
+      //       btnCloseWhite: true,
+      //       autohide: true,
+      //       delay: 5000
+      //     }).show()
+      //
+      //     setTimeout(() => {
+      //
+      //       this.addLoading = false
+      //       this.addAnimate = false
+      //     }, 2000)
+      //   }, 1500)
+      //
+      // }
     }
   }
 }

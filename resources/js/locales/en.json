@@ -47,8 +47,26 @@
       "labels": {
         "loading": "Adding",
         "add": "Add to Cart",
-        "success": "Added"
+        "success": "Added",
+        "error": "Error"
       }
+    },
+    "tabs": {
+      "description": "Description",
+      "history": "History",
+      "status": "Condition assessment",
+      "delivery": "Delivery"
     }
+  },
+  "User": {
+    "Tooltips": {
+      "product-add-error-count": "In the cart, the maximum number of this product",
+      "cart-clear": "Your cart has been cleared"
+
+    }
+  },
+  "BigCart": {
+    "count": "Count: ",
+    "remove": "Remove from cart"
   }
 }

@@ -72,7 +72,6 @@ export default {
             autohide: true,
             delay: 5000
           }).show()
-          // Inertia.reload()
         }
       })
     }
