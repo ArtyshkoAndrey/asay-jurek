@@ -59,12 +59,21 @@ export default {
       remember: false
     })
   }),
+  mounted() {
+    if (this.$page.props.auth.user) {
+      Inertia.visit('/')
+    }
+  },
   methods: {
     submit () {
       let words = this.$t('tooltips.login')
       this.form.submit('post', '/login', {
         preserveScroll: true,
         onSuccess: () =>  {
+          // TODO: Скачать корзину залогиненого пользователя
+          this.initialCart({
+            user: this.$page.props.auth.user
+          })
           new bs5.Toast({
             body: words,
             className: 'border-0 bg-dark text-white',

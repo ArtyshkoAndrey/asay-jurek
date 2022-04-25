@@ -227,6 +227,14 @@ export default {
               commit('addFetchProducts', products.map(e => e.product))
 
               commit('checkCountProducts')
+
+              // TODO: i18n
+              new bs5.Toast({
+                body: 'Ваша корзина обновилась из аккаунта',
+                className: 'border-0 bg-warning text-dark',
+                btnCloseWhite: false,
+                autohide: true,
+              }).show()
             }
           })
           .catch(e => {

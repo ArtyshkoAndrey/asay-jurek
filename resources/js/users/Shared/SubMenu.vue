@@ -11,6 +11,7 @@
               {{ $t('components.SubMenu.new_products') }}
             </Link>
           </li>
+<!--          TODO: Подкатегории -->
           <li  v-for="category in categories">
             <Link class="nav-link"
                   :class="{ 'active': $page.url.startsWith('/catalog/' + category.id)}"
