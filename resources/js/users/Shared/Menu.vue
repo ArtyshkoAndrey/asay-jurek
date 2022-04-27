@@ -75,7 +75,11 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
 
               <li class="" v-if="user !== null" >
-                <Link href="/" class="dropdown-item">{{ $t('dropdown-user.profile') }}</Link>
+                <Link href="/profile"
+                      :class="{ 'active': $page.url.startsWith('/profile')}"
+                      class="dropdown-item">
+                  {{ $t('dropdown-user.profile') }}
+                </Link>
               </li>
               <li class="" v-if="user !== null" >
                 <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
@@ -85,10 +89,18 @@
               </li>
 
               <li class="" v-if="user === null">
-                <Link href="/login" class="dropdown-item">{{ $t('dropdown-user.login') }}</Link>
+                <Link href="/login"
+                      :class="{ 'active': $page.url.startsWith('/login')}"
+                      class="dropdown-item">
+                  {{ $t('dropdown-user.login') }}
+                </Link>
               </li>
               <li class="" v-if="user === null">
-                <Link href="/register" class="dropdown-item">{{ $t('dropdown-user.register') }}</Link>
+                <Link href="/register"
+                      :class="{ 'active': $page.url.startsWith('/register')}"
+                      class="dropdown-item">
+                  {{ $t('dropdown-user.register') }}
+                </Link>
               </li>
             </ul>
           </li>

@@ -191,6 +191,9 @@ export default {
     ...mapState('currencies', {
       currency: 'currency'
     }),
+    user () {
+      return this.$page.props.auth.user
+    },
     product() {
       return this.$page.props.product
     },
@@ -238,7 +241,8 @@ export default {
 
         this.add({
           id: this.product.id,
-          count: this.count
+          count: this.count,
+          user: this.user
         })
           .then(r => {
             if (r) {

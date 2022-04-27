@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\CurrencyController;
 
@@ -20,3 +21,4 @@ use App\Http\Controllers\Api\CurrencyController;
 Route::get('currencies', [CurrencyController::class, 'getData']);
 Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);
 Route::post('/cart/fetch', [CartController::class, 'fetch']);
+Route::post('/user/upload-photo', [UserController::class, 'uploadPhoto']);

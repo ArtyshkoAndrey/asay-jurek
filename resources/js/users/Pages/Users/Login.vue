@@ -48,6 +48,7 @@ import Layout from "../../Shared/Layout";
 import { useForm } from '@inertiajs/inertia-vue3'
 import {Inertia} from "@inertiajs/inertia";
 import bs5 from "../../plugins/bs5";
+import {mapActions} from "vuex";
 
 export default {
   name: "Login",
@@ -65,6 +66,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions('cart', {
+      initialCart: 'initialCart'
+    }),
     submit () {
       let words = this.$t('tooltips.login')
       this.form.submit('post', '/login', {
@@ -72,7 +76,8 @@ export default {
         onSuccess: () =>  {
           // TODO: Скачать корзину залогиненого пользователя
           this.initialCart({
-            user: this.$page.props.auth.user
+            user: this.$page.props.auth.user,
+            tooltip: true
           })
           new bs5.Toast({
             body: words,

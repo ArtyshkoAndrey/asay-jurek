@@ -48,4 +48,3 @@ InertiaProgress.init({
 
 Inertia.on('start', () => NProgress.start())
 Inertia.on('finish', () => NProgress.done())
-

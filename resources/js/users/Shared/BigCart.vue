@@ -93,6 +93,9 @@ export default {
     ...mapGetters('cart', {
       find: 'find'
     }),
+    user () {
+      return this.$page.props.auth.user
+    },
     totalCostWithPrefics() {
       let cost = this.total_cost * this.currency.value
       cost = cost.toFixed(0)
@@ -114,8 +117,14 @@ export default {
       return this.cost(cost) + ' ' + this.currency.symbol
     },
     ...mapActions('cart', {
-      remove: 'removeProduct'
-    })
+      removeProduct: 'removeProduct'
+    }),
+    remove(id) {
+      this.removeProduct({
+        id: id,
+        user: this.user
+      })
+    }
   }
 }
 </script>

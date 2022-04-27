@@ -117,7 +117,7 @@ export default {
 
   actions: {
     // Добавляем товар в корзину - Global Primary
-    async add ({ commit, state }, { id, count }) {
+    async add ({ commit, state }, { id, count, user }) {
       // commit('clear')
       const i18n = setupI18n()
       const t = i18n.global.t
@@ -136,19 +136,64 @@ export default {
             autohide: true,
             delay: 5000
           }).show()
-          commit('add', {id: id, count: product.count, rewrite: true})
+          if (user) {
+            axios.post('/user/cart/add', {
+              id: id,
+              count: product.count
+            })
+              .then(r => {
+                if (r.data.success) {
+                  commit('add', {id: id, count: product.count, rewrite: true})
+                }
+              })
+          } else {
+            commit('add', {id: id, count: product.count, rewrite: true})
+          }
           return false
         }
-        console.log(123123)
-        commit('add', {id: id, count: count})
+        if (user) {
+          axios.post('/user/cart/add', {
+            id: id,
+            count: count
+          })
+            .then(r => {
+              if (r.data.success) {
+                commit('add', {id: id, count: count})
+              }
+            })
+        } else {
+          commit('add', {id: id, count: count})
+        }
+
         return true
 
       } else if (product === undefined) {
         // Если нету товара такого
-        return this.dispatch('cart/createProduct', {
-          id: id,
-          count: count
-        })
+
+        if (user) {
+          return axios.post('/user/cart/add', {
+            id: id,
+            count: 1
+          })
+            .then(r => {
+              if (r.data.success) {
+                return this.dispatch('cart/createProduct', {
+                  id: id,
+                  count: count
+                })
+              } else {
+                return false
+              }
+            })
+            .catch(e => {
+              return false
+            })
+        } else {
+          return this.dispatch('cart/createProduct', {
+            id: id,
+            count: count
+          })
+        }
 
       } else {
         // Если нашёл товар и не нашёл с апи
@@ -158,10 +203,10 @@ export default {
     },
 
     // Итогово добавить товар и взять данные нового товара в корзине
-    async createProduct ({commit, state}, {id, count}) {
+    async createProduct ({commit, state}, {id, count, user}) {
       await commit('add', {
         id: id,
-        count: count
+        count: count,
       })
       return await this.dispatch('cart/fetch')
     },
@@ -195,16 +240,40 @@ export default {
         })
     },
 
-    removeProduct({commit, state}, id) {
+    removeProduct({commit, state}, { id, user }) {
       let product = state.products.find(e => Number(e.id) === Number(id))
       if (product) {
-        commit('remove', id)
+        if (user) {
+          axios.post('/user/cart/remove', {
+            id: id
+          })
+            .then(r => {
+              if (r.data.success) {
+                commit('remove', id)
+              }
+            })
+            .catch(e => {
+              // TODO: i18n
+              new bs5.Toast({
+                body: 'Ошибка при удалении товара из корзины, обратитесь к администратору',
+                className: 'border-0 bg-warning text-dark',
+                btnCloseWhite: false,
+                autohide: true,
+              }).show()
+            })
+        } else {
+          commit('remove', id)
+        }
       }
+
+
     },
 
     initialCart ({commit, state}, payload) {
       if (payload.user) {
-        axios.post('/user/cart')
+        axios.post('/user/cart', {
+          products: state.products
+        })
           .then(r => {
             if (r.data.success) {
               let products = r.data.payload.cart
@@ -228,13 +297,15 @@ export default {
 
               commit('checkCountProducts')
 
-              // TODO: i18n
-              new bs5.Toast({
-                body: 'Ваша корзина обновилась из аккаунта',
-                className: 'border-0 bg-warning text-dark',
-                btnCloseWhite: false,
-                autohide: true,
-              }).show()
+              if (payload.tooltip) {
+                // TODO: i18n
+                new bs5.Toast({
+                  body: 'Ваша корзина обновилась из аккаунта',
+                  className: 'border-0 bg-warning text-dark',
+                  btnCloseWhite: false,
+                  autohide: true,
+                }).show()
+              }
             }
           })
           .catch(e => {

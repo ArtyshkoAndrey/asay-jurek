@@ -46,11 +46,23 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @mixin Eloquent
  * @property-read Collection|Cart[]                                     $cart
  * @property-read int|null                                              $cart_count
+ * @property string|null                                                $photo
+ * @property string|null                                                $phone
+ * @property string|null                                                $address
+ * @property string|null                                                $index
+ * @property bool                                                       $notify
+ * @method static Builder|User whereAddress($value)
+ * @method static Builder|User whereIndex($value)
+ * @method static Builder|User whereNotify($value)
+ * @method static Builder|User wherePhone($value)
+ * @method static Builder|User wherePhoto($value)
+ * @property-read string|null                                           $url
  */
 class User extends Authenticatable
 {
   use HasApiTokens, HasFactory, Notifiable;
 
+  public const PATH_PHOTO = 'app/public/users/';
   /**
    * The attributes that are mass assignable.
    *
@@ -59,9 +71,13 @@ class User extends Authenticatable
   protected $fillable = [
     'name',
     'email',
+    'phone',
+    'address',
+    'photo',
+    'notify',
+    'index',
     'password',
   ];
-
   /**
    * The attributes that should be hidden for serialization.
    *
@@ -71,7 +87,6 @@ class User extends Authenticatable
     'password',
     'remember_token',
   ];
-
   /**
    * The attributes that should be cast.
    *
@@ -79,7 +94,21 @@ class User extends Authenticatable
    */
   protected $casts = [
     'email_verified_at' => 'datetime',
+    'notify' => 'boolean',
   ];
+
+  protected $appends = [
+    'url',
+  ];
+
+  public function getUrlAttribute(): ?string
+  {
+    if ($this->photo) {
+      return url('storage/users/' . $this->photo);
+    }
+
+    return null;
+  }
 
   public function cart(): HasMany
   {
@@ -91,7 +120,7 @@ class User extends Authenticatable
     return $this->cart->map(function (Cart $cart) {
       return [
         'product' => $cart->product,
-        'count' => $cart->count
+        'count' => $cart->count,
       ];
     });
   }

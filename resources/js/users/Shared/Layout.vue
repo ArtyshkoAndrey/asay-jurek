@@ -92,6 +92,9 @@ export default {
     }
   },
   created() {
+    this.$inertia.reload({
+      only: ['tableData']
+    } )
     this.$nextTick(() => {
       document.querySelector('.darken-for-opened-cart').addEventListener('animationstart', function (e) {
         if (e.animationName === 'fade-in') {
@@ -110,7 +113,8 @@ export default {
 
     let bool = this.currencies.last_update !== null
     this.initialCart({
-      user: this.$page.props.auth.user
+      user: this.$page.props.auth.user,
+      tooltip: false
     })
     if (!bool) {
       this.initialCurrencies()

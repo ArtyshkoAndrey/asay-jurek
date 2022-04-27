@@ -11,4 +11,5 @@ mix
   .sass("resources/scss/users/app.scss", "public/css/users")
   .sourceMaps()
   .version()
+  .disableNotifications()
   .browserSync('https://asay')
