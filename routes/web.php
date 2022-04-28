@@ -26,8 +26,11 @@ Route::middleware('auth')->group(function () {
   Route::post('/user/cart', [ProductController::class, 'userCart']);
   Route::post('/user/cart/remove', [ProductController::class, 'removeUserCart']);
   Route::post('/user/cart/add', [ProductController::class, 'addUserCart']);
+
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
   Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto']);
+  Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
+  Route::post('/profile/update-info', [ProfileController::class, 'updateInfo']);
 });
 
 Auth::routes();

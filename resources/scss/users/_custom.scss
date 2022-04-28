@@ -99,3 +99,11 @@ $link-hover-decoration: underline;
 .bg-gray {
   background-color: #dfdfdf;
 }
+
+input {
+  outline: none !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
