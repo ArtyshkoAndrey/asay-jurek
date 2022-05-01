@@ -28,6 +28,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon|null                 $updated_at
  * @property-read Collection|OrderItem[] $items
  * @property-read int|null               $items_count
+ * @property-read int                    $count_products
+ * @property-read string                 $delivery_translation
+ * @property-read string                 $status_translation
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -88,33 +91,35 @@ class Order extends Model
   ];
   protected $casts = [
     'payment_at' => 'date:m.d.y',
-    'created_at' => 'date:m.d.y'
+    'created_at' => 'date:m.d.y',
   ];
 
   /********************************************/
   /**                 ATTRIBUTES              */
   /********************************************/
-  public function getCountProductsAttribute () :int
+  public function getCountProductsAttribute(): int
   {
-    return $this->items()->count();
+    return $this->items()
+      ->count();
   }
 
-  public function getStatusTranslationAttribute () :string
+
+  public function items(): HasMany
+  {
+    return $this->hasMany(OrderItem::class);
+  }
+
+  public function getStatusTranslationAttribute(): string
   {
     return self::MAP_STATUS_TRANSLATE[$this->status];
-  }
-
-  public function getDeliveryTranslationAttribute () :string
-  {
-    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
   }
 
   /********************************************/
   /**                 RELATION                */
   /********************************************/
-  public function items(): HasMany
+  public function getDeliveryTranslationAttribute(): string
   {
-    return $this->hasMany(OrderItem::class);
+    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
   }
   /********************************************/
   /**       Collection Helper Functions       */

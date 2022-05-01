@@ -2,7 +2,9 @@
   <section class="container" id="catalog">
     <div class="row justify-content-between align-items-center">
       <div class="col-auto col-sm-auto">
-        <h2 class="category-name">{{ category.translate[locale].name }}</h2>
+        <h2 v-if="!isArrivals && !isWeek" class="category-name">{{ category.translate[locale].name }}</h2>
+        <h2 v-else-if="isWeek" class="category-name">{{ $t('components.SubMenu.weeks_products') }}</h2>
+        <h2 v-else class="category-name">{{ $t('components.SubMenu.new_products') }}</h2>
       </div>
       <div class="col-auto col-sm-auto">
         <div class="dropdown">
@@ -17,7 +19,7 @@
             <li v-for="{ name, sort, check } in sorts">
               <Link class="dropdown-item bg-transparent"
                     :class="check ? 'active' : ''"
-                    :to="'/catalog/' + this.category.id"
+                    :to="urlSort"
                     :data="{sort: sort}"
               >
                 {{ name }}
@@ -88,6 +90,30 @@ export default {
     },
     sort () {
       return this.sorts.find(e => e.check)
+    },
+    isArrivals () {
+      return this.$page.props.is_arrivals ?? false
+    },
+    isWeek() {
+      return this.$page.props.is_week ?? false
+    },
+    urlSort () {
+      if (this.isArrivals) {
+        return '/new-arrivals'
+      } else if (this.isWeek) {
+        return '/products-weeks'
+      } else {
+        return '/catalog/' + this.category.id
+      }
+    },
+    url () {
+      if (this.isArrivals) {
+        return '/api/catalog/new-arrivals'
+      } else if (this.isWeek) {
+        return '/api/catalog/products-weeks'
+      } else {
+        return '/api/catalog/' + this.category.id
+      }
     }
   },
   mounted () {
@@ -102,7 +128,7 @@ export default {
     },
     async loadDataFromServer($state){
       try {
-        const result = await axios.get('/api/catalog/' + this.category.id, {
+        const result = await axios.get(this.url, {
           params: {
             page: this.page,
             sort: this.sort.sort

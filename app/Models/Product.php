@@ -23,10 +23,17 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
  * @property Carbon|null                          $created_at
  * @property Carbon|null                          $updated_at
  * @property int|null                             $status_id
+ * @property bool                                 $new
+ * @property bool                                 $week
  * @property-read array                           $translate
  * @property-read ProductTranslation|null         $translation
  * @property-read Collection|ProductTranslation[] $translations
  * @property-read int|null                        $translations_count
+ * @property-read Category|null                   $category
+ * @property-read Collection|ImageProduct[]       $images
+ * @property-read int|null                        $images_count
+ * @property-read Status|null                     $status
+ * @property-read mixed                           $image
  * @method static Builder|Product listsTranslations(string $translationField)
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
@@ -48,11 +55,8 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
  * @method static Builder|Product whereUpdatedAt($value)
  * @method static Builder|Product withTranslation()
  * @mixin Eloquent
- * @property-read \App\Models\Category|null $category
- * @property-read Collection|\App\Models\ImageProduct[] $images
- * @property-read int|null $images_count
- * @property-read \App\Models\Status|null $status
- * @property-read mixed $image
+ * @method static Builder|Product whereNew($value)
+ * @method static Builder|Product whereWeek($value)
  */
 class Product extends Model implements TranslatableContract
 {
@@ -67,10 +71,16 @@ class Product extends Model implements TranslatableContract
   protected $fillable = [
     'cost',
     'count',
+    'new',
+    'week',
+  ];
+  protected $casts = [
+    'new' => 'boolean',
+    'week' => 'boolean',
   ];
   protected $appends = [
     'translate',
-    'image'
+    'image',
   ];
 
 
@@ -91,7 +101,8 @@ class Product extends Model implements TranslatableContract
 
   public function getImageAttribute()
   {
-    return ImageProduct::where('product_id', $this->id)->first();
+    return ImageProduct::where('product_id', $this->id)
+      ->first();
   }
 
   /********************************************/

@@ -17,7 +17,7 @@ trait CatalogGetData
     $products = $products->whereHas('category', static function (Builder $q) use ($category) {
       $q->where('id', $category->id);
     });
-    $products = $this->sortProductsForCategory($request, $products);
+    $products = $this->sortProducts($request, $products);
 
     $products = $products->paginate(10);
 
@@ -28,7 +28,37 @@ trait CatalogGetData
     ];
   }
 
-  private function sortProductsForCategory(Request $request, Builder $products)
+  private function getProductsForNewArrivals (Request $request): array
+  {
+    $products = Product::query();
+    /** @var Builder $products */
+    $products = $products->where('new', true);
+    $products = $this->sortProducts($request, $products);
+    $products = $products->paginate(10);
+
+    return [
+      'products' => $products,
+      'sort' => $request->get('sort', 'new'),
+      'is_arrivals' => true
+    ];
+  }
+
+  private function getProductsForNewWeeks(Request $request): array
+  {
+    $products = Product::query();
+    /** @var Builder $products */
+    $products = $products->where('week', true);
+    $products = $this->sortProducts($request, $products);
+    $products = $products->paginate(10);
+
+    return [
+      'products' => $products,
+      'sort' => $request->get('sort', 'new'),
+      'is_week' => true
+    ];
+  }
+
+  private function sortProducts(Request $request, Builder $products): Builder
   {
     switch ($request->get('sort', 'new')) {
       case 'new':

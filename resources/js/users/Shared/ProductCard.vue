@@ -6,7 +6,7 @@
       />
       <div class="cart-product-info row justify-content-between">
         <div class="col-sm-auto pe-0" :class="{'col-12': isOrder, 'col-7': !isOrder}">
-          <span class="cart-product-info-name">{{ product.name }}</span>
+          <span class="cart-product-info-name">{{ product.translate[locale].name }}</span>
         </div>
 
         <div class="col-sm-auto" :class="{'col-12 text-end': isOrder, 'col-auto ps-0': !isOrder}">
@@ -47,6 +47,9 @@ export default {
   computed: {
     ...mapState('currencies', {
       currency: "currency"
+    }),
+    ...mapState('i18n', {
+      locale: "locale"
     }),
     cost () {
       if (this.withoutCurrency) {

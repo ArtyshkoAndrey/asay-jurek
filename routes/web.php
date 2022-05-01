@@ -20,6 +20,8 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);
+Route::get('/new-arrivals', [CatalogController::class, 'newArrivals']);
+Route::get('/products-weeks', [CatalogController::class, 'newWeeks']);
 Route::get('/product/{product_id}', [ProductController::class, 'index']);
 
 Route::middleware('auth')->group(function () {

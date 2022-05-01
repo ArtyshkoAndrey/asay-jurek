@@ -122,3 +122,12 @@ input {
   border-radius: 0 !important;
   width: 100% !important;
 }
+
+.nav-link {
+  outline: none;
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+}
