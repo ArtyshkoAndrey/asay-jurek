@@ -76,13 +76,18 @@
 
               <li class="" v-if="user !== null" >
                 <Link href="/profile"
-                      :class="{ 'active': $page.url.startsWith('/profile')}"
+                      :class="{ 'active': $page.url === '/profile' }"
                       class="dropdown-item">
                   {{ $t('dropdown-user.profile') }}
                 </Link>
               </li>
               <li class="" v-if="user !== null" >
-                <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
+                <Link href="/profile/orders"
+                      class="dropdown-item"
+                      :class="{ 'active': $page.url === '/profile/orders' }"
+                >
+                  {{ $t('dropdown-user.order') }}
+                </Link>
               </li>
               <li class="" v-if="user !== null" >
                 <Link href="/logout" method="post" @click="tooltipLogout" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>

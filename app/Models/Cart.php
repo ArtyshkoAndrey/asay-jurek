@@ -44,6 +44,14 @@ class Cart extends Model
     'product',
   ];
 
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
+
+
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class);
@@ -53,4 +61,9 @@ class Cart extends Model
   {
     return $this->belongsTo(Product::class);
   }
+
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 }

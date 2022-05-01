@@ -14,11 +14,13 @@ class AddUserColumnsTable extends Migration
   public function up(): void
   {
     Schema::table('users', static function (Blueprint $table) {
-      $table->text('photo')->nullable();
-      $table->string('phone')->nullable();
-      $table->text('address')->nullable();
-      $table->string('index')->nullable();
-      $table->boolean('notify')->default(false);
+      $table->text('photo')->nullable()->after('email');
+      $table->string('phone')->nullable()->after('photo');
+      $table->string('country')->nullable()->after('phone');
+      $table->string('city')->nullable()->after('country');
+      $table->text('street')->nullable()->after('city');
+      $table->string('post_index')->nullable()->after('street');
+      $table->boolean('notify')->default(false)->after('post_index');
     });
   }
 
@@ -30,7 +32,7 @@ class AddUserColumnsTable extends Migration
   public function down(): void
   {
     Schema::table('users', static function (Blueprint $table) {
-      $table->dropColumn(['photo', 'phone', 'address', 'index', 'notify']);
+      $table->dropColumn(['photo', 'phone', 'country', 'city', 'street', 'index', 'notify']);
     });
   }
 }

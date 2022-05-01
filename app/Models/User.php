@@ -31,6 +31,19 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property-read int|null                                              $notifications_count
  * @property-read Collection|PersonalAccessToken[]                      $tokens
  * @property-read int|null                                              $tokens_count
+ * @property-read Collection|Cart[]                                     $cart
+ * @property-read int|null                                              $cart_count
+ * @property string|null                                                $photo
+ * @property string|null                                                $phone
+ * @property bool                                                       $notify
+ * @property-read string|null                                           $address
+ * @property-read Collection|Order[]                                    $orders
+ * @property-read int|null                                              $orders_count
+ * @property-read string|null                                           $url
+ * @property string|null                                                $country
+ * @property string|null                                                $city
+ * @property string|null                                                $street
+ * @property string|null                                                $post_index
  * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -43,20 +56,14 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
- * @mixin Eloquent
- * @property-read Collection|Cart[]                                     $cart
- * @property-read int|null                                              $cart_count
- * @property string|null                                                $photo
- * @property string|null                                                $phone
- * @property string|null                                                $address
- * @property string|null                                                $index
- * @property bool                                                       $notify
- * @method static Builder|User whereAddress($value)
- * @method static Builder|User whereIndex($value)
  * @method static Builder|User whereNotify($value)
  * @method static Builder|User wherePhone($value)
  * @method static Builder|User wherePhoto($value)
- * @property-read string|null                                           $url
+ * @method static Builder|User whereCity($value)
+ * @method static Builder|User whereCountry($value)
+ * @method static Builder|User wherePostIndex($value)
+ * @method static Builder|User whereStreet($value)
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -72,10 +79,12 @@ class User extends Authenticatable
     'name',
     'email',
     'phone',
-    'address',
+    'country',
+    'city',
+    'street',
     'photo',
     'notify',
-    'index',
+    'post_index',
     'password',
   ];
   /**
@@ -99,7 +108,12 @@ class User extends Authenticatable
 
   protected $appends = [
     'url',
+    'address',
   ];
+
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
 
   public function getUrlAttribute(): ?string
   {
@@ -110,10 +124,33 @@ class User extends Authenticatable
     return null;
   }
 
+  public function getAddressAttribute(): ?string
+  {
+    if ($this->street) {
+      return $this->country . ', ' . $this->city . ', ' . $this->street . ', ' . $this->post_index;
+    }
+
+    return null;
+  }
+
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
+
   public function cart(): HasMany
   {
     return $this->hasMany(Cart::class);
   }
+
+  public function orders(): HasMany
+  {
+    return $this->hasMany(Order::class);
+  }
+
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 
   public function cartProducts(): \Illuminate\Support\Collection
   {
@@ -124,4 +161,5 @@ class User extends Authenticatable
       ];
     });
   }
+
 }

@@ -73,6 +73,11 @@ class Product extends Model implements TranslatableContract
     'image'
   ];
 
+
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
+
   /**
    * Translate info. Getter for API
    * [ru => [], en => []]
@@ -83,6 +88,15 @@ class Product extends Model implements TranslatableContract
   {
     return $this->getTranslationsArray();
   }
+
+  public function getImageAttribute()
+  {
+    return ImageProduct::where('product_id', $this->id)->first();
+  }
+
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
 
   /**
    * Category in Product
@@ -114,8 +128,7 @@ class Product extends Model implements TranslatableContract
     return $this->hasMany(ImageProduct::class);
   }
 
-  public function getImageAttribute()
-  {
-    return ImageProduct::where('product_id', $this->id)->first();
-  }
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 }

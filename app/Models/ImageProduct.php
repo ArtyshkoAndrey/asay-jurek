@@ -47,12 +47,23 @@ class ImageProduct extends Model
     'url'
   ];
 
+
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
   public function getUrlAttribute () {
     return url('/public/storage/img-products/' . $this->local_name);
   }
 
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
   public function product(): BelongsTo
   {
     return $this->belongsTo(Product::class);
   }
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 }

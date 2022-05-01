@@ -73,8 +73,19 @@ class Currency extends Model implements TranslatableContract
     'translate',
   ];
 
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
   public function getTranslateAttribute(): array
   {
     return $this->getTranslationsArray();
   }
+
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 }

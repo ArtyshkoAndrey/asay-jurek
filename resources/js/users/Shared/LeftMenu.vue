@@ -69,10 +69,20 @@
                 <ul class="dropdown-menu dropdown-menu-end" @click="opened = !opened" aria-labelledby="userDropdown">
 
                   <li class="" v-if="user !== null" >
-                    <Link href="/" class="dropdown-item">{{ $t('dropdown-user.profile') }}</Link>
+                    <Link href="/profile"
+                          class="dropdown-item"
+                          :class="{ 'active': $page.url === '/profile' }"
+                    >
+                      {{ $t('dropdown-user.profile') }}
+                    </Link>
                   </li>
                   <li class="" v-if="user !== null" >
-                    <Link href="/" class="dropdown-item">{{ $t('dropdown-user.order') }}</Link>
+                    <Link href="/profile/orders"
+                          class="dropdown-item"
+                          :class="{ 'active': $page.url === '/profile/orders' }"
+                    >
+                      {{ $t('dropdown-user.order') }}
+                    </Link>
                   </li>
                   <li class="" v-if="user !== null" >
                     <Link href="/logout" method="post" as="button" class="dropdown-item">{{ $t('dropdown-user.logout') }}</Link>

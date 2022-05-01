@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
   Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto']);
   Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
   Route::post('/profile/update-info', [ProfileController::class, 'updateInfo']);
+  Route::get('/profile/orders', [ProfileController::class, 'orders']);
+  Route::get('/profile/order/{id}', [ProfileController::class, 'order']);
 });
 
 Auth::routes();

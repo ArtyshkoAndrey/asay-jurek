@@ -54,6 +54,12 @@ class Setting extends Model implements TranslatableContract
     'translate'
   ];
 
+
+
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
+
   /**
    * Translate info. Getter for API
    * [ru => [], en => []]
@@ -65,6 +71,13 @@ class Setting extends Model implements TranslatableContract
     return $this->getTranslationsArray();
   }
 
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
   public static function deliverySetting (): ?self
   {
     return self::whereName('delivery')->first();

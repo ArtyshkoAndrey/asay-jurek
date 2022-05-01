@@ -59,11 +59,17 @@ class Category extends Model implements TranslatableContract
     'translate',
   ];
 
+  /********************************************/
+  /**                 ATTRIBUTES              */
+  /********************************************/
   public function getTranslateAttribute(): array
   {
     return $this->getTranslationsArray();
   }
 
+  /********************************************/
+  /**                 RELATION                */
+  /********************************************/
   public function parent(): HasOne
   {
     return $this->hasOne(self::class, 'id', 'parent_id');
@@ -73,4 +79,8 @@ class Category extends Model implements TranslatableContract
   {
     return $this->hasMany(self::class, 'parent_id', 'id');
   }
+
+  /********************************************/
+  /**       Collection Helper Functions       */
+  /********************************************/
 }
