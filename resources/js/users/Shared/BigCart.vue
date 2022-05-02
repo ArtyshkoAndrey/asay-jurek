@@ -51,9 +51,9 @@
               <span class="total-cost-price">{{ totalCostWithPrefics }}</span>
             </div>
             <div class="col-12">
-              <button id="by-order" class="btn btn-dark">
+              <Link href="/order" @click="switchOpened" id="by-order" class="btn btn-dark">
                 {{ $t('components.BigCart.by-order') }}
-              </button>
+              </Link>
             </div>
           </div>
         </div>

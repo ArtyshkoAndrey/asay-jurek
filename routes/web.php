@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +24,8 @@ Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);
 Route::get('/new-arrivals', [CatalogController::class, 'newArrivals']);
 Route::get('/products-weeks', [CatalogController::class, 'newWeeks']);
 Route::get('/product/{product_id}', [ProductController::class, 'index']);
+
+Route::get('/order', [OrderController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
   Route::post('/user/cart', [ProductController::class, 'userCart']);

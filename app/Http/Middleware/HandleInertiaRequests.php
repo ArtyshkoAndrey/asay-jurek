@@ -52,7 +52,17 @@ class HandleInertiaRequests extends Middleware
       'menu.categories' => $this->getCategories(),
       'auth.user' => function () use ($request) {
         if ($request->user()) {
-          return $request->user()->only('id', 'name', 'email');
+          return $request
+            ->user()
+            ->only('id',
+              'name',
+              'email',
+              'city',
+              'country',
+              'phone',
+              'url',
+              'street'
+            );
         }
 
         return null;
