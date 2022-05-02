@@ -1,0 +1,34 @@
+#create-order {
+  //input[type=text], input[type=number], input[type=email] {
+  //  font-size: 18px;
+  //  font-weight: 300;
+  //  padding: 21px 24px;
+  //}
+
+  .col-12 {
+    .form-check {
+      padding: 24px 30px;
+      border: 1px solid #C1C1C1;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      .form-check-input {
+        margin-left: 0;
+        margin-right: 16px;
+      }
+      .form-check-label {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: #232629;
+      }
+    }
+
+    &:nth-child(2) {
+      .form-check {
+        border-bottom: none;
+      }
+    }
+  }
+
+}
