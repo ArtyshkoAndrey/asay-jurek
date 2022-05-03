@@ -55,10 +55,12 @@
           <div class="col-12">
             <div class="form-check">
               <input id="delivery_to_home"
+                     v-model="orderForm.type_delivery"
                      class="form-check-input"
                      disabled
                      name="delivery"
                      type="radio"
+                     value="delivery"
               >
               <label class="form-check-label"
                      for="delivery_to_home"
@@ -70,10 +72,11 @@
           <div class="col-12">
             <div class="form-check">
               <input id="delivery_in_shop"
-                     checked
+                     v-model="orderForm.type_delivery"
                      class="form-check-input"
                      name="delivery"
                      type="radio"
+                     value="in_shop"
               >
               <label class="form-check-label"
                      for="delivery_in_shop"
@@ -86,7 +89,9 @@
 
         <!-- ДАННЫЕ ДЛЯ ДОСТАВКИ -->
 
-        <div class="row gx-3 gy-3">
+        <div v-if="orderForm.type_delivery === 'delivery'"
+             class="row gx-3 gy-3"
+        >
           <div class="col-12">
             <h2>адрес доставки</h2>
           </div>
@@ -133,6 +138,47 @@
             />
           </div>
         </div>
+
+        <div v-if="orderForm.type_delivery === 'in_shop'"
+             class="row gx-3 gy-3"
+        >
+          <div class="col-12">
+            <h2>
+              где забрать заказ
+            </h2>
+          </div>
+
+          <div v-for="shop in shops"
+               class="col-12"
+          >
+            <div :class="{'active': orderForm.shops_id === shop.id}"
+                 class="shop"
+                 @click="setShop(shop)"
+            >
+              <p class="fw-bold street"> {{ shop.translate[locale].street }}</p>
+              <p> {{ shop.phone }}</p>
+              <p class="time">
+                {{ shop.translate[locale].time }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <button :disabled="disabledCreateOrderButton || orderForm.processing"
+                    class="btn w-100 btn-dark py-3 fw-light rounded-0 text-uppercase"
+                    @click="createOrder"
+            >
+              <span v-if="orderForm.processing"
+                    aria-hidden="true"
+                    class="spinner-grow spinner-grow-sm"
+                    role="status"
+              ></span>
+              <span v-else>Подтвердить и оплатить заказ</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="col-lg-5 offset-lg-1">
@@ -146,6 +192,8 @@
 import Layout from "../../Shared/Layout";
 import {useForm} from "@inertiajs/inertia-vue3";
 import MaterialField from "../../Shared/material-field";
+import bs5 from "../../plugins/bs5";
+import {mapState} from "vuex";
 
 export default {
   name: "Order",
@@ -159,12 +207,20 @@ export default {
       country: null,
       city: null,
       street: null,
-      post_index: null
+      post_index: null,
+      shops_id: null,
+      type_delivery: null
     })
   }),
   computed: {
+    ...mapState('i18n', {
+      locale: 'locale'
+    }),
     user() {
       return this.$page.props.auth.user ?? false
+    },
+    shops() {
+      return this.$page.props.shops ?? []
     },
     phonePlaceholder() {
       if (this.orderForm.phone === null || this.orderForm.phone === '') {
@@ -172,11 +228,30 @@ export default {
       }
 
       return 'Телефон'
+    },
+    disabledCreateOrderButton() {
+      let order = this.orderForm
+      if (order.type_delivery === 'in_shop') {
+        return !!(this.isEmpty(order.name) ||
+          this.isEmpty(order.email) ||
+          this.isEmpty(order.phone) ||
+          this.isEmpty(order.shops_id))
+      } else if (order.type_delivery === 'delivery') {
+        return true
+      }
+      return true
     }
   },
   mounted() {
     if (this.user) {
       this.setDefaultDataUser()
+    }
+  },
+  watch: {
+    'orderForm.type_delivery': function (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.orderForm.shops_id = null
+      }
     }
   },
   methods: {
@@ -185,12 +260,31 @@ export default {
         name: this.user.name,
         phone: this.user.phone,
         email: this.user.email,
-        country:  this.user.country,
-        city:  this.user.city,
-        street:  this.user.street,
-        post_index:  this.user.post_index
+        country: this.user.country,
+        city: this.user.city,
+        street: this.user.street,
+        post_index: this.user.post_index
       })
       this.orderForm.reset()
+    },
+    setShop(shop) {
+      this.orderForm.shops_id = shop.id
+    },
+    isEmpty(str) {
+      return (!str || str.length === 0);
+    },
+    createOrder() {
+      this.orderForm.post('/order/create', {
+        onStart: () => {
+          new bs5.Toast({
+            body: 'Ваш заказ создаётся, пожалуйста ожидайте',
+            className: 'border-0 bg-warning text-dark',
+            btnCloseWhite: false,
+            autohide: true,
+            delay: 3000
+          }).show()
+        }
+      })
     }
   }
 }

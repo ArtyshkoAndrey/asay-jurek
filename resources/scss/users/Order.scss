@@ -5,6 +5,42 @@
   //  padding: 21px 24px;
   //}
 
+  h2 {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    text-transform: uppercase;
+    color: $dark;
+
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .shop {
+    cursor: pointer;
+    padding: 22px 24px;
+    color: $dark;
+    border: 1px solid #C1C1C1;
+    transition: .3s;
+
+    &.active {
+      border-color: $dark;
+    }
+
+    p {
+      margin-bottom: 10px;
+      font-size: 16px;
+
+      &.time {
+        color: #6F797C;
+      }
+
+      &.street {
+        font-size: 18px;
+      }
+    }
+  }
+
   .col-12 {
     .form-check {
       padding: 24px 30px;
