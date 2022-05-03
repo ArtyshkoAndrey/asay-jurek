@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 23, 2022 at 01:29 AM
+-- Generation Time: May 03, 2022 at 09:13 PM
 -- Server version: 5.7.34
 -- PHP Version: 7.4.21
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `asay`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `count` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `count`, `created_at`, `updated_at`) VALUES
+(1, 1, 25, 6, '2022-04-30 02:01:23', '2022-04-30 02:01:23');
 
 -- --------------------------------------------------------
 
@@ -182,7 +204,7 @@ INSERT INTO `image_products` (`id`, `owner_name`, `local_name`, `bites`, `alt`, 
 (23, 'LizekQSsXX.png', 'LizekQSsXX.png', 741807, 'LizekQSsXX.png', 23, '2022-04-21 04:57:55', '2022-04-21 04:57:55'),
 (24, 'EnwWXSCfD9.png', 'EnwWXSCfD9.png', 741807, 'EnwWXSCfD9.png', 24, '2022-04-21 04:57:56', '2022-04-21 04:57:56'),
 (25, 'Bipm33dUx9.png', 'Bipm33dUx9.png', 741807, 'Bipm33dUx9.png', 25, '2022-04-21 04:57:57', '2022-04-21 04:57:57'),
-(26, 'YXzSGdvsQj.png', 'YXzSGdvsQj.png', 741807, 'YXzSGdvsQj.png', 26, '2022-04-21 04:57:58', '2022-04-21 04:57:58'),
+(26, 'YXzSGdvsQj.png', 'YXzSGdvsQj.png', 741807, 'YXzSGdvsQj.png', NULL, '2022-04-21 04:57:58', '2022-04-21 04:57:58'),
 (27, '63LmIrNKmu.png', '63LmIrNKmu.png', 741807, '63LmIrNKmu.png', 27, '2022-04-21 04:57:59', '2022-04-21 04:57:59'),
 (28, 'vc5Pbia80x.png', 'vc5Pbia80x.png', 741807, 'vc5Pbia80x.png', 28, '2022-04-21 04:58:00', '2022-04-21 04:58:00'),
 (29, 'xm8SEkNQeS.png', 'xm8SEkNQeS.png', 741807, 'xm8SEkNQeS.png', 29, '2022-04-21 04:58:01', '2022-04-21 04:58:01'),
@@ -191,9 +213,9 @@ INSERT INTO `image_products` (`id`, `owner_name`, `local_name`, `bites`, `alt`, 
 (32, 'S5jtEO7Y5Y.png', 'S5jtEO7Y5Y.png', 741807, 'S5jtEO7Y5Y.png', 32, '2022-04-21 05:00:51', '2022-04-21 05:00:51'),
 (33, '1TvD9pX9ZC.png', '1TvD9pX9ZC.png', 741807, '1TvD9pX9ZC.png', 33, '2022-04-21 05:05:00', '2022-04-21 05:05:00'),
 (34, 'ACa84p57Yo.png', 'ACa84p57Yo.png', 741807, 'ACa84p57Yo.png', 34, '2022-04-21 05:05:01', '2022-04-21 05:05:01'),
-(35, 'lmGHwOaZqD.png', 'lmGHwOaZqD.png', 741807, 'lmGHwOaZqD.png', 35, '2022-04-21 05:05:02', '2022-04-21 05:05:02'),
-(36, 'Gr00jtFMBG.png', 'Gr00jtFMBG.png', 741807, 'Gr00jtFMBG.png', 36, '2022-04-21 05:05:03', '2022-04-21 05:05:03'),
-(38, 'test.png', 'test.png', 741807, 'test.png', 35, '2022-04-21 04:57:57', '2022-04-21 04:57:57');
+(35, 'lmGHwOaZqD.png', 'lmGHwOaZqD.png', 741807, 'lmGHwOaZqD.png', NULL, '2022-04-21 05:05:02', '2022-04-21 05:05:02'),
+(36, 'Gr00jtFMBG.png', 'Gr00jtFMBG.png', 741807, 'Gr00jtFMBG.png', NULL, '2022-04-21 05:05:03', '2022-04-21 05:05:03'),
+(38, 'test.png', 'test.png', 741807, 'test.png', NULL, '2022-04-21 04:57:57', '2022-04-21 04:57:57');
 
 -- --------------------------------------------------------
 
@@ -231,7 +253,66 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2022_04_21_064535_create_image_products_table', 9),
 (29, '2022_04_21_104558_add_columns_in_currencies_table', 10),
 (34, '2022_04_22_114107_create_settings_table', 11),
-(35, '2022_04_22_114138_create_setting_translations_table', 11);
+(35, '2022_04_22_114138_create_setting_translations_table', 11),
+(36, '2022_04_25_155953_create_carts_table', 12),
+(38, '2022_04_27_171743_add_user_columns_table', 13),
+(39, '2022_04_30_103455_create_orders_table', 14),
+(40, '2022_04_30_104008_create_order_items_table', 15),
+(41, '2022_05_01_151801_add_new_product_table', 16);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cost` int(11) NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type_delivery` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_at` date DEFAULT NULL,
+  `promo_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sale` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `user_name`, `user_address`, `user_phone`, `cost`, `status`, `type_delivery`, `payment_at`, `promo_code`, `sale`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'cancel', 'in_shop', '2022-04-30', NULL, 0, '2022-04-30 12:36:39', '2022-04-30 12:36:39'),
+(2, 1, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'delivered', 'in_shop', '2022-04-30', NULL, 0, '2022-04-30 12:36:39', '2022-04-30 12:36:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `count` int(11) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `count`, `cost`, `created_at`, `updated_at`) VALUES
+(1, 1, 11, 1, 100000, '2022-04-30 12:38:48', '2022-04-30 12:38:48'),
+(2, 2, 11, 1, 100000, '2022-04-30 12:38:48', '2022-04-30 12:38:48');
 
 -- --------------------------------------------------------
 
@@ -274,6 +355,8 @@ CREATE TABLE `products` (
   `category_id` bigint(20) UNSIGNED DEFAULT NULL,
   `count` int(11) NOT NULL DEFAULT '0',
   `cost` int(11) NOT NULL DEFAULT '0',
+  `new` tinyint(1) NOT NULL DEFAULT '0',
+  `week` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `status_id` bigint(20) UNSIGNED DEFAULT NULL
@@ -283,43 +366,40 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `count`, `cost`, `created_at`, `updated_at`, `status_id`) VALUES
-(1, 1, 10, 200000, '2022-04-20 23:34:57', '2022-04-20 23:34:57', 1),
-(2, 1, 10, 200000, '2022-04-21 04:56:19', '2022-04-21 04:56:19', 1),
-(3, 1, 10, 200000, '2022-04-21 04:57:04', '2022-04-21 04:57:04', 1),
-(4, 1, 10, 200000, '2022-04-21 04:57:13', '2022-04-21 04:57:13', 1),
-(5, 1, 10, 200000, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
-(6, 1, 10, 200000, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
-(7, 1, 10, 200000, '2022-04-21 04:57:15', '2022-04-21 04:57:15', 1),
-(8, 1, 10, 200000, '2022-04-21 04:57:16', '2022-04-21 04:57:16', 1),
-(9, 1, 10, 200000, '2022-04-21 04:57:17', '2022-04-21 04:57:17', 1),
-(10, 1, 10, 200000, '2022-04-21 04:57:18', '2022-04-21 04:57:18', 1),
-(11, 1, 10, 200000, '2022-04-21 04:57:19', '2022-04-21 04:57:19', 1),
-(12, 1, 10, 200000, '2022-04-21 04:57:20', '2022-04-21 04:57:20', 1),
-(13, 1, 10, 200000, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
-(14, 1, 10, 200000, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
-(15, 1, 10, 200000, '2022-04-21 04:57:22', '2022-04-21 04:57:22', 1),
-(16, 1, 10, 200000, '2022-04-21 04:57:48', '2022-04-21 04:57:48', 1),
-(17, 1, 10, 200000, '2022-04-21 04:57:49', '2022-04-21 04:57:49', 1),
-(18, 1, 10, 200000, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
-(19, 1, 10, 200000, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
-(20, 1, 10, 200000, '2022-04-21 04:57:52', '2022-04-21 04:57:52', 1),
-(21, 1, 10, 200000, '2022-04-21 04:57:53', '2022-04-21 04:57:53', 1),
-(22, 1, 10, 200000, '2022-04-21 04:57:54', '2022-04-21 04:57:54', 1),
-(23, 1, 10, 200000, '2022-04-21 04:57:55', '2022-04-21 04:57:55', 1),
-(24, 1, 10, 200000, '2022-04-21 04:57:56', '2022-04-21 04:57:56', 1),
-(25, 1, 10, 200000, '2022-04-21 04:57:57', '2022-04-21 04:57:57', 1),
-(26, 1, 10, 200000, '2022-04-21 04:57:58', '2022-04-21 04:57:58', 1),
-(27, 1, 10, 200000, '2022-04-21 04:57:59', '2022-04-21 04:57:59', 1),
-(28, 1, 10, 200000, '2022-04-21 04:58:00', '2022-04-21 04:58:00', 1),
-(29, 1, 10, 200000, '2022-04-21 04:58:01', '2022-04-21 04:58:01', 1),
-(30, 1, 10, 200000, '2022-04-21 04:58:02', '2022-04-21 04:58:02', 1),
-(31, 1, 8, 775931, '2022-04-21 04:59:23', '2022-04-21 04:59:23', 1),
-(32, 1, 0, 297877, '2022-04-21 05:00:51', '2022-04-21 05:00:51', 1),
-(33, 1, 0, 714170, '2022-04-21 05:05:00', '2022-04-21 05:05:00', 1),
-(34, 1, 0, 415604, '2022-04-21 05:05:01', '2022-04-21 05:05:01', 1),
-(35, 1, 3, 291495, '2022-04-21 05:05:02', '2022-04-21 05:05:02', 1),
-(36, 1, 1, 144579, '2022-04-21 05:05:03', '2022-04-21 05:05:03', 1);
+INSERT INTO `products` (`id`, `category_id`, `count`, `cost`, `new`, `week`, `created_at`, `updated_at`, `status_id`) VALUES
+(1, 1, 10, 200000, 1, 0, '2022-04-20 23:34:57', '2022-04-20 23:34:57', 1),
+(2, 1, 10, 200000, 1, 1, '2022-04-21 04:56:19', '2022-04-21 04:56:19', 1),
+(3, 1, 10, 200000, 1, 0, '2022-04-21 04:57:04', '2022-04-21 04:57:04', 1),
+(4, 1, 10, 200000, 0, 1, '2022-04-21 04:57:13', '2022-04-21 04:57:13', 1),
+(5, 1, 10, 200000, 0, 1, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
+(6, 1, 10, 200000, 0, 0, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
+(7, 1, 10, 200000, 0, 0, '2022-04-21 04:57:15', '2022-04-21 04:57:15', 1),
+(8, 1, 10, 200000, 0, 0, '2022-04-21 04:57:16', '2022-04-21 04:57:16', 1),
+(9, 1, 10, 200000, 0, 0, '2022-04-21 04:57:17', '2022-04-21 04:57:17', 1),
+(10, 1, 10, 200000, 0, 0, '2022-04-21 04:57:18', '2022-04-21 04:57:18', 1),
+(11, 1, 10, 200000, 0, 0, '2022-04-21 04:57:19', '2022-04-21 04:57:19', 1),
+(12, 1, 10, 200000, 0, 0, '2022-04-21 04:57:20', '2022-04-21 04:57:20', 1),
+(13, 1, 10, 200000, 0, 0, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
+(14, 1, 10, 200000, 0, 0, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
+(15, 1, 10, 200000, 0, 0, '2022-04-21 04:57:22', '2022-04-21 04:57:22', 1),
+(16, 1, 10, 200000, 0, 0, '2022-04-21 04:57:48', '2022-04-21 04:57:48', 1),
+(17, 1, 10, 200000, 0, 0, '2022-04-21 04:57:49', '2022-04-21 04:57:49', 1),
+(18, 1, 10, 200000, 0, 0, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
+(19, 1, 10, 200000, 0, 0, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
+(20, 1, 10, 200000, 0, 0, '2022-04-21 04:57:52', '2022-04-21 04:57:52', 1),
+(21, 1, 10, 200000, 0, 0, '2022-04-21 04:57:53', '2022-04-21 04:57:53', 1),
+(22, 1, 10, 200000, 0, 0, '2022-04-21 04:57:54', '2022-04-21 04:57:54', 1),
+(23, 1, 10, 200000, 0, 0, '2022-04-21 04:57:55', '2022-04-21 04:57:55', 1),
+(24, 1, 10, 200000, 0, 0, '2022-04-21 04:57:56', '2022-04-21 04:57:56', 1),
+(25, 1, 10, 200000, 0, 0, '2022-04-21 04:57:57', '2022-04-21 04:57:57', 1),
+(27, 1, 3, 200000, 0, 0, '2022-04-21 04:57:59', '2022-04-21 04:57:59', 1),
+(28, 1, 10, 200000, 0, 0, '2022-04-21 04:58:00', '2022-04-21 04:58:00', 1),
+(29, 1, 0, 200000, 0, 0, '2022-04-21 04:58:01', '2022-04-21 04:58:01', 1),
+(30, 1, 0, 200000, 0, 0, '2022-04-21 04:58:02', '2022-04-21 04:58:02', 1),
+(31, 1, 0, 775931, 0, 0, '2022-04-21 04:59:23', '2022-04-21 04:59:23', 1),
+(32, 1, 0, 297877, 0, 0, '2022-04-21 05:00:51', '2022-04-21 05:00:51', 1),
+(33, 1, 0, 714170, 0, 0, '2022-04-21 05:05:00', '2022-04-21 05:05:00', 1),
+(34, 1, 0, 415604, 0, 0, '2022-04-21 05:05:01', '2022-04-21 05:05:01', 1);
 
 -- --------------------------------------------------------
 
@@ -391,8 +471,6 @@ INSERT INTO `product_translations` (`id`, `product_id`, `locale`, `name`, `descr
 (48, 24, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
 (49, 25, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
 (50, 25, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(51, 26, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(52, 26, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
 (53, 27, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
 (54, 27, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
 (55, 28, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
@@ -408,11 +486,7 @@ INSERT INTO `product_translations` (`id`, `product_id`, `locale`, `name`, `descr
 (65, 33, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
 (66, 33, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
 (67, 34, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(68, 34, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(69, 35, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(70, 35, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(71, 36, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(72, 36, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL);
+(68, 34, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL);
 
 -- --------------------------------------------------------
 
@@ -532,6 +606,13 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` text COLLATE utf8mb4_unicode_ci,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `street` text COLLATE utf8mb4_unicode_ci,
+  `post_index` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notify` tinyint(1) NOT NULL DEFAULT '0',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -543,12 +624,20 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Andrey', 'artyshko.andrey@gmail.com', NULL, '$2y$10$dW6vLiQNv.AuLhFosXPkg.M9TxQBb6pPX7CWgpDE/46BkgtIWW/xG', 'vA20Cxs9Tn8WLFacfmYLU8Wv8B5bzl6PTeND2HiryNdDnOCfhtzH4fqfMHfQ', '2022-04-18 09:55:27', '2022-04-18 09:55:27');
+INSERT INTO `users` (`id`, `name`, `email`, `photo`, `phone`, `country`, `city`, `street`, `post_index`, `notify`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Артышко Андрей Алексеевич', 'artyshko.andrey@gmail.com', '1651313463.jpg', '89029634366', 'Россия', 'Красноярск', 'Горького 24, 25', '660099', 0, NULL, '$2y$10$TEckdESkkngl1DmobA8fIeyySJwqhiUtjh70YHvjWZPTl1f4cNw5q', 'nDjQBwGYYnEiFKCVdglgPEbpZBxiLQfEiSjkLUzu42w0NZuy7KJXIrqOk8rp', '2022-04-18 09:55:27', '2022-04-30 03:11:03');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `carts_user_id_product_id_unique` (`user_id`,`product_id`),
+  ADD KEY `carts_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `categories`
@@ -600,6 +689,21 @@ ALTER TABLE `image_products`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orders_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_items_order_id_foreign` (`order_id`),
+  ADD KEY `order_items_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -679,6 +783,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -718,7 +828,19 @@ ALTER TABLE `image_products`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -730,13 +852,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `product_translations`
 --
 ALTER TABLE `product_translations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `seos`
@@ -779,6 +901,13 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `carts`
+--
+ALTER TABLE `carts`
+  ADD CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `categories`
 --
 ALTER TABLE `categories`
@@ -801,6 +930,19 @@ ALTER TABLE `currency_translations`
 --
 ALTER TABLE `image_products`
   ADD CONSTRAINT `image_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`
