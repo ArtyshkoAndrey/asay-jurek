@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -55,6 +56,7 @@ class Order extends Model
 
   public const STATUS_NOT_PAID = 'not_paid';
   public const STATUS_PAID = 'paid';
+  public const STATUS_PREPARE = 'prepare';
   public const STATUS_CANCEL = 'cancel';
   public const STATUS_DELIVERED = 'delivered';
   public const MAP_STATUS = [
@@ -62,20 +64,34 @@ class Order extends Model
     self::STATUS_PAID,
     self::STATUS_CANCEL,
     self::STATUS_DELIVERED,
+    self::STATUS_PREPARE
   ];
   public const MAP_STATUS_TRANSLATE = [
     self::STATUS_PAID => 'Оплаченный',
     self::STATUS_CANCEL => 'Отменён',
     self::STATUS_NOT_PAID => 'Не оплаченный',
     self::STATUS_DELIVERED => 'Отправлен',
+    self::STATUS_PREPARE => 'Подтверждение'
   ];
 
   public const DELIVERY_IN_SHOP = 'in_shop';
-  public const MAP_DELIVERY = [
+  public const  MAP_DELIVERY = [
     self::DELIVERY_IN_SHOP,
   ];
+
   public const MAP_DELIVERY_TRANSLATE = [
     self::DELIVERY_IN_SHOP => 'Самовывоз',
+  ];
+
+  public const PAYMENT_METHOD_IN_SHOP = 'shop';
+  public const PAYMENT_METHOD_ONLINE = 'inline';
+  public const MAP_PAYMENT_METHODS = [
+    self::PAYMENT_METHOD_IN_SHOP,
+    self::PAYMENT_METHOD_ONLINE,
+  ];
+  public const MAP_PAYMENT_METHODS_TRANSLATE = [
+    self::PAYMENT_METHOD_IN_SHOP => 'Оплата в магазине',
+    self::PAYMENT_METHOD_ONLINE => 'Онлайн оплата',
   ];
 
   protected $fillable = [
@@ -88,6 +104,7 @@ class Order extends Model
     'payment_at',
     'promo_code',
     'sale',
+    'payment_method',
   ];
   protected $casts = [
     'payment_at' => 'date:m.d.y',
@@ -103,10 +120,9 @@ class Order extends Model
       ->count();
   }
 
-
-  public function items(): HasMany
+  public function getDeliveryTranslationAttribute(): string
   {
-    return $this->hasMany(OrderItem::class);
+    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
   }
 
   public function getStatusTranslationAttribute(): string
@@ -117,10 +133,21 @@ class Order extends Model
   /********************************************/
   /**                 RELATION                */
   /********************************************/
-  public function getDeliveryTranslationAttribute(): string
+  public function items(): HasMany
   {
-    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
+    return $this->hasMany(OrderItem::class);
   }
+
+  public function user(): BelongsTo
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function shop(): BelongsTo
+  {
+    return $this->belongsTo(Shop::class);
+  }
+
   /********************************************/
   /**       Collection Helper Functions       */
   /********************************************/

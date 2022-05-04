@@ -18,7 +18,7 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/catalog/{category_id}', [CatalogController::class, 'index']);
 Route::get('/new-arrivals', [CatalogController::class, 'newArrivals']);
@@ -26,6 +26,7 @@ Route::get('/products-weeks', [CatalogController::class, 'newWeeks']);
 Route::get('/product/{product_id}', [ProductController::class, 'index']);
 
 Route::get('/order', [OrderController::class, 'index']);
+Route::post('/order/create', [OrderController::class, 'create']);
 
 Route::middleware('auth')->group(function () {
   Route::post('/user/cart', [ProductController::class, 'userCart']);

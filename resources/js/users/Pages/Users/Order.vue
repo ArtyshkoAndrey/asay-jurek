@@ -87,9 +87,51 @@
           </div>
         </div>
 
+        <!-- ТИП ОПЛАТЫ - Выбрать в магазине оптала или онлайн эквайринг-->
+
+        <div v-if="orderForm.type_delivery" class="row">
+          <div class="col-12">
+            <h2>Тип Оплаты</h2>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input id="payment_method_online"
+                     v-model="orderForm.payment_method"
+                     class="form-check-input"
+                     disabled
+                     name="payment_method"
+                     type="radio"
+                     value="online"
+              >
+              <label class="form-check-label"
+                     for="payment_method_online"
+              >
+                Оплатить онлайн
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input id="payment_method_shop"
+                     v-model="orderForm.payment_method"
+                     class="form-check-input"
+                     name="payment_method"
+                     type="radio"
+                     value="shop"
+              >
+              <label class="form-check-label"
+                     for="payment_method_shop"
+              >
+                Оплата в магазине
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- ДАННЫЕ ДЛЯ ДОСТАВКИ -->
 
-        <div v-if="orderForm.type_delivery === 'delivery'"
+        <div v-if="orderForm.type_delivery === 'delivery' && orderForm.payment_method"
              class="row gx-3 gy-3"
         >
           <div class="col-12">
@@ -139,7 +181,7 @@
           </div>
         </div>
 
-        <div v-if="orderForm.type_delivery === 'in_shop'"
+        <div v-if="orderForm.type_delivery === 'in_shop' && orderForm.payment_method"
              class="row gx-3 gy-3"
         >
           <div class="col-12">
@@ -175,7 +217,8 @@
                     class="spinner-grow spinner-grow-sm"
                     role="status"
               ></span>
-              <span v-else>Подтвердить и оплатить заказ</span>
+              <span v-else-if="orderForm.payment_method === 'online'">Подтвердить и оплатить заказ</span>
+              <span v-else>Подтвердить</span>
             </button>
           </div>
         </div>
@@ -209,12 +252,18 @@ export default {
       street: null,
       post_index: null,
       shops_id: null,
-      type_delivery: null
+      type_delivery: null,
+      payment_method: null,
+
+      items: []
     })
   }),
   computed: {
     ...mapState('i18n', {
       locale: 'locale'
+    }),
+    ...mapState('cart', {
+      products: 'products'
     }),
     user() {
       return this.$page.props.auth.user ?? false
@@ -235,12 +284,13 @@ export default {
         return !!(this.isEmpty(order.name) ||
           this.isEmpty(order.email) ||
           this.isEmpty(order.phone) ||
+          this.isEmpty(order.payment_method) ||
           this.isEmpty(order.shops_id))
       } else if (order.type_delivery === 'delivery') {
         return true
       }
       return true
-    }
+    },
   },
   mounted() {
     if (this.user) {
@@ -263,7 +313,9 @@ export default {
         country: this.user.country,
         city: this.user.city,
         street: this.user.street,
-        post_index: this.user.post_index
+        post_index: this.user.post_index,
+
+        items: this.products
       })
       this.orderForm.reset()
     },
@@ -275,6 +327,8 @@ export default {
     },
     createOrder() {
       this.orderForm.post('/order/create', {
+        preserveState: true,
+        preserveScroll: true,
         onStart: () => {
           new bs5.Toast({
             body: 'Ваш заказ создаётся, пожалуйста ожидайте',
@@ -283,6 +337,30 @@ export default {
             autohide: true,
             delay: 3000
           }).show()
+        },
+        onError: () => {
+          if (this.orderForm.errors.items) {
+            if (this.orderForm.errors.items === 'max-value') {
+              new bs5.Toast({
+                body: 'В корзине имеется товар превышаюший кол-во в наличие',
+                className: 'border-0 bg-danger text-white',
+                btnCloseWhite: true,
+                autohide: true,
+                delay: 3000
+              }).show()
+            } else {
+              new bs5.Toast({
+                body: 'В Вашем заказе нет товаров, или их колличество миньше нуля ',
+                className: 'border-0 bg-danger text-white',
+                btnCloseWhite: true,
+                autohide: true,
+                delay: 3000
+              }).show()
+            }
+          }
+        },
+        onFinish: () => {
+          console.log(this.orderForm)
         }
       })
     }
