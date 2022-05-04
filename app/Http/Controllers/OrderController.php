@@ -28,6 +28,7 @@ class OrderController extends Controller
 
   public function create(Request $request)
   {
+    // TODO: Чистить корзину юзера
     $request->validate([
       'type_delivery' => 'required|in:' . implode(',', Order::MAP_DELIVERY),
       'items' => 'required|array',

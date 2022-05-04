@@ -236,7 +236,7 @@ import Layout from "../../Shared/Layout";
 import {useForm} from "@inertiajs/inertia-vue3";
 import MaterialField from "../../Shared/material-field";
 import bs5 from "../../plugins/bs5";
-import {mapState} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "Order",
@@ -305,6 +305,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('cart', {
+      clearCart: 'clear'
+    }),
     setDefaultDataUser() {
       this.orderForm.defaults({
         name: this.user.name,
@@ -359,8 +362,8 @@ export default {
             }
           }
         },
-        onFinish: () => {
-          console.log(this.orderForm)
+        onSuccess: () => {
+          this.clearCart();
         }
       })
     }

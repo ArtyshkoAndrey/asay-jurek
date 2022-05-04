@@ -295,6 +295,7 @@ export default {
 
               commit('addFetchProducts', products.map(e => e.product))
 
+              // TODO: Проверка перед добавлением и если товар удалился то и удалять в бд
               commit('checkCountProducts')
 
               if (payload.tooltip) {
