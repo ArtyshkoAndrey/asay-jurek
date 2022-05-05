@@ -67,7 +67,66 @@
     "Tooltips": {
       "product-add-error-count": "In the cart, the maximum number of this product",
       "cart-clear": "Your cart has been cleared",
-      "cart-remove-deleted-product": "One of the items has finished and has been removed from the cart"
+      "cart-remove-deleted-product": "One of the items has finished and has been removed from the cart",
+      "error-remove-product": "Error when deleting an item from the cart, contact the administrator",
+      "update-cart-for-user": "Your cart has been updated from your account"
     }
+  },
+  "Profile": {
+    "title": "My Profile",
+    "nullAddress": "Address not specified",
+    "nullPhone": "Phone number not provided",
+    "inputs": {
+      "password": "Password",
+      "confirm_password": "Repeat password",
+      "name": "Full name",
+      "phone": "Telephone",
+      "country": "The country",
+      "city": "City",
+      "street": "Street house",
+      "post_index": "Postcode"
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "Tooltips": {
+      "onSuccess": {
+        "loadedAvatar": "Account image updated successfully",
+        "updatePassword": "Your new password has been set",
+        "updateProfile": "Profile updated successfully"
+      },
+      "onStart": {
+        "loadingAvatar": "The image is sent to the server, wait for the download to finish"
+      },
+      "onError": {
+        "loadedAvatar": "An error occurred on the server while saving the image",
+        "updatePassword": "Password reset error",
+        "updateProfile": "Error saving user data"
+      }
+    }
+  },
+  "Profile_Orders": {
+    "title": "My order",
+    "table": {
+      "titles": {
+        "cost": "Order price",
+        "count": "Number of goods",
+        "status": "Status",
+        "payment_at": "Payment date",
+        "created_at": "Date of creation"
+      }
+    }
+  },
+  "Profile_Order": {
+    "title": "Order ",
+    "created_at": "Order creation date",
+    "status": "Order status",
+    "delivery": "Shipping Details",
+    "cost": "Total order amount",
+    "promo-code": "Promo code",
+    "null-promo-code": "Not used",
+    "sale": "Final discount",
+    "payment_at": "Payment date",
+    "null-payment_at": "Not paid"
   }
 }

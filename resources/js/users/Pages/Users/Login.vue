@@ -74,7 +74,6 @@ export default {
       this.form.submit('post', '/login', {
         preserveScroll: true,
         onSuccess: () =>  {
-          // TODO: Скачать корзину залогиненого пользователя
           this.initialCart({
             user: this.$page.props.auth.user,
             tooltip: true

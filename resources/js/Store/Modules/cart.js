@@ -253,9 +253,10 @@ export default {
               }
             })
             .catch(e => {
-              // TODO: i18n
+              const i18n = setupI18n()
+              const t = i18n.global.t
               new bs5.Toast({
-                body: 'Ошибка при удалении товара из корзины, обратитесь к администратору',
+                body: t('User.Tooltips.error-remove-product'),
                 className: 'border-0 bg-warning text-dark',
                 btnCloseWhite: false,
                 autohide: true,
@@ -271,6 +272,7 @@ export default {
 
     initialCart ({commit, state}, payload) {
       if (payload.user) {
+        commit('addFetchProducts', [])
         axios.post('/user/cart', {
           products: state.products
         })
@@ -280,11 +282,22 @@ export default {
 
               products.forEach(e => {
                 let p = e.product
-                commit('add', {
-                  id: p.id,
-                  count: e.count,
-                  rewrite: true
-                })
+                if (p.count === 0) {
+                  this.dispatch('cart/removeProduct', {
+                    id: p.id,
+                    user: payload.user
+                  })
+                  products = products.filter(e => e.product.id !== p.id)
+                } else {
+                  if (p.count < e.count) {
+                    e.count = p.count
+                  }
+                  commit('add', {
+                    id: p.id,
+                    count: e.count,
+                    rewrite: true
+                  })
+                }
               })
 
               state.products.forEach(e => {
@@ -295,13 +308,11 @@ export default {
 
               commit('addFetchProducts', products.map(e => e.product))
 
-              // TODO: Проверка перед добавлением и если товар удалился то и удалять в бд
-              commit('checkCountProducts')
-
               if (payload.tooltip) {
-                // TODO: i18n
+                const i18n = setupI18n()
+                const t = i18n.global.t
                 new bs5.Toast({
-                  body: 'Ваша корзина обновилась из аккаунта',
+                  body: t('User.Tooltips.update-cart-for-user'),
                   className: 'border-0 bg-warning text-dark',
                   btnCloseWhite: false,
                   autohide: true,

@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Notifications\Messages\MailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,20 @@ Route::middleware('auth')->group(function () {
   Route::post('/profile/update-info', [ProfileController::class, 'updateInfo']);
   Route::get('/profile/orders', [ProfileController::class, 'orders']);
   Route::get('/profile/order/{id}', [ProfileController::class, 'order']);
+});
+
+Route::get('test', function () {
+  $order = Order::orderByDesc('id')->first();
+  $user = $order->user;
+  $items = $order->items()->with('product')->get();
+  app()->setLocale('ru');
+  return (new MailMessage)
+    ->subject('Вы создали заказ на сайте ' . config('app.name'))
+    ->markdown('mail.users.order.create', [
+      'user' => $user,
+      'order' => $order,
+      'items' => $items
+    ]);
 });
 
 Auth::routes();

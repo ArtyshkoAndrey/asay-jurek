@@ -41,7 +41,6 @@ class ProfileController extends Controller
     }
     $name = time() . '.' . $file->getClientOriginalExtension();
     Image::make($file)
-      ->resize(800, 600)
       ->save(storage_path(User::PATH_PHOTO . $name));
     $user->photo = $name;
     $user->save();
@@ -78,7 +77,7 @@ class ProfileController extends Controller
   {
     $request->validate([
       'name' => 'required|string|min:6',
-      'email' => 'required|email:rfc,dns',
+      'email' => 'required|email:rfc,dns|unique:users,email,' . Auth::id(),
       'phone' => 'required|string|min:6',
       'country' => 'required|string',
       'city' => 'required|string',
@@ -107,7 +106,11 @@ class ProfileController extends Controller
     $user = Auth::user();
 
     if ($user) {
-      $orders = $user->orders->append(['count_products', 'status_translation']);
+      $orders = $user->orders()
+        ->orderByDesc('id')
+        ->take(10)
+        ->get()
+        ->append(['count_products', 'status_translation']);
 
       return Inertia::render('Users/profile/Orders', [
         'orders' => $orders

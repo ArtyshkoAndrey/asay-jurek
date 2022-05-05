@@ -12,7 +12,7 @@
                     href="/profile"
               >
                 <i class="fa-light fa-user pe-2"></i>
-                Мой профиль
+                {{ $t('Profile.title') }}
               </Link>
               <Link :class="{ 'active': $page.url.startsWith('/profile/order/') || $page.url.startsWith('/profile/orders') }"
                     aria-selected="true"
@@ -20,7 +20,7 @@
                     href="/profile/orders"
               >
                 <i class="fa-light fa-clipboard-list pe-2"></i>
-                Мои заказы
+                {{ $t('Profile_Orders.title') }}
               </Link>
             </div>
           </div>

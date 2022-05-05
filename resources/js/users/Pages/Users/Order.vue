@@ -2,7 +2,7 @@
   <section id="create-order"
            class="container mb-5"
   >
-    <div class="row">
+    <div v-if="orderForm.items.length > 0" class="row">
       <div class="col-lg-6">
 
         <!-- ДАННЫЕ ПОЛЬЗОВАТЕЛЯ -->
@@ -228,6 +228,13 @@
 
       </div>
     </div>
+    <div v-else class="row">
+      <div class="col-12 text-center text-uppercase">
+        <h2>
+          Корзина пуста
+        </h2>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -237,6 +244,7 @@ import {useForm} from "@inertiajs/inertia-vue3";
 import MaterialField from "../../Shared/material-field";
 import bs5 from "../../plugins/bs5";
 import {mapActions, mapMutations, mapState} from "vuex";
+import product from "./Product";
 
 export default {
   name: "Order",
@@ -302,6 +310,9 @@ export default {
       if (newVal !== oldVal) {
         this.orderForm.shops_id = null
       }
+    },
+    products: function (newVal) {
+      this.orderForm.items = newVal
     }
   },
   methods: {

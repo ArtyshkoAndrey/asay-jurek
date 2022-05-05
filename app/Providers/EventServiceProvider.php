@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\Currency;
 use App\Models\Category;
+use App\Observers\OrderObserver;
+use App\Observers\ProductObserver;
 use App\Observers\CurrencyObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Auth\Events\Registered;
@@ -28,9 +32,11 @@ class EventServiceProvider extends ServiceProvider
    *
    * @return void
    */
-  public function boot(): void
+  public function boot (): void
   {
     Currency::observe(CurrencyObserver::class);
     Category::observe(CategoryObserver::class);
+    Product::observe(ProductObserver::class);
+    Order::observe(OrderObserver::class);
   }
 }

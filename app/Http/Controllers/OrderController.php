@@ -12,13 +12,14 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Swift_TransportException;
-use App\Notifications\UserRegister;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\users\UserRegister;
 use Illuminate\Database\Eloquent\Collection;
+use App\Notifications\users\CreateOrderNotification;
 
 class OrderController extends Controller
 {
-  public function index(): Response
+  public function index (): Response
   {
     $shops = Shop::all();
     return Inertia::render('Users/Order', [
@@ -26,13 +27,13 @@ class OrderController extends Controller
     ]);
   }
 
-  public function create(Request $request)
+  public function create (Request $request)
   {
     // TODO: Чистить корзину юзера
     $request->validate([
       'type_delivery' => 'required|in:' . implode(',', Order::MAP_DELIVERY),
-      'items' => 'required|array',
-      'items.*.id' => 'required|exists:products,id',
+      'items'         => 'required|array',
+      'items.*.id'    => 'required|exists:products,id',
       'items.*.count' => 'required|integer|min:1',
     ]);
 
@@ -50,23 +51,23 @@ class OrderController extends Controller
 //    ЕСЛИ ЗАБЕРУТ В МАГАЗИНЕ
     if ($request->get('type_delivery') === 'in_shop') {
       $request->validate([
-        'name' => 'required|string',
-        'phone' => 'required|string',
-        'email' => 'required|email:rfc,dns',
-        'shops_id' => 'required|exists:shops,id',
+        'name'           => 'required|string',
+        'phone'          => 'required|string',
+        'email'          => 'required|email:rfc,dns',
+        'shops_id'       => 'required|exists:shops,id',
         'payment_method' => 'required|string|in:' . implode(',', Order::MAP_PAYMENT_METHODS),
       ]);
 
       $user = $this->createOrFindUser($request->all());
 
       $order = new Order([
-        'user_name' => $request->get('name'),
+        'user_name'  => $request->get('name'),
         'user_phone' => $request->get('phone'),
 
-        'cost' => 1000,
+        'cost' => 0,
 
-        'status' => Order::STATUS_PREPARE,
-        'type_delivery' => Order::DELIVERY_IN_SHOP,
+        'status'         => Order::STATUS_PREPARE,
+        'type_delivery'  => Order::DELIVERY_IN_SHOP,
         'payment_method' => $request->get('payment_method'),
       ]);
 
@@ -75,13 +76,16 @@ class OrderController extends Controller
 
       $order->save();
 
+      $cost = 0;
 //      TODO: В обшее когда буду разные типы оплаты
       foreach ($request->get('items') as $item) {
-        $product = $products->where('id', $item['id'])->first();
+
+        $product   = $products->where('id', $item['id'])->first();
         $orderItem = $order->items()->make([
           'count' => $item['count'],
-          'cost' => $product->cost
+          'cost'  => $product->cost,
         ]);
+        $cost += $product->cost * $item['count'];
 
         $orderItem->product()->associate($product);
         $orderItem->save();
@@ -90,7 +94,13 @@ class OrderController extends Controller
         $product->save();
 
       }
+      $order->cost = $cost;
+      $order->save();
+      $user->notify(new CreateOrderNotification($user, $order));
+
+      $user->cart()->delete();
     }
+
 
 
     return redirect()->route('index');
@@ -101,18 +111,18 @@ class OrderController extends Controller
    *
    * @return User|Model
    */
-  private function createOrFindUser($data)
+  private function createOrFindUser ($data)
   {
     $user = User::firstOrNew([
       'email' => $data['email'],
     ]);
 
     $user->phone = $data['phone'];
-    $user->name = $data['name'];
+    $user->name  = $data['name'];
 
     if (!$user->created_at) {
-      $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
-      $password = substr($random, 0, 10);
+      $random         = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
+      $password       = substr($random, 0, 10);
       $user->password = Hash::make($password);
       $user->save();
 
