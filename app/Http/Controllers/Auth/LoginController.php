@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -71,6 +72,7 @@ class LoginController extends Controller
 
   public function logout(Request $request)
   {
+//    dd(123);
     $this->guard()->logout();
 
     $request->session()->invalidate();
@@ -81,6 +83,9 @@ class LoginController extends Controller
         return null;
     });
 
+    if ($request->get('is_admin')) {
+      return Inertia::location('/');
+    }
     if ($response = $this->loggedOut($request)) {
       return $response;
     }

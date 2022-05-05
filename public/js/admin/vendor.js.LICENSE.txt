@@ -26,6 +26,13 @@
   */
 
 /*!
+ * Chart.js v3.7.1
+ * https://www.chartjs.org
+ * (c) 2022 Chart.js Contributors
+ * Released under the MIT License
+ */
+
+/*!
  * Sizzle CSS Selector Engine v2.3.6
  * https://sizzlejs.com/
  *
@@ -49,14 +56,6 @@
  *
  * Date: 2021-03-02T17:08Z
  */
-
-/*!
- * vuex v4.0.2
- * (c) 2021 Evan You
- * @license MIT
- */
-
-/*! (c) 2020 Andrea Giammarchi */
 
 /**
  * @license

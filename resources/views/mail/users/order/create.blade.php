@@ -17,7 +17,8 @@
     @endforeach
   @endcomponent
   <div align="right">
-    Итого к оплате: <strong>{{ number_format($order->cost, 0, ',', ' ') }} ₸</strong>
+    Итого к оплате: <strong>{{ number_format($order->cost, 0, ',', ' ') }}
+      ₸</strong>
   </div>
 
   @component('mail::button', ['url' => url('profile/order/' . $order->id)])

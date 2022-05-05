@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
+use File;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ImageProduct;
 
 class ProductObserver
 {

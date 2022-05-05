@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Hash;
 use Inertia\Inertia;
 use App\Models\User;
 use Inertia\Response;
 use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +17,7 @@ use Illuminate\Auth\AuthenticationException;
 class ProfileController extends Controller
 {
 
-  public function index(): Response
+  public function index (): Response
   {
     $user = Auth::user();
     return Inertia::render('Users/profile/Index', [
@@ -28,11 +28,11 @@ class ProfileController extends Controller
   public function uploadPhoto (Request $request): RedirectResponse
   {
     $request->validate([
-      'photo' => 'required',
+      'photo'   => 'required',
       'user_id' => 'required|exists:users,id',
     ]);
 
-    $file = $request->file('photo');
+    $file    = $request->file('photo');
     $user_id = $request->get('user_id');
 
     $user = User::find($user_id);
@@ -49,59 +49,57 @@ class ProfileController extends Controller
   }
 
   /**
-   * @throws AuthenticationException
+   *
    */
   public function updatePassword (Request $request): RedirectResponse
   {
     $request->validate([
-      'password' => 'required|string|min:6',
-      'confirm_password' => 'required|string|min:6'
+      'password'         => 'required|string|min:6',
+      'confirm_password' => 'required|string|min:6',
     ]);
 
     $user = Auth::user();
 
     if ($user) {
-      $user->password = \Hash::make($request->get('password'));
+      $user->password = Hash::make($request->get('password'));
       $user->save();
 
       return redirect()->route('profile.index');
     }
 
-    throw new AuthenticationException();
+    return redirect()->route('index');
   }
 
   /**
-   * @throws AuthenticationException
+   *
    */
   public function updateInfo (Request $request): RedirectResponse
   {
     $request->validate([
-      'name' => 'required|string|min:6',
-      'email' => 'required|email:rfc,dns|unique:users,email,' . Auth::id(),
-      'phone' => 'required|string|min:6',
-      'country' => 'required|string',
-      'city' => 'required|string',
-      'street' => 'required|string',
+      'name'       => 'required|string|min:6',
+      'email'      => 'required|email:rfc,dns|unique:users,email,' . Auth::id(),
+      'phone'      => 'required|string|min:6',
+      'country'    => 'required|string',
+      'city'       => 'required|string',
+      'street'     => 'required|string',
       'post_index' => 'required|string',
     ]);
 
     $user = Auth::user();
     if ($user) {
-      $user->update(
-        $request->all()
-      );
+      $user->update($request->all());
       $user->save();
       return redirect()->route('profile.index');
     }
 
-    throw new AuthenticationException();
+    return redirect()->route('index');
 
   }
 
   /**
    * @throws AuthenticationException
    */
-  public function orders(): Response
+  public function orders (): Response
   {
     $user = Auth::user();
 
@@ -110,10 +108,13 @@ class ProfileController extends Controller
         ->orderByDesc('id')
         ->take(10)
         ->get()
-        ->append(['count_products', 'status_translation']);
+        ->append([
+          'count_products',
+          'status_translation',
+        ]);
 
       return Inertia::render('Users/profile/Orders', [
-        'orders' => $orders
+        'orders' => $orders,
       ]);
     }
 
@@ -128,11 +129,17 @@ class ProfileController extends Controller
       return abort(404);
     }
 
-    $order->load(['items', 'items.product']);
-    $order->append(['delivery_translation', 'status_translation']);
+    $order->load([
+      'items',
+      'items.product',
+    ]);
+    $order->append([
+      'delivery_translation',
+      'status_translation',
+    ]);
 
     return Inertia::render('Users/profile/Order', [
-      'order' => $order
+      'order' => $order,
     ]);
   }
 }

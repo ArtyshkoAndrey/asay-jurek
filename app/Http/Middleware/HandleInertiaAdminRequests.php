@@ -44,12 +44,7 @@ class HandleInertiaAdminRequests extends Middleware
    */
   public function share(Request $request): array
   {
-    $url = $request->getPathInfo();
-    $seo = $this->getSeo($url);
     return array_merge(parent::share($request), [
-      'seo' => $seo,
-      'locale' => app()->getLocale(),
-      'menu.categories' => $this->getCategories(),
       'auth.user' => function () use ($request) {
         if ($request->user()) {
           return $request->user()->only('id', 'name', 'email');
@@ -60,33 +55,4 @@ class HandleInertiaAdminRequests extends Middleware
     ]);
   }
 
-  private function getSeo(string $url): Seo
-  {
-    $seo = Seo::whereUrl($url)->first();
-    if ($seo) {
-      return $seo;
-    }
-    return new Seo([
-      'url' => $url,
-      'title' => 'Asay Jurek',
-      'description' => 'Попросите администратора заполнить сео',
-      'meta_description' => 'Попросите администратора заполнить сео',
-    ]);
-  }
-
-  private function getUser(): ?\App\Models\User
-  {
-    if (Auth::user()) {
-      return Auth::user();
-    }
-
-    return null;
-  }
-
-  private function getCategories ()
-  {
-    return Cache::remember(config('custom-cache.categories_menu'), 60*60*12, static function() {
-      return Category::with('childs')->where('parent_id', null)->get();
-    });
-  }
 }

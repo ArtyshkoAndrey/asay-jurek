@@ -86,6 +86,7 @@ class User extends Authenticatable
     'notify',
     'post_index',
     'password',
+    'is_admin',
   ];
   /**
    * The attributes that should be hidden for serialization.
@@ -95,6 +96,7 @@ class User extends Authenticatable
   protected $hidden = [
     'password',
     'remember_token',
+    'is_admin',
   ];
   /**
    * The attributes that should be cast.
@@ -103,7 +105,8 @@ class User extends Authenticatable
    */
   protected $casts = [
     'email_verified_at' => 'datetime',
-    'notify' => 'boolean',
+    'notify'            => 'boolean',
+    'is_admin'          => 'boolean',
   ];
 
   protected $appends = [
@@ -115,7 +118,7 @@ class User extends Authenticatable
   /**                 ATTRIBUTES              */
   /********************************************/
 
-  public function getUrlAttribute(): ?string
+  public function getUrlAttribute (): ?string
   {
     if ($this->photo) {
       return url('storage/users/' . $this->photo);
@@ -124,7 +127,7 @@ class User extends Authenticatable
     return null;
   }
 
-  public function getAddressAttribute(): ?string
+  public function getAddressAttribute (): ?string
   {
     if ($this->street) {
       return $this->country . ', ' . $this->city . ', ' . $this->street . ', ' . $this->post_index;
@@ -137,12 +140,12 @@ class User extends Authenticatable
   /**                 RELATION                */
   /********************************************/
 
-  public function cart(): HasMany
+  public function cart (): HasMany
   {
     return $this->hasMany(Cart::class);
   }
 
-  public function orders(): HasMany
+  public function orders (): HasMany
   {
     return $this->hasMany(Order::class);
   }
@@ -152,12 +155,12 @@ class User extends Authenticatable
   /**       Collection Helper Functions       */
   /********************************************/
 
-  public function cartProducts(): \Illuminate\Support\Collection
+  public function cartProducts (): \Illuminate\Support\Collection
   {
     return $this->cart->map(function (Cart $cart) {
       return [
         'product' => $cart->product,
-        'count' => $cart->count,
+        'count'   => $cart->count,
       ];
     });
   }

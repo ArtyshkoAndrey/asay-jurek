@@ -304,6 +304,8 @@ export default {
     if (this.user) {
       this.setDefaultDataUser()
     }
+    this.orderForm.items = this.products
+
   },
   watch: {
     'orderForm.type_delivery': function (newVal, oldVal) {
@@ -328,8 +330,6 @@ export default {
         city: this.user.city,
         street: this.user.street,
         post_index: this.user.post_index,
-
-        items: this.products
       })
       this.orderForm.reset()
     },

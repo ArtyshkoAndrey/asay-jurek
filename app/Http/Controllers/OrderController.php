@@ -10,6 +10,7 @@ use App\Models\User;
 use Inertia\Response;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Swift_TransportException;
 use Illuminate\Database\Eloquent\Model;
@@ -42,9 +43,11 @@ class OrderController extends Controller
       $product = Product::findOrFail($item['id']);
       $products->push($product);
       if ($product->count < $item['count']) {
-        return redirect()->back()->withErrors([
-          'items' => 'max-value',
-        ]);
+        return redirect()
+          ->back()
+          ->withErrors([
+            'items' => 'max-value',
+          ]);
       }
     }
 
@@ -71,8 +74,10 @@ class OrderController extends Controller
         'payment_method' => $request->get('payment_method'),
       ]);
 
-      $order->user()->associate($user);
-      $order->shop()->associate($request->get('shops_id'));
+      $order->user()
+        ->associate($user);
+      $order->shop()
+        ->associate($request->get('shops_id'));
 
       $order->save();
 
@@ -80,14 +85,20 @@ class OrderController extends Controller
 //      TODO: В обшее когда буду разные типы оплаты
       foreach ($request->get('items') as $item) {
 
-        $product   = $products->where('id', $item['id'])->first();
-        $orderItem = $order->items()->make([
-          'count' => $item['count'],
-          'cost'  => $product->cost,
-        ]);
+        $product   = $products->where('id', $item['id'])
+          ->first();
+        $orderItem = $order->items()
+          ->make([
+            'count' => $item['count'],
+            'cost'  => $product->cost,
+          ]);
+
         $cost += $product->cost * $item['count'];
 
-        $orderItem->product()->associate($product);
+
+        /** @var OrderItem $orderItem */
+        $orderItem->product()
+          ->associate($product);
         $orderItem->save();
 
         $product->count -= $item['count'];
@@ -96,11 +107,15 @@ class OrderController extends Controller
       }
       $order->cost = $cost;
       $order->save();
-      $user->notify(new CreateOrderNotification($user, $order));
+      try {
+        $user->notify(new CreateOrderNotification($user, $order));
+      } catch (Swift_TransportException $e) {
+        \Log::critical('Dont send Email');
+      }
 
-      $user->cart()->delete();
+      $user->cart()
+        ->delete();
     }
-
 
 
     return redirect()->route('index');
@@ -130,7 +145,7 @@ class OrderController extends Controller
       try {
         $user->notify(new UserRegister($user, $password));
       } catch (Swift_TransportException $e) {
-
+        \Log::critical('Dont send Email');
       }
     }
     $user->save();

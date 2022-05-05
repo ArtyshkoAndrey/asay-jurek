@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Fruitcake\Cors\HandleCors;
+use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\setLocale;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\Authenticate;
@@ -74,6 +75,7 @@ class Kernel extends HttpKernel
       VerifyCsrfToken::class,
       SubstituteBindings::class,
       HandleInertiaAdminRequests::class,
+      IsAdmin::class
     ],
 
     'api' => [

@@ -1,0 +1,78 @@
+@import "bootstrap/scss/functions";
+// Required
+
+@import "bootstrap/scss/variables"; // Required
+
+$link-color: #000;
+$link-hover-color: #4c4c4c;
+
+
+@import "bootstrap/scss/mixins"; // Required
+@import "bootstrap/scss/utilities"; // Required
+
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// Helpers
+@import "bootstrap/scss/helpers";
+
+// Utilities
+@import "bootstrap/scss/utilities/api";
+@import "Sidebar";
+
+
+.nav-link {
+  color: $link-color;
+  font-weight: 400!important;
+
+  &.active, &:hover {
+    color: $link-hover-color;
+  }
+}
+
+.navbar-toggler, .navbar-toggler:focus {
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.toast {
+  border-radius: 0;
+
+  .toast-header {
+    border-radius: 0;
+  }
+}
+
+a {
+  text-decoration: none;
+}
