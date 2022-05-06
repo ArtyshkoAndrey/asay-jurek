@@ -84,7 +84,8 @@ class Order extends Model
   ];
 
   public const PAYMENT_METHOD_IN_SHOP = 'shop';
-  public const PAYMENT_METHOD_ONLINE = 'inline';
+  public const PAYMENT_METHOD_ONLINE  = 'online';
+
   public const MAP_PAYMENT_METHODS = [
     self::PAYMENT_METHOD_IN_SHOP,
     self::PAYMENT_METHOD_ONLINE,
