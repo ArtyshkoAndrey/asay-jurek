@@ -54,28 +54,35 @@ class Order extends Model
 {
   use HasFactory;
 
-  public const STATUS_NOT_PAID = 'not_paid';
-  public const STATUS_PAID = 'paid';
-  public const STATUS_PREPARE = 'prepare';
-  public const STATUS_CANCEL = 'cancel';
+  public const STATUS_NOT_PAID  = 'not_paid';
+  public const STATUS_PREPARE   = 'prepare';
+  public const STATUS_CANCEL    = 'cancel';
   public const STATUS_DELIVERED = 'delivered';
+  public const STATUS_SUCCESS   = 'success';
+
   public const MAP_STATUS = [
     self::STATUS_NOT_PAID,
-    self::STATUS_PAID,
     self::STATUS_CANCEL,
     self::STATUS_DELIVERED,
-    self::STATUS_PREPARE
+    self::STATUS_PREPARE,
+    self::STATUS_SUCCESS,
   ];
+  
   public const MAP_STATUS_TRANSLATE = [
-    self::STATUS_PAID => 'Оплаченный',
-    self::STATUS_CANCEL => 'Отменён',
-    self::STATUS_NOT_PAID => 'Не оплаченный',
+    self::STATUS_CANCEL    => 'Отменён',
+    // Огда отменили заказ
+    self::STATUS_NOT_PAID  => 'Не оплаченный',
+    // Когда создали заказ но не оплатили и автоматически отвенится
     self::STATUS_DELIVERED => 'Отправлен',
-    self::STATUS_PREPARE => 'Подтверждение'
+    // После подверждения либо отправлен в доставку или выполнен
+    self::STATUS_PREPARE   => 'Подтверждение',
+    // После оплаты стоит на подвержлдении, админы собирают заказ
+    self::STATUS_SUCCESS   => 'Выполнен'
+    // Отдали заказ
   ];
 
-  public const DELIVERY_IN_SHOP = 'in_shop';
-  public const  MAP_DELIVERY = [
+  public const  DELIVERY_IN_SHOP = 'in_shop';
+  public const  MAP_DELIVERY     = [
     self::DELIVERY_IN_SHOP,
   ];
 
@@ -90,9 +97,10 @@ class Order extends Model
     self::PAYMENT_METHOD_IN_SHOP,
     self::PAYMENT_METHOD_ONLINE,
   ];
+
   public const MAP_PAYMENT_METHODS_TRANSLATE = [
     self::PAYMENT_METHOD_IN_SHOP => 'Оплата в магазине',
-    self::PAYMENT_METHOD_ONLINE => 'Онлайн оплата',
+    self::PAYMENT_METHOD_ONLINE  => 'Онлайн оплата',
   ];
 
   protected $fillable = [
@@ -107,7 +115,7 @@ class Order extends Model
     'sale',
     'payment_method',
   ];
-  protected $casts = [
+  protected $casts    = [
     'payment_at' => 'date:d.m.y',
     'created_at' => 'date:d.m.y',
   ];
@@ -115,42 +123,43 @@ class Order extends Model
   protected $appends = [
     'count_products',
     'delivery_translation',
-    'status_translation'
+    'status_translation',
   ];
 
   /********************************************/
   /**                 ATTRIBUTES              */
   /********************************************/
-  public function getCountProductsAttribute(): int
+  public function getCountProductsAttribute (): int
   {
     return $this->items()
       ->count();
   }
 
-  public function getDeliveryTranslationAttribute(): string
+
+  public function items (): HasMany
   {
-    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
+    return $this->hasMany(OrderItem::class);
   }
 
-  public function getStatusTranslationAttribute(): string
+  public function getDeliveryTranslationAttribute (): string
   {
-    return self::MAP_STATUS_TRANSLATE[$this->status];
+    return self::MAP_DELIVERY_TRANSLATE[$this->type_delivery];
   }
 
   /********************************************/
   /**                 RELATION                */
   /********************************************/
-  public function items(): HasMany
+  public function getStatusTranslationAttribute (): string
   {
-    return $this->hasMany(OrderItem::class);
+    return self::MAP_STATUS_TRANSLATE[$this->status];
   }
 
-  public function user(): BelongsTo
+  public function user (): BelongsTo
   {
     return $this->belongsTo(User::class);
   }
 
-  public function shop(): BelongsTo
+  public function shop (): BelongsTo
   {
     return $this->belongsTo(Shop::class);
   }
