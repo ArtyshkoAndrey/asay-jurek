@@ -107,8 +107,14 @@ class Order extends Model
     'payment_method',
   ];
   protected $casts = [
-    'payment_at' => 'date:m.d.y',
-    'created_at' => 'date:m.d.y',
+    'payment_at' => 'date:d.m.y',
+    'created_at' => 'date:d.m.y',
+  ];
+
+  protected $appends = [
+    'count_products',
+    'delivery_translation',
+    'status_translation'
   ];
 
   /********************************************/
