@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 03, 2022 at 09:13 PM
--- Server version: 5.7.34
--- PHP Version: 7.4.21
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 06, 2022 at 12:53 PM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_id`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 25, 6, '2022-04-30 02:01:23', '2022-04-30 02:01:23');
+(25, 5, 51, 1, '2022-05-05 09:11:34', '2022-05-05 09:11:34');
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,7 @@ CREATE TABLE `currencies` (
   `short_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `symbol` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `default` tinyint(1) NOT NULL DEFAULT '0',
-  `value` double(10,3) NOT NULL DEFAULT '1.000',
+  `value` double(10,5) NOT NULL DEFAULT '1.00000',
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -112,9 +112,9 @@ CREATE TABLE `currencies` (
 --
 
 INSERT INTO `currencies` (`id`, `short_name`, `symbol`, `default`, `value`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'KZT', '₸', 0, 1.000, NULL, '2022-04-14 07:15:47', '2022-04-21 03:49:09'),
-(2, 'RUB', '₽', 1, 2.000, NULL, '2022-04-14 15:19:24', '2022-04-21 03:49:09'),
-(3, 'USD', '$', 0, 0.053, NULL, '2022-04-15 10:51:38', '2022-04-21 03:49:09');
+(1, 'KZT', '₸', 0, 1.00000, NULL, '2022-04-14 07:15:47', '2022-04-21 03:49:09'),
+(2, 'RUB', '₽', 1, 0.15026, NULL, '2022-04-14 15:19:24', '2022-05-05 08:49:11'),
+(3, 'USD', '$', 0, 0.00234, NULL, '2022-04-15 10:51:38', '2022-05-05 08:49:11');
 
 -- --------------------------------------------------------
 
@@ -179,43 +179,36 @@ CREATE TABLE `image_products` (
 --
 
 INSERT INTO `image_products` (`id`, `owner_name`, `local_name`, `bites`, `alt`, `product_id`, `created_at`, `updated_at`) VALUES
-(1, 'image 9.png', 'image 9.png', 741000, 'image 9.png', 1, '2022-04-21 06:50:14', '2022-04-21 06:50:14'),
-(2, 'ZYBambVKxE.png', 'ZYBambVKxE.png', 741807, 'ZYBambVKxE.png', 2, '2022-04-21 04:56:19', '2022-04-21 04:56:19'),
-(3, '7fc1pBuSPs.png', '7fc1pBuSPs.png', 741807, '7fc1pBuSPs.png', 3, '2022-04-21 04:57:04', '2022-04-21 04:57:04'),
-(4, '0TuzMit5fZ.png', '0TuzMit5fZ.png', 741807, '0TuzMit5fZ.png', 4, '2022-04-21 04:57:13', '2022-04-21 04:57:13'),
-(5, 'D6Jkb3vzdP.png', 'D6Jkb3vzdP.png', 741807, 'D6Jkb3vzdP.png', 5, '2022-04-21 04:57:14', '2022-04-21 04:57:14'),
-(6, 'Wwm8RRJAxS.png', 'Wwm8RRJAxS.png', 741807, 'Wwm8RRJAxS.png', 6, '2022-04-21 04:57:14', '2022-04-21 04:57:14'),
-(7, 'tFrTrnv9Ul.png', 'tFrTrnv9Ul.png', 741807, 'tFrTrnv9Ul.png', 7, '2022-04-21 04:57:15', '2022-04-21 04:57:15'),
-(8, 'YAvHNCxq1X.png', 'YAvHNCxq1X.png', 741807, 'YAvHNCxq1X.png', 8, '2022-04-21 04:57:16', '2022-04-21 04:57:16'),
-(9, 'K8pzKkEZUO.png', 'K8pzKkEZUO.png', 741807, 'K8pzKkEZUO.png', 9, '2022-04-21 04:57:17', '2022-04-21 04:57:17'),
-(10, 'ODyohxDZOn.png', 'ODyohxDZOn.png', 741807, 'ODyohxDZOn.png', 10, '2022-04-21 04:57:18', '2022-04-21 04:57:18'),
-(11, 'xuphEa8jWt.png', 'xuphEa8jWt.png', 741807, 'xuphEa8jWt.png', 11, '2022-04-21 04:57:19', '2022-04-21 04:57:19'),
-(12, 'Y4kG4r4W6g.png', 'Y4kG4r4W6g.png', 741807, 'Y4kG4r4W6g.png', 12, '2022-04-21 04:57:20', '2022-04-21 04:57:20'),
-(13, 'PmJ78kkclp.png', 'PmJ78kkclp.png', 741807, 'PmJ78kkclp.png', 13, '2022-04-21 04:57:20', '2022-04-21 04:57:21'),
-(14, 'L5cy6NqQfS.png', 'L5cy6NqQfS.png', 741807, 'L5cy6NqQfS.png', 14, '2022-04-21 04:57:21', '2022-04-21 04:57:21'),
-(15, '4xHDmmRR8r.png', '4xHDmmRR8r.png', 741807, '4xHDmmRR8r.png', 15, '2022-04-21 04:57:22', '2022-04-21 04:57:22'),
-(16, 'isHG6MghjD.png', 'isHG6MghjD.png', 741807, 'isHG6MghjD.png', 16, '2022-04-21 04:57:48', '2022-04-21 04:57:48'),
-(17, 'D5N6sfBVrr.png', 'D5N6sfBVrr.png', 741807, 'D5N6sfBVrr.png', 17, '2022-04-21 04:57:49', '2022-04-21 04:57:49'),
-(18, 'qd611B9BOS.png', 'qd611B9BOS.png', 741807, 'qd611B9BOS.png', 18, '2022-04-21 04:57:50', '2022-04-21 04:57:51'),
-(19, '0cfc9JJ7zI.png', '0cfc9JJ7zI.png', 741807, '0cfc9JJ7zI.png', 19, '2022-04-21 04:57:51', '2022-04-21 04:57:51'),
-(20, '2x6ojLY3Un.png', '2x6ojLY3Un.png', 741807, '2x6ojLY3Un.png', 20, '2022-04-21 04:57:52', '2022-04-21 04:57:52'),
-(21, 'ZVPcmYkpBE.png', 'ZVPcmYkpBE.png', 741807, 'ZVPcmYkpBE.png', 21, '2022-04-21 04:57:53', '2022-04-21 04:57:53'),
-(22, 'sMyywfxjbO.png', 'sMyywfxjbO.png', 741807, 'sMyywfxjbO.png', 22, '2022-04-21 04:57:54', '2022-04-21 04:57:54'),
-(23, 'LizekQSsXX.png', 'LizekQSsXX.png', 741807, 'LizekQSsXX.png', 23, '2022-04-21 04:57:55', '2022-04-21 04:57:55'),
-(24, 'EnwWXSCfD9.png', 'EnwWXSCfD9.png', 741807, 'EnwWXSCfD9.png', 24, '2022-04-21 04:57:56', '2022-04-21 04:57:56'),
-(25, 'Bipm33dUx9.png', 'Bipm33dUx9.png', 741807, 'Bipm33dUx9.png', 25, '2022-04-21 04:57:57', '2022-04-21 04:57:57'),
-(26, 'YXzSGdvsQj.png', 'YXzSGdvsQj.png', 741807, 'YXzSGdvsQj.png', NULL, '2022-04-21 04:57:58', '2022-04-21 04:57:58'),
-(27, '63LmIrNKmu.png', '63LmIrNKmu.png', 741807, '63LmIrNKmu.png', 27, '2022-04-21 04:57:59', '2022-04-21 04:57:59'),
-(28, 'vc5Pbia80x.png', 'vc5Pbia80x.png', 741807, 'vc5Pbia80x.png', 28, '2022-04-21 04:58:00', '2022-04-21 04:58:00'),
-(29, 'xm8SEkNQeS.png', 'xm8SEkNQeS.png', 741807, 'xm8SEkNQeS.png', 29, '2022-04-21 04:58:01', '2022-04-21 04:58:01'),
-(30, 'H4TiGQzN0d.png', 'H4TiGQzN0d.png', 741807, 'H4TiGQzN0d.png', 30, '2022-04-21 04:58:02', '2022-04-21 04:58:02'),
-(31, 'OWv5BF6A5D.png', 'OWv5BF6A5D.png', 741807, 'OWv5BF6A5D.png', 31, '2022-04-21 04:59:23', '2022-04-21 04:59:23'),
-(32, 'S5jtEO7Y5Y.png', 'S5jtEO7Y5Y.png', 741807, 'S5jtEO7Y5Y.png', 32, '2022-04-21 05:00:51', '2022-04-21 05:00:51'),
-(33, '1TvD9pX9ZC.png', '1TvD9pX9ZC.png', 741807, '1TvD9pX9ZC.png', 33, '2022-04-21 05:05:00', '2022-04-21 05:05:00'),
-(34, 'ACa84p57Yo.png', 'ACa84p57Yo.png', 741807, 'ACa84p57Yo.png', 34, '2022-04-21 05:05:01', '2022-04-21 05:05:01'),
-(35, 'lmGHwOaZqD.png', 'lmGHwOaZqD.png', 741807, 'lmGHwOaZqD.png', NULL, '2022-04-21 05:05:02', '2022-04-21 05:05:02'),
-(36, 'Gr00jtFMBG.png', 'Gr00jtFMBG.png', 741807, 'Gr00jtFMBG.png', NULL, '2022-04-21 05:05:03', '2022-04-21 05:05:03'),
-(38, 'test.png', 'test.png', 741807, 'test.png', NULL, '2022-04-21 04:57:57', '2022-04-21 04:57:57');
+(42, 'F59Jq20lQx.png', 'F59Jq20lQx.png', 3027579, 'F59Jq20lQx.png', 38, '2022-05-05 09:09:49', '2022-05-05 09:09:49'),
+(43, 'zKbiup9GXa.png', 'zKbiup9GXa.png', 3027579, 'zKbiup9GXa.png', 39, '2022-05-05 09:09:50', '2022-05-05 09:09:50'),
+(44, '8ehsHfnqsI.png', '8ehsHfnqsI.png', 3027579, '8ehsHfnqsI.png', 40, '2022-05-05 09:09:51', '2022-05-05 09:09:51'),
+(45, '1h6pIONuyW.png', '1h6pIONuyW.png', 3027579, '1h6pIONuyW.png', 41, '2022-05-05 09:09:51', '2022-05-05 09:09:52'),
+(46, 'MDy3AfjW5u.png', 'MDy3AfjW5u.png', 3027579, 'MDy3AfjW5u.png', 42, '2022-05-05 09:09:52', '2022-05-05 09:09:53'),
+(47, 'jquB9y6Xgc.png', 'jquB9y6Xgc.png', 3027579, 'jquB9y6Xgc.png', 43, '2022-05-05 09:09:53', '2022-05-05 09:09:53'),
+(48, '4x4AlUzNLl.png', '4x4AlUzNLl.png', 3027579, '4x4AlUzNLl.png', 44, '2022-05-05 09:09:54', '2022-05-05 09:09:54'),
+(49, 'BzDkdIn7AG.png', 'BzDkdIn7AG.png', 3027579, 'BzDkdIn7AG.png', 45, '2022-05-05 09:09:55', '2022-05-05 09:09:55'),
+(50, 'Vc77fIMIRP.png', 'Vc77fIMIRP.png', 3027579, 'Vc77fIMIRP.png', 46, '2022-05-05 09:09:56', '2022-05-05 09:09:56'),
+(51, 'ZgTs8JQcbZ.png', 'ZgTs8JQcbZ.png', 3027579, 'ZgTs8JQcbZ.png', 47, '2022-05-05 09:09:57', '2022-05-05 09:09:57'),
+(52, '9xZJUaB2er.png', '9xZJUaB2er.png', 3027579, '9xZJUaB2er.png', 48, '2022-05-05 09:09:58', '2022-05-05 09:09:58'),
+(53, 'fu9wGmGsGA.png', 'fu9wGmGsGA.png', 3027579, 'fu9wGmGsGA.png', 49, '2022-05-05 09:09:58', '2022-05-05 09:09:58'),
+(54, 'efP1sa0G9k.png', 'efP1sa0G9k.png', 3027579, 'efP1sa0G9k.png', 50, '2022-05-05 09:09:59', '2022-05-05 09:09:59'),
+(55, 'nWEj77fpU8.png', 'nWEj77fpU8.png', 3027579, 'nWEj77fpU8.png', 51, '2022-05-05 09:10:00', '2022-05-05 09:10:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -258,7 +251,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (38, '2022_04_27_171743_add_user_columns_table', 13),
 (39, '2022_04_30_103455_create_orders_table', 14),
 (40, '2022_04_30_104008_create_order_items_table', 15),
-(41, '2022_05_01_151801_add_new_product_table', 16);
+(41, '2022_05_01_151801_add_new_product_table', 16),
+(42, '2022_05_03_141901_create_shops_table', 17),
+(43, '2022_05_03_141918_create_shop_translations_table', 17),
+(45, '2022_05_04_125744_add_column_order_tabled', 18),
+(46, '2022_05_04_133929_update_column_order_tabled', 19),
+(47, '2022_05_04_140127_add_column_shop_order_tabled', 20),
+(48, '2022_05_05_150256_create_jobs_table', 21),
+(49, '2022_05_05_163456_add_is_admin_user_table', 22);
 
 -- --------------------------------------------------------
 
@@ -270,7 +270,7 @@ CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_address` text COLLATE utf8mb4_unicode_ci,
   `user_phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `cost` int(11) NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -278,17 +278,51 @@ CREATE TABLE `orders` (
   `payment_at` date DEFAULT NULL,
   `promo_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sale` int(11) NOT NULL DEFAULT '0',
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'shop',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `shop_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `user_name`, `user_address`, `user_phone`, `cost`, `status`, `type_delivery`, `payment_at`, `promo_code`, `sale`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'cancel', 'in_shop', '2022-04-30', NULL, 0, '2022-04-30 12:36:39', '2022-04-30 12:36:39'),
-(2, 1, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'delivered', 'in_shop', '2022-04-30', NULL, 0, '2022-04-30 12:36:39', '2022-04-30 12:36:39');
+INSERT INTO `orders` (`id`, `user_id`, `user_name`, `user_address`, `user_phone`, `cost`, `status`, `type_delivery`, `payment_at`, `promo_code`, `sale`, `payment_method`, `created_at`, `updated_at`, `shop_id`) VALUES
+(1, NULL, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'cancel', 'in_shop', '2022-04-30', NULL, 0, 'shop', '2022-06-16 12:36:39', '2022-04-30 12:36:39', 1),
+(2, NULL, 'Артышко Андрей', 'Россия Красноярск Горького 24.  660099', '+79029634366', 10000, 'delivered', 'in_shop', '2022-04-30', NULL, 0, 'shop', '2022-04-30 12:36:39', '2022-04-30 12:36:39', 1),
+(4, NULL, 'Артышко Андрей Алексеевич', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 06:56:39', '2022-05-04 06:56:39', 2),
+(5, NULL, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 06:57:46', '2022-05-04 06:57:46', 1),
+(6, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 06:59:07', '2022-05-04 06:59:07', 2),
+(7, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-02-01 07:05:05', '2022-05-04 07:05:05', 2),
+(8, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:13:22', '2022-05-04 07:13:22', 2),
+(9, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:34:17', '2022-05-04 07:34:17', 2),
+(10, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:34:47', '2022-05-04 07:34:47', 2),
+(11, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:35:40', '2022-05-04 07:35:40', 2),
+(12, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:35:53', '2022-05-04 07:35:53', 2),
+(13, 5, 'Андрей Артышко', NULL, '89029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-04 07:42:10', '2022-05-04 07:42:10', 2),
+(14, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:15:56', '2022-05-05 01:15:56', 2),
+(15, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:17:22', '2022-05-05 01:17:22', 2),
+(16, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:19:10', '2022-05-05 01:19:10', 2),
+(17, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:27:50', '2022-05-05 01:27:50', 2),
+(18, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:28:22', '2022-05-05 01:28:22', 2),
+(19, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:29:47', '2022-05-05 01:29:47', 2),
+(20, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:35:07', '2022-05-05 01:35:07', 1),
+(21, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:37:14', '2022-05-05 01:37:14', 2),
+(22, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:52:53', '2022-05-05 01:52:53', 2),
+(23, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:54:51', '2022-05-05 01:54:51', 2),
+(24, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:58:23', '2022-05-05 01:58:23', 2),
+(25, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 01:58:53', '2022-05-05 01:58:53', 2),
+(26, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:00:54', '2022-05-05 02:00:54', 2),
+(27, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:01:49', '2022-05-05 02:01:49', 2),
+(28, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:08:22', '2022-05-05 02:08:22', 2),
+(29, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:09:24', '2022-05-05 02:09:24', 2),
+(30, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:10:27', '2022-05-05 02:10:27', 2),
+(31, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:11:30', '2022-05-05 02:11:30', 2),
+(32, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:12:35', '2022-05-05 02:12:35', 2),
+(33, 5, 'Андрей Артышко', NULL, '+79029634366', 1000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:14:47', '2022-05-05 02:14:47', 2),
+(34, 5, 'Андрей Артышко', NULL, '+79029634366', 200000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 02:18:12', '2022-05-05 02:18:12', 2),
+(35, 5, 'Андрей Артышко', NULL, '+79029634366', 200000, 'prepare', 'in_shop', NULL, NULL, 0, 'shop', '2022-05-05 03:41:01', '2022-05-05 03:41:01', 1);
 
 -- --------------------------------------------------------
 
@@ -305,14 +339,6 @@ CREATE TABLE `order_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `order_items`
---
-
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `count`, `cost`, `created_at`, `updated_at`) VALUES
-(1, 1, 11, 1, 100000, '2022-04-30 12:38:48', '2022-04-30 12:38:48'),
-(2, 2, 11, 1, 100000, '2022-04-30 12:38:48', '2022-04-30 12:38:48');
 
 -- --------------------------------------------------------
 
@@ -367,39 +393,20 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `count`, `cost`, `new`, `week`, `created_at`, `updated_at`, `status_id`) VALUES
-(1, 1, 10, 200000, 1, 0, '2022-04-20 23:34:57', '2022-04-20 23:34:57', 1),
-(2, 1, 10, 200000, 1, 1, '2022-04-21 04:56:19', '2022-04-21 04:56:19', 1),
-(3, 1, 10, 200000, 1, 0, '2022-04-21 04:57:04', '2022-04-21 04:57:04', 1),
-(4, 1, 10, 200000, 0, 1, '2022-04-21 04:57:13', '2022-04-21 04:57:13', 1),
-(5, 1, 10, 200000, 0, 1, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
-(6, 1, 10, 200000, 0, 0, '2022-04-21 04:57:14', '2022-04-21 04:57:14', 1),
-(7, 1, 10, 200000, 0, 0, '2022-04-21 04:57:15', '2022-04-21 04:57:15', 1),
-(8, 1, 10, 200000, 0, 0, '2022-04-21 04:57:16', '2022-04-21 04:57:16', 1),
-(9, 1, 10, 200000, 0, 0, '2022-04-21 04:57:17', '2022-04-21 04:57:17', 1),
-(10, 1, 10, 200000, 0, 0, '2022-04-21 04:57:18', '2022-04-21 04:57:18', 1),
-(11, 1, 10, 200000, 0, 0, '2022-04-21 04:57:19', '2022-04-21 04:57:19', 1),
-(12, 1, 10, 200000, 0, 0, '2022-04-21 04:57:20', '2022-04-21 04:57:20', 1),
-(13, 1, 10, 200000, 0, 0, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
-(14, 1, 10, 200000, 0, 0, '2022-04-21 04:57:21', '2022-04-21 04:57:21', 1),
-(15, 1, 10, 200000, 0, 0, '2022-04-21 04:57:22', '2022-04-21 04:57:22', 1),
-(16, 1, 10, 200000, 0, 0, '2022-04-21 04:57:48', '2022-04-21 04:57:48', 1),
-(17, 1, 10, 200000, 0, 0, '2022-04-21 04:57:49', '2022-04-21 04:57:49', 1),
-(18, 1, 10, 200000, 0, 0, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
-(19, 1, 10, 200000, 0, 0, '2022-04-21 04:57:51', '2022-04-21 04:57:51', 1),
-(20, 1, 10, 200000, 0, 0, '2022-04-21 04:57:52', '2022-04-21 04:57:52', 1),
-(21, 1, 10, 200000, 0, 0, '2022-04-21 04:57:53', '2022-04-21 04:57:53', 1),
-(22, 1, 10, 200000, 0, 0, '2022-04-21 04:57:54', '2022-04-21 04:57:54', 1),
-(23, 1, 10, 200000, 0, 0, '2022-04-21 04:57:55', '2022-04-21 04:57:55', 1),
-(24, 1, 10, 200000, 0, 0, '2022-04-21 04:57:56', '2022-04-21 04:57:56', 1),
-(25, 1, 10, 200000, 0, 0, '2022-04-21 04:57:57', '2022-04-21 04:57:57', 1),
-(27, 1, 3, 200000, 0, 0, '2022-04-21 04:57:59', '2022-04-21 04:57:59', 1),
-(28, 1, 10, 200000, 0, 0, '2022-04-21 04:58:00', '2022-04-21 04:58:00', 1),
-(29, 1, 0, 200000, 0, 0, '2022-04-21 04:58:01', '2022-04-21 04:58:01', 1),
-(30, 1, 0, 200000, 0, 0, '2022-04-21 04:58:02', '2022-04-21 04:58:02', 1),
-(31, 1, 0, 775931, 0, 0, '2022-04-21 04:59:23', '2022-04-21 04:59:23', 1),
-(32, 1, 0, 297877, 0, 0, '2022-04-21 05:00:51', '2022-04-21 05:00:51', 1),
-(33, 1, 0, 714170, 0, 0, '2022-04-21 05:05:00', '2022-04-21 05:05:00', 1),
-(34, 1, 0, 415604, 0, 0, '2022-04-21 05:05:01', '2022-04-21 05:05:01', 1);
+(38, 1, 0, 251820, 0, 0, '2022-05-05 09:09:49', '2022-05-05 09:09:49', 1),
+(39, 1, 1, 737271, 0, 0, '2022-05-05 09:09:50', '2022-05-05 09:09:50', 1),
+(40, 1, 2, 228666, 0, 0, '2022-05-05 09:09:51', '2022-05-05 09:09:51', 1),
+(41, 1, 2, 596132, 0, 0, '2022-05-05 09:09:52', '2022-05-05 09:09:52', 1),
+(42, 1, 2, 736485, 0, 0, '2022-05-05 09:09:53', '2022-05-05 09:09:53', 1),
+(43, 1, 3, 560422, 0, 0, '2022-05-05 09:09:53', '2022-05-05 09:09:53', 1),
+(44, 1, 2, 872282, 0, 0, '2022-05-05 09:09:54', '2022-05-05 09:09:54', 1),
+(45, 1, 2, 184011, 0, 0, '2022-05-05 09:09:55', '2022-05-05 09:09:55', 1),
+(46, 1, 0, 698893, 0, 0, '2022-05-05 09:09:56', '2022-05-05 09:09:56', 1),
+(47, 1, 3, 387069, 0, 0, '2022-05-05 09:09:57', '2022-05-05 09:09:57', 1),
+(48, 1, 1, 252897, 0, 0, '2022-05-05 09:09:58', '2022-05-05 09:09:58', 1),
+(49, 1, 0, 270838, 0, 0, '2022-05-05 09:09:58', '2022-05-05 09:09:58', 1),
+(50, 1, 0, 359292, 0, 0, '2022-05-05 09:09:59', '2022-05-05 09:09:59', 1),
+(51, 1, 0, 466762, 0, 0, '2022-05-05 09:10:00', '2022-05-05 09:10:00', 1);
 
 -- --------------------------------------------------------
 
@@ -421,72 +428,34 @@ CREATE TABLE `product_translations` (
 --
 
 INSERT INTO `product_translations` (`id`, `product_id`, `locale`, `name`, `description`, `history`) VALUES
-(1, 1, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(2, 1, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(3, 2, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(4, 2, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(5, 3, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(6, 3, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(7, 4, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(8, 4, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(9, 5, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(10, 5, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(11, 6, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(12, 6, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(13, 7, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(14, 7, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(15, 8, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(16, 8, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(17, 9, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(18, 9, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(19, 10, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(20, 10, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(21, 11, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(22, 11, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(23, 12, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(24, 12, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(25, 13, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(26, 13, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(27, 14, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(28, 14, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(29, 15, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(30, 15, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(31, 16, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(32, 16, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(33, 17, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(34, 17, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(35, 18, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(36, 18, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(37, 19, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(38, 19, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(39, 20, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(40, 20, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(41, 21, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(42, 21, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(43, 22, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(44, 22, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(45, 23, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(46, 23, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(47, 24, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(48, 24, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(49, 25, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(50, 25, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(53, 27, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(54, 27, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(55, 28, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(56, 28, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(57, 29, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(58, 29, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(59, 30, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(60, 30, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(61, 31, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(62, 31, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(63, 32, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(64, 32, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(65, 33, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(66, 33, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
-(67, 34, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
-(68, 34, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL);
+(75, 38, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(76, 38, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(77, 39, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(78, 39, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(79, 40, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(80, 40, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(81, 41, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(82, 41, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(83, 42, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(84, 42, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(85, 43, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(86, 43, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(87, 44, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(88, 44, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(89, 45, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(90, 45, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(91, 46, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(92, 46, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(93, 47, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(94, 47, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(95, 48, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(96, 48, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(97, 49, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(98, 49, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(99, 50, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(100, 50, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL),
+(101, 51, 'ru', 'Винтажный черный тренч', 'Шёлковый платок Hermés,<br/>рисунок разработан художницей Annie Faivre. <br/>Размеры: 90*90 см.', NULL),
+(102, 51, 'en', 'Vintage Black Trench Coat', 'Hermès silk handkerchief,<br/>drawing designed by artist Annie Faivre. <br/>Dimensions: 90*90 cm.', NULL);
 
 -- --------------------------------------------------------
 
@@ -531,7 +500,8 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'delivery', '2022-04-22 11:57:29', '2022-04-22 11:57:29'),
-(2, 'status_product', '2022-04-22 11:57:29', '2022-04-22 11:57:29');
+(2, 'status_product', '2022-04-22 11:57:29', '2022-04-22 11:57:29'),
+(3, 'yandex_metrics', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -554,7 +524,55 @@ INSERT INTO `setting_translations` (`id`, `setting_id`, `locale`, `value`) VALUE
 (1, 1, 'ru', 'Не следует, однако забывать, что сложившаяся структура организации способствует подготовки и реализации модели развития. Повседневная практика показывает, что постоянное информационно-пропагандистское обеспечение нашей деятельности влечет за собой процесс внедрения и модернизации систем массового участия. С другой стороны новая модель организационной деятельности играет важную роль в формировании форм развития. Задача организации, в особенности же консультация с широким активом в значительной степени обуславливает создание модели развития. Разнообразный и богатый опыт рамки и место обучения кадров требуют от нас анализа форм развития.'),
 (2, 1, 'en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 (3, 2, 'ru', 'Не следует, однако забывать, что сложившаяся структура организации способствует подготовки и реализации модели развития. Повседневная практика показывает, что постоянное информационно-пропагандистское обеспечение нашей деятельности влечет за собой процесс внедрения и модернизации систем массового участия. С другой стороны новая модель организационной деятельности играет важную роль в формировании форм развития. Задача организации, в особенности же консультация с широким активом в значительной степени обуславливает создание модели развития. Разнообразный и богатый опыт рамки и место обучения кадров требуют от нас анализа форм развития.'),
-(4, 2, 'en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+(4, 2, 'en', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+(5, 3, 'ru', '<!-- Yandex.Metrika counter --> <script type=\"text/javascript\" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, \"script\", \"https://mc.yandex.ru/metrika/tag.js\", \"ym\"); ym(88715592, \"init\", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src=\"https://mc.yandex.ru/watch/88715592\" style=\"position:absolute; left:-9999px;\" alt=\"\" /></div></noscript> <!-- /Yandex.Metrika counter -->');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops`
+--
+
+CREATE TABLE `shops` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shops`
+--
+
+INSERT INTO `shops` (`id`, `phone`, `city`, `country`, `created_at`, `updated_at`) VALUES
+(1, '+7 (771) 466-14-65', 'Алматы', 'Казахстан', NULL, NULL),
+(2, '+7 (902) 963-14-65', 'Красноярск', 'Россия', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_translations`
+--
+
+CREATE TABLE `shop_translations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` bigint(20) UNSIGNED NOT NULL,
+  `locale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shop_translations`
+--
+
+INSERT INTO `shop_translations` (`id`, `shop_id`, `locale`, `street`, `time`) VALUES
+(1, 1, 'ru', 'ул. Уалиханова, 43. 2 этаж', 'пн-пт 12:00 - 20:30 сб-вс 10:00 - 18:30'),
+(2, 1, 'en', 'ул. Уалиханова, 43. 2 этаж', 'пн-пт 12:00 - 20:30 сб-вс 10:00 - 18:30'),
+(3, 2, 'ru', 'ул. Горького, 24. 9 этаж', 'пн-пт 12:00 - 20:30 сб-вс 10:00 - 18:30'),
+(4, 2, 'en', 'ул. Gorkogo, 24. 2 этаж', 'пн-пт 12:00 - 20:30 сб-вс 10:00 - 18:30');
 
 -- --------------------------------------------------------
 
@@ -606,6 +624,7 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `photo` text COLLATE utf8mb4_unicode_ci,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -624,8 +643,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `photo`, `phone`, `country`, `city`, `street`, `post_index`, `notify`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Артышко Андрей Алексеевич', 'artyshko.andrey@gmail.com', '1651313463.jpg', '89029634366', 'Россия', 'Красноярск', 'Горького 24, 25', '660099', 0, NULL, '$2y$10$TEckdESkkngl1DmobA8fIeyySJwqhiUtjh70YHvjWZPTl1f4cNw5q', 'nDjQBwGYYnEiFKCVdglgPEbpZBxiLQfEiSjkLUzu42w0NZuy7KJXIrqOk8rp', '2022-04-18 09:55:27', '2022-04-30 03:11:03');
+INSERT INTO `users` (`id`, `name`, `email`, `is_admin`, `photo`, `phone`, `country`, `city`, `street`, `post_index`, `notify`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(5, 'Андрей Артышко', 'artyshko.andrey@gmail.com', 1, '1651728647.png', '+79029634366', 'Россия', 'Красноярск', 'Горького 24', '660099', 0, NULL, '$2y$10$P1JygnS1S4R/tESZ6aErFOrigopkmUpgp37eVIese2ovsarpRtoL6', 'cDfvERW6yOIg7fxZvBx1lWr73aPVKrQeqEazRbtOoHe7yusZBQfu6gPx90bC', '2022-05-04 06:59:05', '2022-05-05 01:15:38');
 
 --
 -- Indexes for dumped tables
@@ -685,6 +704,13 @@ ALTER TABLE `image_products`
   ADD KEY `image_products_product_id_foreign` (`product_id`);
 
 --
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -695,7 +721,8 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `orders_user_id_foreign` (`user_id`);
+  ADD KEY `orders_user_id_foreign` (`user_id`),
+  ADD KEY `orders_shop_id_foreign` (`shop_id`);
 
 --
 -- Indexes for table `order_items`
@@ -758,6 +785,20 @@ ALTER TABLE `setting_translations`
   ADD KEY `setting_translations_locale_index` (`locale`);
 
 --
+-- Indexes for table `shops`
+--
+ALTER TABLE `shops`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shop_translations`
+--
+ALTER TABLE `shop_translations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `shop_translations_shop_id_locale_unique` (`shop_id`,`locale`),
+  ADD KEY `shop_translations_locale_index` (`locale`);
+
+--
 -- Indexes for table `statuses`
 --
 ALTER TABLE `statuses`
@@ -786,7 +827,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -822,25 +863,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `image_products`
 --
 ALTER TABLE `image_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -852,13 +899,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `product_translations`
 --
 ALTER TABLE `product_translations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `seos`
@@ -870,12 +917,24 @@ ALTER TABLE `seos`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `setting_translations`
 --
 ALTER TABLE `setting_translations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `shops`
+--
+ALTER TABLE `shops`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `shop_translations`
+--
+ALTER TABLE `shop_translations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
@@ -894,7 +953,7 @@ ALTER TABLE `status_translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -935,6 +994,7 @@ ALTER TABLE `image_products`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_shop_id_foreign` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
@@ -962,6 +1022,12 @@ ALTER TABLE `product_translations`
 --
 ALTER TABLE `setting_translations`
   ADD CONSTRAINT `setting_translations_setting_id_foreign` FOREIGN KEY (`setting_id`) REFERENCES `settings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `shop_translations`
+--
+ALTER TABLE `shop_translations`
+  ADD CONSTRAINT `shop_translations_shop_id_foreign` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `status_translations`

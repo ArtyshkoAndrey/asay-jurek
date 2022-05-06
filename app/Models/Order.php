@@ -67,7 +67,7 @@ class Order extends Model
     self::STATUS_PREPARE,
     self::STATUS_SUCCESS,
   ];
-  
+
   public const MAP_STATUS_TRANSLATE = [
     self::STATUS_CANCEL    => 'Отменён',
     // Огда отменили заказ

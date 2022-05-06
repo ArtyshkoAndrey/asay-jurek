@@ -11,7 +11,7 @@
       <div class="toast text-white bg-primary w-100 show">
         <div class="toast-header">
           <strong class="me-auto">Новые заказы</strong>
-          <Link href="/admin"><small>Продробнее</small></Link>
+          <Link href="/admin/orders?status=prepare"><small>Продробнее</small></Link>
         </div>
         <div class="toast-body">
           <span class="fs-6">{{

@@ -135,7 +135,7 @@ export default {
     if (this.serverOrder)
       this.orders.push(...this.serverOrder.data)
     else {
-      new bs5({
+      new bs5.Toast({
         body: "Ошибка в принятии данный от сервера",
         className: 'border-0 bg-warning text-dark',
         btnCloseWhite: false,

@@ -95,6 +95,18 @@
                 </Link>
               </li>
 
+              <li class="nav-item">
+                <Link
+                  :class="{'active': $page.url === '/admin/settings/yandex-metrics'}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/settings/yandex-metrics"
+                >
+                  <i class="fa-brands fa-yandex pe-3"></i>
+                  Яндекс метрика
+                </Link>
+              </li>
+
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
