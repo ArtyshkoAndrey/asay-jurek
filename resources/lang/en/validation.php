@@ -158,6 +158,16 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+      'id' => 'Identification',
+      'status' => 'Status',
+      'name' => 'Name',
+      'password' => 'Password',
+      'city' => 'City',
+      'country' => 'Country',
+      'street' => 'Street',
+      'email' => 'Email',
+      'post_index' => 'Post index',
+    ],
 
 ];

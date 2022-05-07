@@ -61,6 +61,8 @@
         <tr
           v-for="order in orders"
           :class="colorColumn(order.status)"
+          style="cursor: pointer"
+          @click="openOrder(order.id)"
         >
           <th scope="row">{{ order.id }}</th>
           <td>
@@ -96,7 +98,7 @@
 import Layout from "../../../Shared/Layout";
 import bs5 from "../../../../users/plugins/bs5";
 import InfiniteLoading from "v3-infinite-loading";
-import { Inertia } from '@inertiajs/inertia'
+import {Inertia} from "@inertiajs/inertia";
 import {useForm} from "@inertiajs/inertia-vue3";
 
 export default {
@@ -186,6 +188,9 @@ export default {
     },
     submit () {
       this.form.get('/admin/orders')
+    },
+    openOrder (id) {
+      Inertia.get('/admin/orders/' + id)
     }
   }
 }

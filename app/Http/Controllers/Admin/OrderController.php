@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Helpers\JsonResponse;
 use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class OrderController extends Controller
 {
@@ -19,9 +20,9 @@ class OrderController extends Controller
    */
   public function index (Request $request)
   {
-    $data = [
-      'q' => $request->get('q'),
-      'status' => $request->get('status')
+    $data   = [
+      'q'      => $request->get('q'),
+      'status' => $request->get('status'),
     ];
     $orders = Order::orderByDesc('created_at');
 
@@ -35,7 +36,7 @@ class OrderController extends Controller
         ->orWhere('user_phone', 'like', '%' . $data['q'] . '%');
     }
 
-     $orders = $orders->paginate(20);
+    $orders = $orders->paginate(20);
 
     if ($request->has('is_json')) {
       return JsonResponse::success([
@@ -48,13 +49,13 @@ class OrderController extends Controller
     foreach (Order::MAP_STATUS as $MAPSTATUS) {
       $orderStatuses->push([
         'value' => $MAPSTATUS,
-        'name' => Order::MAP_STATUS_TRANSLATE[$MAPSTATUS]
+        'name'  => Order::MAP_STATUS_TRANSLATE[$MAPSTATUS],
       ]);
     }
 
     return Inertia::render('Admins/Order/Index', [
-      'orders' => $orders,
-      'formData' => $data,
+      'orders'        => $orders,
+      'formData'      => $data,
       'orderStatuses' => $orderStatuses
     ]);
 
@@ -89,9 +90,25 @@ class OrderController extends Controller
    *
    * @return Response
    */
-  public function show ($id)
+  public function show (int $id): Response
   {
-    //
+    $order = Order::with(['shop'])
+      ->findOrFail($id);
+
+    $orderStatuses = new Collection();
+
+    foreach (Order::MAP_STATUS as $MAPSTATUS) {
+      $orderStatuses->push([
+        'value' => $MAPSTATUS,
+        'name'  => Order::MAP_STATUS_TRANSLATE[$MAPSTATUS],
+      ]);
+    }
+
+    return Inertia::render('Admins/Order/Show', [
+      'order'         => $order,
+      'orderStatuses' => $orderStatuses,
+      'cancelStatus'  => Order::STATUS_CANCEL,
+    ]);
   }
 
   /**
@@ -112,11 +129,22 @@ class OrderController extends Controller
    * @param Request $request
    * @param int     $id
    *
-   * @return Response
+   * @return RedirectResponse
    */
-  public function update (Request $request, $id)
+  public function update (Request $request, int $id): RedirectResponse
   {
-    //
+    $request->validate([
+      'id'     => 'required|exists:orders,id',
+      'status' => 'required|string|in:' . implode(',', Order::MAP_STATUS),
+    ]);
+
+    $order = Order::find($id);
+
+    $order->status = $request->get('status');
+
+    $order->save();
+
+    return redirect()->route('admin.orders.show', $id);
   }
 
   /**

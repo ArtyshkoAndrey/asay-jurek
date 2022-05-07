@@ -8,26 +8,28 @@
 
   <div class="row gy-3 gy-lg-0 mb-5">
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-      <div class="toast text-white bg-primary w-100 show">
+      <div class="toast h-100 text-white bg-primary w-100 show">
         <div class="toast-header">
           <strong class="me-auto">Новые заказы</strong>
-          <Link href="/admin/orders?status=prepare"><small>Продробнее</small></Link>
+          <Link href="/admin/orders?status=prepare">
+            <small>Подробнее</small>
+          </Link>
         </div>
         <div class="toast-body">
-          <span class="fs-6">{{
-              countOrdersPrepare
-                             }} {{
-              num_word(countOrdersPrepare, ['заказ', 'заказа', 'заказов'])
-                             }} на <span class="fw-bold">Подверждении</span></span>
+          <span class="fs-6">{{countOrdersPrepare}}
+                             {{ num_word(countOrdersPrepare, ['заказ', 'заказа', 'заказов']) }}
+                             на
+            <span class="fw-bold">Подтверждении</span>
+          </span>
         </div>
       </div>
     </div>
 
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-      <div class="toast text-white bg-primary w-100 show">
+      <div class="toast h-100 text-white bg-primary w-100 show">
         <div class="toast-header">
           <strong class="me-auto">На сегодня</strong>
-          <Link href="/admin"><small>Продробнее</small></Link>
+          <Link href="/admin"><small>Подробнее</small></Link>
         </div>
         <div class="toast-body">
           <span class="fs-6">Пользователи сайта создали
@@ -41,10 +43,10 @@
     </div>
 
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-      <div class="toast  bg-warning w-100 show">
+      <div class="toast h-100 bg-warning w-100 show">
         <div class="toast-header">
           <strong class="me-auto">Товары</strong>
-          <Link href="/admin"><small>Продробнее</small></Link>
+          <Link href="/admin"><small>Подробнее</small></Link>
         </div>
         <div class="toast-body">
           <span class="fs-6">

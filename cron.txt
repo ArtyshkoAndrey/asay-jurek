@@ -1,0 +1,1 @@
+* * * * * /Applications/MAMP/bin/php/php7.4.21/bin/php  /Users/andrey/Sites/asay/artisan queue:work --stop-when-empty --queue=currency,clearing,default

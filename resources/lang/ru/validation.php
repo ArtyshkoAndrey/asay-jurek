@@ -133,4 +133,15 @@ return [
       'rule-name' => 'custom-message',
     ],
   ],
+  'attributes' => [
+    'id' => 'Идентификатор',
+    'status' => 'Статус',
+    'name' => 'Имя',
+    'password' => 'Пароль',
+    'city' => 'Город',
+    'country' => 'Страна',
+    'street' => 'Улица',
+    'email' => 'Email',
+    'post_index' => 'Почтовый индекс',
+  ],
 ];

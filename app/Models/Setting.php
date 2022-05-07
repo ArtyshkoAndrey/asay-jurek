@@ -91,7 +91,10 @@ class Setting extends Model implements TranslatableContract
   {
     $setting = self::where('name', 'yandex_metrics')
       ->first();
-    return $setting->translate('ru')->value ?? null;
+    if (!empty($setting)) {
+      return $setting->translate('ru')->value ?? null;
+    }
+    return null;
   }
 
   /**

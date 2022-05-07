@@ -19,7 +19,6 @@ createInertiaApp({
   },
   setup({el, App, props, plugin}) {
     NProgress.start()
-    const i18n = setupI18n();
     createApp({render: () => h(App, props)})
       .use(plugin)
       .component("Link", Link)
