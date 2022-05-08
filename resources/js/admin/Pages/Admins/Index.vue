@@ -60,17 +60,61 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row gy-3">
     <div class="col-12">
-      <h5>Продажи в течении года</h5>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Продажи в течении года</h5>
+          <Line
+            :chart-data="dataCheckouts"
+            :chart-options="orderCheckoutChartOptions"
+            :css-classes="['orderCheckout']"
+            chart-id="orderCheckout"
+          />
+        </div>
+      </div>
     </div>
     <div class="col-12">
-      <Line
-        :chart-data="dataCheckouts"
-        :chart-options="orderCheckoutChartOptions"
-        :css-classes="['orderCheckout']"
-        chart-id="orderCheckout"
-      />
+      <div class="card">
+        <div class="card-body">
+          <h5 v-if="toDayOrders.length > 0" class="card-title mb-5">Новые заказы на сегодня</h5>
+          <table v-if="toDayOrders.length > 0" class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Покупатель</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr
+              v-for="order in toDayOrders"
+              style="cursor: pointer"
+              @click="openOrder(order.id)"
+            >
+              <th scope="row">{{ order.id }}</th>
+              <td>
+                {{ order.user_name }}
+                <br>
+                <span class="small">{{ order.created_at }}</span>
+                <span v-if="order.payment_at">
+              | <span class="small">{{ order.payment_at }}</span>
+            </span>
+              </td>
+              <td>{{ order.status_translation }}</td>
+              <td>{{ new Intl.NumberFormat('ru-Ru').format(order.cost) }} ₸</td>
+
+            </tr>
+
+            </tbody>
+          </table>
+          <div v-else>
+            <h5 class="text-center">Сегодня не было заказов</h5>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -90,6 +134,7 @@ import {
   CategoryScale,
   Plugin
 } from 'chart.js'
+import {Inertia} from "@inertiajs/inertia";
 
 ChartJS.register(
   Title,
@@ -143,6 +188,10 @@ export default {
     },
     countZeroCountProducts() {
       return this.$page.props.countZeroCountProducts
+    },
+
+    toDayOrders () {
+      return this.$page.props.toDayOrders ?? []
     }
 
   },
@@ -154,6 +203,9 @@ export default {
       if (num > 1 && num < 5) return words[1];
       if (num === 1) return words[0];
       return words[2];
+    },
+    openOrder (id) {
+      Inertia.get('/admin/orders/' + id)
     }
   }
 }

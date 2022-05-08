@@ -47,10 +47,12 @@ class HomeController extends Controller
     $countOrdersPrepare = Order::whereStatus(Order::STATUS_PREPARE)
       ->count();
 
-    $countOrdersToDay = Order::where('created_at', '<=', Carbon::now())
+    $toDayOrders = Order::where('created_at', '<=', Carbon::now())
       ->where('created_at', '>=', Carbon::now()
         ->subDays(1))
-      ->count();
+      ->get();
+
+    $countOrdersToDay = count($toDayOrders);
 
     $countZeroCountProducts = Product::where('count', 0)
       ->count();
@@ -63,6 +65,7 @@ class HomeController extends Controller
       'countOrdersPrepare'     => $countOrdersPrepare,
       'countOrdersToDay'       => $countOrdersToDay,
       'countZeroCountProducts' => $countZeroCountProducts,
+      'toDayOrders'            => $toDayOrders,
     ]);
   }
 }

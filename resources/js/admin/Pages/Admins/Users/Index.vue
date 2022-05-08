@@ -1,9 +1,9 @@
 <template>
   <Head>
-    <title>Заказы на сайте</title>
+    <title>Все пользователи сайта</title>
   </Head>
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Заказы</h1>
+    <h1 class="h2">Пользователи</h1>
   </div>
 
   <div class="row justify-content-center">
@@ -11,28 +11,34 @@
       <div class="card">
         <div class="card-body">
           <form @submit.prevent="submit">
-            <div class="row gy-3">
+            <div class="row align-items-center gy-3">
               <div class="col-12 col-md-6 col-lg-3">
                 <input
                   id="q"
+                  v-model="form.q"
                   aria-describedby="q"
                   class="form-control rounded-0"
                   name="q"
-                  v-model="form.q"
                   placeholder="Найти..."
                   type="text"
                 >
               </div>
-              <div class="col-12 col-md-6 col-lg-3">
-                <select
-                  name="status"
-                  aria-label=""
-                  v-model="form.status"
-                  class="form-select rounded-0"
-                >
-                  <option :value="null">Все заказы</option>
-                  <option :value="status.value" v-for="status in orderStatuses">{{ status.name }}</option>
-                </select>
+              <div class="col-12 col-md-auto">
+                <div class="form-check">
+                  <input
+                    v-model="form.is_admin"
+                    id="is_admin"
+                    class="form-check-input"
+                    type="checkbox"
+                    value="true"
+                  >
+                  <label
+                    class="form-check-label"
+                    for="is_admin"
+                  >
+                    Администраторы
+                  </label>
+                </div>
               </div>
               <div class="col-12 col-md-auto">
                 <button
@@ -57,30 +63,25 @@
             <thead>
             <tr>
               <th scope="col">№</th>
-              <th scope="col">Покупатель</th>
-              <th scope="col">Статус</th>
-              <th scope="col">Стоимость</th>
+              <th scope="col">Имя</th>
+              <th scope="col">Email</th>
+              <th scope="col">Дата регистрации</th>
+              <th scope="col">Роль</th>
             </tr>
             </thead>
             <tbody>
 
             <tr
-              v-for="order in orders"
-              :class="colorColumn(order.status)"
+              v-for="user in users"
               style="cursor: pointer"
-              @click="openOrder(order.id)"
             >
-              <th scope="row">{{ order.id }}</th>
+              <th scope="row">{{ user.id }}</th>
               <td>
-                {{ order.user_name }}
-                <br>
-                <span class="small">{{ order.created_at }}</span>
-                <span v-if="order.payment_at">
-              | <span class="small">{{ order.payment_at }}</span>
-            </span>
+                {{ user.name }}
               </td>
-              <td>{{ order.status_translation }}</td>
-              <td>{{ new Intl.NumberFormat('ru-Ru').format(order.cost) }} ₸</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.created_at }}</td>
+              <td>{{ user.admin ? 'Администратор' : 'Покупатель' }}</td>
 
             </tr>
 
@@ -88,7 +89,7 @@
           </table>
           <InfiniteLoading
             :first-load="false"
-            :orders="orders"
+            :users="users"
             @infinite="loadDataFromServer"
           >
             <template #complete>
@@ -99,7 +100,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -116,34 +116,31 @@ export default {
     InfiniteLoading
   },
   data: () => ({
-    orders: [],
+    users: [],
     page: 2,
     noResult: false,
     message: "",
     form: useForm({
       q: null,
-      status: null
+      is_admin: false
     })
   }),
   computed: {
-    serverOrder() {
-      return this.$page.props.orders ?? null
-    },
-    orderStatuses () {
-      return this.$page.props.orderStatuses ?? []
-    },
-    formData () {
+    formData() {
       return this.$page.props.formData
-    }
+    },
+    serverUsers() {
+      return this.$page.props.users ?? null
+    },
   },
   mounted() {
     this.form.defaults({
       q: this.formData.q,
-      status: this.formData.status
+      is_admin: this.formData.is_admin
     })
     this.form.reset()
-    if (this.serverOrder)
-      this.orders.push(...this.serverOrder.data)
+    if (this.serverUsers)
+      this.users.push(...this.serverUsers.data)
     else {
       new bs5.Toast({
         body: "Ошибка в принятии данный от сервера",
@@ -155,35 +152,21 @@ export default {
     }
   },
   methods: {
-    colorColumn(status) {
-      if (status === 'cancel') {
-        return 'table-danger'
-      } else if (status === 'delivered') {
-        return 'table-primary'
-      } else if (status === 'not_paid') {
-        return 'table-warning'
-      } else if (status === 'paid') {
-        return 'table-primary'
-      } else if (status === 'success') {
-        return 'table-success'
-      }
-    },
     async loadDataFromServer($state) {
       try {
-        const result = await axios.get('/admin/orders', {
+        const result = await axios.get('/admin/users', {
           params: {
             page: this.page,
             is_json: true,
             q: this.form.q,
-            status: this.form.status
           }
         })
-        if (result.data.payload.orders.data.length > 0) {
+        if (result.data.payload.users.data.length > 0) {
           setTimeout(() => {
             this.page++;
-            this.orders.push(...result.data.payload.orders.data);
+            this.users.push(...result.data.payload.users.data);
             $state.loaded()
-            if (this.page > result.data.payload.orders.last_page) {
+            if (this.page > result.data.payload.users.last_page) {
               $state.complete()
             }
           }, 1000)
@@ -194,22 +177,13 @@ export default {
         $state.error()
       }
     },
-    submit () {
-      this.form.get('/admin/orders')
+    submit() {
+      this.form.get('/admin/users')
     },
-    openOrder (id) {
-      Inertia.get('/admin/orders/' + id)
-    }
   }
 }
 </script>
 
-<style lang="scss">
-@import "v3-infinite-loading/lib/style.css";
+<style scoped>
 
-.spinner {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  margin-bottom: 30px !important;
-}
 </style>

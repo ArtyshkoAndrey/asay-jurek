@@ -185,12 +185,6 @@ export default {
   scoped
 >
 .card {
-  bordeR: 0;
-  box-shadow: 0 0 15px 4px rgba(34, 60, 80, 0.08);
-
-  //box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.13);
-  border-radius: 8px !important;
-
   p {
     margin-bottom: 0;
     font-size: 14px;

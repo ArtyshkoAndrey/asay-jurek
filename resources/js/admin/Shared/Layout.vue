@@ -88,7 +88,7 @@
                   :class="{'active': $page.url === '/admin/users'}"
                   aria-current="page"
                   class="nav-link"
-                  href="/admin"
+                  href="/admin/users"
                 >
                   <i class="fa-regular fa-users pe-3"></i>
                   Пользователи

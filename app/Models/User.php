@@ -107,11 +107,13 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
     'notify'            => 'boolean',
     'is_admin'          => 'boolean',
+    'created_at'        => 'date:d.m.Y'
   ];
 
   protected $appends = [
     'url',
     'address',
+    'admin'
   ];
 
   /********************************************/
@@ -125,6 +127,11 @@ class User extends Authenticatable
     }
 
     return null;
+  }
+
+  public function getAdminAttribute (): bool
+  {
+    return $this->is_admin;
   }
 
   public function getAddressAttribute (): ?string

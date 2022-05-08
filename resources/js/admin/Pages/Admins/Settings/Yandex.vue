@@ -6,31 +6,33 @@
     <h1 class="h2">Настройки Яндекс метрики</h1>
   </div>
 
-  <form @submit.prevent="submit">
-    <div class="row gy-3">
+
+    <div class="row gy-3 justify-content-center">
       <div class="col-12 col-md-10 col-lg-6">
-        <label for="code">Код интеграции метрики</label>
-        <textarea
-          id="code"
-          class="form-control"
-          name="сщву"
-          v-model="form.code"
-          rows="10"
-          placeholder="Код интеграции метрики"
-        ></textarea>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Код интеграции метрики</h5>
+            <form @submit.prevent="submit">
+              <label for="code" class="d-none">Код интеграции метрики</label>
+              <textarea
+                id="code"
+                class="form-control mb-3"
+                name="сщву"
+                v-model="form.code"
+                rows="10"
+                placeholder="Код интеграции метрики"
+              ></textarea>
+              <button
+                class="h-100 d-block btn btn-dark rounded-0 ms-auto"
+                type="submit"
+              >
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row mt-3">
-      <div class="col-12 col-md-10 col-lg-6">
-        <button
-          class="h-100 d-block btn btn-dark rounded-0 ms-auto"
-          type="submit"
-        >
-          Сохранить
-        </button>
-      </div>
-    </div>
-  </form>
 
 </template>
 

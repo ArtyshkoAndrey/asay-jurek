@@ -76,3 +76,9 @@ $link-hover-color: #4c4c4c;
 a {
   text-decoration: none;
 }
+
+.card {
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(34, 60, 80, 0.08);
+  border-radius: 8px !important;
+}
