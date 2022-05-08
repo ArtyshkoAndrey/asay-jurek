@@ -11,3 +11,4 @@ mix
   .sass("resources/scss/admin/app.scss", "public/css/admin")
   .sourceMaps()
   .version()
+  .disableNotifications()

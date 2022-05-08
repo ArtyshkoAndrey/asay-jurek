@@ -143,6 +143,7 @@
 <script>
 import NProgress from "nprogress";
 import {Inertia} from "@inertiajs/inertia";
+import * as bootstrap from 'bootstrap'
 
 export default {
   name: "Layout",
@@ -154,6 +155,16 @@ export default {
   },
   beforeMount() {
     NProgress.done()
+  },
+  mounted: function () {
+    const bsCollapse = new bootstrap.Collapse($('#sidebarMenu'), {
+      toggle:  false
+    })
+    $('.nav-link').click(function () {
+      if (window.innerWidth <= 768) {
+        bsCollapse.toggle();
+      }
+    })
   }
 }
 </script>

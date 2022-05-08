@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Helpers\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
@@ -21,12 +23,12 @@ class UserController extends Controller
   public function index (Request $request)
   {
     $data  = [
-      'q' => $request->get('q'),
+      'q'        => $request->get('q'),
       'is_admin' => $request->boolean('is_admin'),
     ];
     $users = User::orderByDesc('created_at');
 
-    if($data['is_admin']) {
+    if ($data['is_admin']) {
       $users = $users->where('is_admin', true);
     }
 
@@ -65,11 +67,23 @@ class UserController extends Controller
    *
    * @param Request $request
    *
-   * @return Response
+   * @return RedirectResponse
    */
-  public function store (Request $request)
+  public function store (Request $request): RedirectResponse
   {
-    //
+    $request->validate([
+      'name'     => 'required|string|min:3',
+      'phone'    => 'required|string|min:6',
+      'email'    => 'required|email:rfc,dns|unique:users,email',
+      'is_admin' => 'required|boolean',
+      'password' => 'required|min:6',
+    ]);
+
+    $user           = new User($request->all());
+    $user->password = Hash::make($request->get('password'));
+    $user->save();
+
+    return redirect()->route('admin.users.index');
   }
 
   /**
@@ -102,11 +116,23 @@ class UserController extends Controller
    * @param Request $request
    * @param int     $id
    *
-   * @return Response
+   * @return RedirectResponse
    */
-  public function update (Request $request, $id)
+  public function update (Request $request, int $id): RedirectResponse
   {
-    //
+    $user = User::findOrFail($id);
+
+    $request->validate([
+      'name'     => 'required|string|min:3',
+      'phone'    => 'required|string|min:6',
+      'email'    => 'required|email:rfc,dns|unique:users,email,' . $user->id,
+      'is_admin' => 'required|boolean',
+    ]);
+
+    $user->update($request->all());
+    $user->save();
+
+    return redirect()->route('admin.users.index');
   }
 
   /**
