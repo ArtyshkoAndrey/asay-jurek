@@ -3,8 +3,10 @@ import {createApp, h} from 'vue'
 import {createInertiaApp, Head, Link} from '@inertiajs/inertia-vue3'
 import {InertiaProgress} from '@inertiajs/progress'
 import {Inertia} from '@inertiajs/inertia'
+import ImageItem from "../components/ImageItem";
+import ImageSpinner from "../components/ImageSpinner";
 
-import {setupI18n} from "../i18n";
+import LazyLoadDirective from "../Directives/LazyLoadDirective";
 
 require('../bootstrap');
 
@@ -23,7 +25,11 @@ createInertiaApp({
       .use(plugin)
       .component("Link", Link)
       .component("Head", Head)
+      .directive("lazyload", LazyLoadDirective)
+      .component('ImageItem', ImageItem)
+      .component('ImageSpinner', ImageSpinner)
       .mount(el)
+
   },
 
 }).then(r => {
@@ -31,8 +37,8 @@ createInertiaApp({
 })
 
 InertiaProgress.init({
-  delay: 10,
-  color: '#89171A',
+  delay: 100,
+  color: '#1942ff',
   includeCSS: true,
   showSpinner: true,
 });

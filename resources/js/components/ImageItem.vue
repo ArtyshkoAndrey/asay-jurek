@@ -55,6 +55,8 @@ export default {
 
   &__item {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 4px;
     transition: all 0.4s ease-in-out;
     opacity: 0;

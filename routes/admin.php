@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::name('admin.')
   ->group(static function () {
@@ -13,12 +16,32 @@ Route::name('admin.')
     ])
       ->name('index');
 
-    Route::resource('/orders', OrderController::class)->except(
-      ['destroy', 'edit', 'create']
-    );
-    Route::resource('/users', UserController::class)->except(
-      ['destroy', 'edit']
-    );
+    Route::resource('/orders', OrderController::class)
+      ->except([
+          'destroy',
+          'edit',
+          'create',
+        ]);
+    Route::resource('/users', UserController::class)
+      ->except([
+          'destroy',
+          'edit',
+          'show',
+        ]);
+    Route::resource('/shops', ShopController::class)
+      ->except([
+          'edit',
+          'show',
+        ]);
+    Route::resource('/seos', SeoController::class)
+      ->except([
+          'edit',
+          'show',
+        ]);
+    Route::resource('/products', ProductController::class)
+      ->except([
+        'show',
+      ]);
 
     Route::prefix('/settings')
       ->name('settings.')
@@ -31,6 +54,16 @@ Route::name('admin.')
         Route::post('yandex-metrics/save', [
           SettingController::class,
           'yandexMetricsSave',
+        ]);
+
+        Route::get('/products', [
+          SettingController::class,
+          'products',
+        ])
+          ->name('products');
+        Route::post('/products', [
+          SettingController::class,
+          'productsSave',
         ]);
       });
   });

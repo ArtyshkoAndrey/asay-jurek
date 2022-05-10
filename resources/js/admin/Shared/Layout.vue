@@ -77,7 +77,7 @@
                   :class="{'active': $page.url === '/admin/products'}"
                   aria-current="page"
                   class="nav-link"
-                  href="/admin"
+                  href="/admin/products"
                 >
                   <i class="fa-regular fa-bags-shopping pe-3"></i>
                   Товары
@@ -85,13 +85,49 @@
               </li>
               <li class="nav-item">
                 <Link
-                  :class="{'active': $page.url === '/admin/users'}"
+                  :class="{'active': $page.url.startsWith('/admin/users')}"
                   aria-current="page"
                   class="nav-link"
                   href="/admin/users"
                 >
                   <i class="fa-regular fa-users pe-3"></i>
                   Пользователи
+                </Link>
+              </li>
+
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Настройки</span>
+              <a
+                aria-label="Add a new report"
+                class="link-secondary"
+                href="#"
+              >
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <Link
+                  :class="{'active': $page.url.startsWith('/admin/seos')}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/seos"
+                >
+                  <i class="fa-regular fa-magnifying-glass-dollar pe-3"></i>
+                  SEO
+                </Link>
+              </li>
+
+              <li class="nav-item">
+                <Link
+                  :class="{'active': $page.url.startsWith('/admin/shops')}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/shops"
+                >
+                  <i class="fa-regular fa-shop pe-3"></i>
+                  Магазины
                 </Link>
               </li>
 
@@ -106,11 +142,22 @@
                   Яндекс метрика
                 </Link>
               </li>
-
+              <li class="nav-item">
+                <Link
+                  :class="{'active': $page.url === '/admin/settings/products'}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/settings/products"
+                >
+                  <i class="fa-regular fa-gear pe-3"></i>
+                  Настройки товаров
+                </Link>
+              </li>
             </ul>
 
+
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Быстрый достеп</span>
+              <span>Быстрый доступ</span>
               <a
                 aria-label="Add a new report"
                 class="link-secondary"

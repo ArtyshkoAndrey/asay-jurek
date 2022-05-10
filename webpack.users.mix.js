@@ -12,4 +12,4 @@ mix
   .sourceMaps()
   .version()
   .disableNotifications()
-  .browserSync('https://asay')
+  .browserSync('http://asay:8880')

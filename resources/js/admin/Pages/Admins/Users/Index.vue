@@ -399,7 +399,8 @@ export default {
       q: null,
       is_admin: false
     }),
-    modal: null
+    modal: null,
+    createUserModal: null
   }),
   computed: {
     formData() {
