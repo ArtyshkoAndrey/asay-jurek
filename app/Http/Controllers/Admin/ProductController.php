@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use File;
+use Exception;
 use Inertia\Inertia;
 use App\Models\Status;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\ImageProduct;
 use Illuminate\Http\Response;
 use App\Helpers\JsonResponse;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -95,7 +99,11 @@ class ProductController extends Controller
     ])
       ->findOrFail($id);
 
-    $categories = Category::all();
+    $categories = Category::with([
+      'childs',
+      'parent',
+    ])
+      ->get();
     $statuses   = Status::all();
 
     return Inertia::render('Admins/Products/Edit', [
@@ -128,5 +136,40 @@ class ProductController extends Controller
   public function destroy ($id)
   {
     //
+  }
+
+  /**
+   * @throws Exception
+   */
+  public function photo (Request $request): \Illuminate\Http\JsonResponse
+  {
+    $file     = $request->file('file');
+    $old_name = $file->getClientOriginalName();
+    $name     = time() . random_int(0, 100) . '.' . $file->getClientOriginalExtension();
+    Image::make($file)
+      ->save(storage_path('app/public/img-products/' . $name));
+
+    $image = new ImageProduct([
+      'local_name' => $name,
+      'owner_name' => $old_name,
+      'bites'      => 0,
+      'alt'        => $old_name,
+    ]);
+    $image->save();
+
+    return JsonResponse::success([
+      'image' => $image,
+    ]);
+  }
+
+  public function photoDelete (int $id): \Illuminate\Http\JsonResponse
+  {
+    $image = ImageProduct::findOrFail($id);
+    File::delete('storage/app/public/img-products/' . $image->local_name);
+    $image->delete();
+
+    return JsonResponse::success([
+      'id' => $id
+    ]);
   }
 }

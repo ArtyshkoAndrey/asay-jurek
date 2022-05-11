@@ -18,30 +18,44 @@ Route::name('admin.')
 
     Route::resource('/orders', OrderController::class)
       ->except([
-          'destroy',
-          'edit',
-          'create',
-        ]);
+        'destroy',
+        'edit',
+        'create',
+      ]);
     Route::resource('/users', UserController::class)
       ->except([
-          'destroy',
-          'edit',
-          'show',
-        ]);
+        'destroy',
+        'edit',
+        'show',
+      ]);
     Route::resource('/shops', ShopController::class)
       ->except([
-          'edit',
-          'show',
-        ]);
+        'edit',
+        'show',
+      ]);
     Route::resource('/seos', SeoController::class)
       ->except([
-          'edit',
-          'show',
-        ]);
+        'edit',
+        'show',
+      ]);
     Route::resource('/products', ProductController::class)
       ->except([
         'show',
       ]);
+    Route::prefix('/products')
+      ->name('products.')
+      ->group(static function () {
+        Route::post('/photos', [
+          ProductController::class,
+          'photo',
+        ])
+          ->name('photo');
+        Route::delete('/photos/{id}', [
+          ProductController::class,
+          'photoDelete',
+        ])
+          ->name('photoDelete');
+      });
 
     Route::prefix('/settings')
       ->name('settings.')

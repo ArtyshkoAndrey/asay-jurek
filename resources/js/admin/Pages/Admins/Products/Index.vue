@@ -100,6 +100,7 @@ import Layout from "../../../Shared/Layout";
 import bs5 from "../../../../users/plugins/bs5";
 import {useForm} from "@inertiajs/inertia-vue3";
 import InfiniteLoading from "v3-infinite-loading";
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
   name: "Index",
@@ -167,6 +168,9 @@ export default {
       } catch (err) {
         $state.error()
       }
+    },
+    open (product) {
+      Inertia.get('/admin/products/' + product.id + '/edit')
     }
   }
 }
