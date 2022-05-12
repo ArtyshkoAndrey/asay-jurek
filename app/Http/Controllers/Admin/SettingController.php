@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use File;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Helpers\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Facades\Image;
 
 class SettingController extends Controller
 {
@@ -95,5 +98,91 @@ class SettingController extends Controller
     }
 
     return redirect()->route('admin.settings.products');
+  }
+
+  public function indexPage (): Response
+  {
+    $setting = Setting::firstWhere('name', 'index-page');
+    $url = null;
+
+    if ($setting) {
+      $url = url('/public/storage/img-index/' . $setting->value);
+    }
+
+    $settingLink = Setting::firstWhere('name', 'index-link');
+    $link        = $settingLink->value ?? null;
+
+    return Inertia::render('Admins/Settings/IndexPage', [
+      'setting' => $setting,
+      'url' => $url,
+      'link' => $link
+    ]);
+  }
+
+  /**
+   * @throws \Exception
+   */
+  public function indexPageSave (Request $request): \Illuminate\Http\JsonResponse
+  {
+    $file = $request->file('file');
+    $name     = time() . random_int(0, 100) . '.' . $file->getClientOriginalExtension();
+    Image::make($file)
+      ->save(storage_path('app/public/img-index/' . $name));
+
+    $setting = Setting::firstWhere('name', 'index-page');
+
+    if ($setting) {
+      $setting->translate('ru')->value = $name;
+    } else {
+      $setting = new Setting([
+        'name' => 'index-page',
+        'ru' => [
+          'value' => $name
+        ]
+      ]);
+
+    }
+    $setting->save();
+
+    return JsonResponse::success([
+      'name' => url('/public/storage/img-index/' . $name)
+    ]);
+  }
+
+  public function indexPageDelete(): \Illuminate\Http\JsonResponse
+  {
+    $setting = Setting::firstWhere('name', 'index-page');
+    $status = false;
+    if ($setting) {
+      $status = File::delete(public_path('/storage/img-index/') . $setting->value);
+      $setting->delete();
+    }
+
+    return JsonResponse::success([
+      'setting' => $setting,
+      'status' => $status
+    ]);
+  }
+
+  public function indexPageLink (Request $request): RedirectResponse
+  {
+    $request->validate([
+      'link' => 'required|string'
+    ]);
+    $setting = Setting::firstWhere('name', 'index-link');
+    if ($setting) {
+      $setting->translate('ru')->value = $request->get('link');
+    } else {
+      $setting = new Setting([
+        'name' => 'index-link',
+        'ru' => [
+          'value' => $request->get('link')
+        ]
+      ]);
+
+    }
+    $setting->save();
+
+    return redirect()->route('admin.settings.index-page');
   }
 }

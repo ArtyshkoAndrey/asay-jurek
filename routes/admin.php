@@ -79,6 +79,26 @@ Route::name('admin.')
           SettingController::class,
           'productsSave',
         ]);
+
+        Route::get('/index-page', [
+          SettingController::class,
+          'indexPage',
+        ])
+          ->name('index-page');
+        Route::post('/index-page', [
+          SettingController::class,
+          'indexPageSave',
+        ]);
+
+        Route::post('/index-page/delete', [
+          SettingController::class,
+          'indexPageDelete',
+        ]);
+
+        Route::post('/index-page/link', [
+          SettingController::class,
+          'indexPageLink',
+        ]);
       });
   });
 

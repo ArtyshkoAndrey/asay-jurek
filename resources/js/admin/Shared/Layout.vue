@@ -153,6 +153,18 @@
                   Настройки товаров
                 </Link>
               </li>
+
+              <li class="nav-item">
+                <Link
+                  :class="{'active': $page.url === '/admin/settings/index-page'}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/settings/index-page"
+                >
+                  <i class="fa-regular fa-gear pe-3"></i>
+                  Главная страница
+                </Link>
+              </li>
             </ul>
 
 
