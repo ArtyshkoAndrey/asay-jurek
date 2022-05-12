@@ -3,8 +3,8 @@
     "/js/users/manifest.js": "/js/users/manifest.js?id=8419f06afba8e45afe2e0daf8ff47be0",
     "/css/users/app.css": "/css/users/app.css?id=74aa44d5ea4e77afa6e9536e725cca7e",
     "/js/users/vendor.js": "/js/users/vendor.js?id=f496962698e18218c030f7224556b812",
-    "/js/admin/app.js": "/js/admin/app.js?id=5728115b20c74bac36cd12e000912431",
-    "/js/admin/manifest.js": "/js/admin/manifest.js?id=5072cda16f18c074f8e569df3aba15e5",
-    "/css/admin/app.css": "/css/admin/app.css?id=79c5277f936f88cc9fe0654ddd114658",
-    "/js/admin/vendor.js": "/js/admin/vendor.js?id=9bf2331caabdf598f964fcad4e5e7931"
+    "/js/admin/app.js": "/js/admin/app.js?id=09c804e81cea8cb87304544b33761210",
+    "/js/admin/manifest.js": "/js/admin/manifest.js?id=f36086ae8d9a9e02919a0c10c5f588bc",
+    "/css/admin/app.css": "/css/admin/app.css?id=5e6cfa18f6e103f279be8cdaea1382fa",
+    "/js/admin/vendor.js": "/js/admin/vendor.js?id=a9dbfbdcc52e3da8b0d024310a50ded0"
 }
