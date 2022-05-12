@@ -13,7 +13,7 @@
     @switchedOpened="eventSwitchedOpenedBigCart"
   />
 
-  <div id="page" :class="openedBigCart ? 'opened' : ''">
+  <div id="page" class="flex-shrink-0" :class="openedBigCart ? 'opened' : ''">
 
     <div class="darken-for-opened-cart" />
 
@@ -30,6 +30,9 @@
       <slot/>
     </div>
   </div>
+
+  <Footer />
+
 </template>
 
 <script>
@@ -40,13 +43,15 @@ import BigCart from "./BigCart";
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import NProgress from "nprogress";
+import Footer from "./Footer";
 
 export default {
   name: "Layout",
   components: {
     Menu,
     SubMenu,
-    BigCart
+    BigCart,
+    Footer
   },
   data: () => ({
     openedBigCart: false

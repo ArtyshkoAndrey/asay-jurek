@@ -16,4 +16,9 @@ class HomeController extends Controller
   {
     return Inertia::render('Users/About', []);
   }
+
+  public function receiving ()
+  {
+    return Inertia::render('Users/Receiving', []);
+  }
 }

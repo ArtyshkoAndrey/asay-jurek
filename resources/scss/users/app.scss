@@ -55,3 +55,10 @@
 @import "Profile";
 @import "ProfilerCard";
 @import "Order";
+
+#app {
+  display: flex;
+  flex-direction: column!important;
+  height: 100%!important;
+  min-height: 100vh;
+}

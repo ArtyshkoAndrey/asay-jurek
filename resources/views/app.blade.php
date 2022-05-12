@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="h-100">
 <head>
   <meta charset="utf-8" />
   <meta
@@ -33,7 +33,7 @@
   ></script>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 @inertia
 
 

@@ -58,25 +58,42 @@
               <th scope="col">Название</th>
               <th scope="col">Кол-во</th>
               <th scope="col">Стоимость</th>
+              <th scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
 
-              <tr
-                v-for="product in products"
-                style="cursor: pointer"
-                @click="open(product)"
-              >
-                <th scope="row">{{ product.id }}</th>
-                <td>
-                  <ImageItem class="img-thumbnail m-0" :source="product.image.url"/>
-                </td>
-                <td>
-                  {{ product.name }}
-                </td>
-                <td>{{ product.count }}</td>
-                <td>{{ new Intl.NumberFormat('ru-Ru').format(product.cost) }} ₸</td>
-              </tr>
+            <tr
+              v-for="product in products"
+              style="cursor: pointer"
+
+            >
+              <th scope="row" @click="open(product)">{{ product.id }}</th>
+              <td @click="open(product)">
+                <ImageItem
+                  v-if="product.image"
+                  :source="product.image.url"
+                  class="img-thumbnail m-0"
+                />
+              </td>
+              <td @click="open(product)">
+                {{ product.name }}
+              </td>
+              <td @click="open(product)">{{ product.count }}</td>
+              <td @click="open(product)">{{ new Intl.NumberFormat('ru-Ru').format(product.cost) }} ₸
+              </td>
+              <td class="text-center">
+                <button
+
+                  class="btn btn-danger"
+                  style="z-index: 1000"
+                  type="button"
+                  @click="remove(product.id)"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
 
             </tbody>
           </table>
@@ -132,7 +149,7 @@ export default {
       this.products.push(...this.serveProducts.data)
     } else {
       new bs5.Toast({
-        body: "Ошибка в принятии данный от сервера",
+        body: "Ошибка в принятии данных от сервера",
         className: 'border-0 bg-warning text-dark',
         btnCloseWhite: false,
         autohide: true,
@@ -144,7 +161,7 @@ export default {
     submit() {
       this.form.get('/admin/products')
     },
-    async loadDataFromServer ($state) {
+    async loadDataFromServer($state) {
       try {
         const result = await axios.get('/admin/products', {
           params: {
@@ -169,22 +186,31 @@ export default {
         $state.error()
       }
     },
-    open (product) {
+    open(product) {
       Inertia.get('/admin/products/' + product.id + '/edit')
+    },
+    remove(id) {
+      Inertia.delete('/admin/products/' + id, {
+        preserveState: false,
+        preserveScroll: false
+      })
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
- .img-thumbnail {
-   height: 100px;
-   width: 100px;
-   object-fit: cover;
- }
+<style
+  lang="scss"
+  scoped
+>
+.img-thumbnail {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
 
- img {
-   height: 100px !important;
-   width: 100px !important;
- }
+img {
+  height: 100px !important;
+  width: 100px !important;
+}
 </style>

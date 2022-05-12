@@ -312,8 +312,14 @@
         <div class="card-body">
           <form action="/admin/products/photos" method="post" class="dropzone"></form>
           <small class="text-danger">Если вы не сохраните результат, фотографии автоматически удалятся</small>
+
+          <small v-if="product.errors.ids_photos" class="text-danger mt-2 d-block">Фотографии обязательны для сохранения</small>
         </div>
       </div>
+    </div>
+
+    <div class="col-12">
+      <button type="button" @click="submit" class="btn btn-dark rounded-0 d-block ms-auto">Сохранить</button>
     </div>
   </div>
 </template>
@@ -399,6 +405,10 @@ export default {
       this.dropzone.files.push(mockFile);
     })
   },
+  beforeUnmount() {
+    this.dropzone.disable()
+    this.dropzone = null
+  },
   methods: {
     success(file) {
       if (file.xhr) {
@@ -408,7 +418,6 @@ export default {
         this.product.ids_photos.push(json.payload.image.id)
       }
     },
-
     removedfile (file) {
       let id
       if (file instanceof File) {
@@ -440,6 +449,13 @@ export default {
             delay: 3000
           }).show()
         })
+    },
+    submit () {
+      this.product.put('/admin/products/' + this.serverProduct.id, {
+        onSuccess: () => {
+          alert('Сохранено')
+        }
+      })
     }
   },
 }

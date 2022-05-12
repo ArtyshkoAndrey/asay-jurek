@@ -52,11 +52,22 @@ class ProductController extends Controller
   /**
    * Show the form for creating a new resource.
    *
-   * @return Response
+   * @return \Inertia\Response
    */
   public function create ()
   {
-    //
+
+    $categories = Category::with([
+      'childs',
+      'parent',
+    ])
+      ->get();
+    $statuses   = Status::all();
+
+    return Inertia::render('Admins/Products/Create', [
+      'categories' => $categories,
+      'statuses'   => $statuses,
+    ]);
   }
 
   /**
@@ -64,11 +75,46 @@ class ProductController extends Controller
    *
    * @param Request $request
    *
-   * @return Response
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function store (Request $request)
   {
-    //
+    $request->validate([
+      'ru.name' => 'required|string',
+      'ru.description' => 'required|string',
+      'ru.history' => 'required|string',
+
+      'en.name' => 'required|string',
+      'en.description' => 'required|string',
+      'en.history' => 'required|string',
+
+      'category_id' => 'required|exists:categories,id',
+      'status_id' => 'required|exists:statuses,id',
+
+      'count' => 'required|integer|min:0',
+      'cost' => 'required|integer|min:0',
+
+      'week' => 'required|boolean',
+      'new' => 'required|boolean',
+
+      'ids_photos' => 'required|array|min:1',
+      "ids_photos.*" => "required|exists:image_products,id"
+    ]);
+    $product = new Product($request->all());
+    $product->category()->associate($request->get('category_id'));
+    $product->status()->associate($request->get('status_id'));
+    $product->save();
+
+    foreach ($request->get('ids_photos') as $item) {
+      $image = ImageProduct::find($item);
+
+      if ($image) {
+        $image->product()->associate($product);
+        $image->save();
+      }
+    }
+
+    return redirect()->route('admin.products.index');
   }
 
   /**
@@ -119,11 +165,51 @@ class ProductController extends Controller
    * @param Request $request
    * @param int     $id
    *
-   * @return Response
+   * @return \Illuminate\Http\RedirectResponse
    */
-  public function update (Request $request, $id)
+  public function update (Request $request, int $id)
   {
-    //
+    $product = Product::findOrFail($id);
+
+    $request->validate([
+      'ru.name' => 'required|string',
+      'ru.description' => 'required|string',
+      'ru.history' => 'required|string',
+
+      'en.name' => 'required|string',
+      'en.description' => 'required|string',
+      'en.history' => 'required|string',
+
+      'category_id' => 'required|exists:categories,id',
+      'status_id' => 'required|exists:statuses,id',
+
+      'count' => 'required|integer|min:0',
+      'cost' => 'required|integer|min:0',
+
+      'week' => 'required|boolean',
+      'new' => 'required|boolean',
+
+      'ids_photos' => 'required|array|min:1',
+      "ids_photos.*" => "required|exists:image_products,id"
+    ]);
+
+    $product->update($request->all());
+
+
+    $product->category()->associate($request->get('category_id'));
+    $product->status()->associate($request->get('status_id'));
+    $product->save();
+
+    foreach ($request->get('ids_photos') as $item) {
+      $image = ImageProduct::find($item);
+
+      if ($image) {
+        $image->product()->associate($product);
+        $image->save();
+      }
+    }
+
+    return redirect()->route('admin.products.index');
   }
 
   /**
@@ -131,11 +217,18 @@ class ProductController extends Controller
    *
    * @param int $id
    *
-   * @return Response
+   * @return \Illuminate\Http\RedirectResponse
    */
-  public function destroy ($id)
+  public function destroy (int $id)
   {
-    //
+    $product = Product::findOrFail($id);
+//    TODO: delete photo file Observer
+    foreach ($product->images as $image) {
+      $image->delete();
+    }
+    $product->delete();
+
+    return redirect()->route('admin.products.index');
   }
 
   /**

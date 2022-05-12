@@ -27,6 +27,8 @@ Route::get('/new-arrivals', [CatalogController::class, 'newArrivals']);
 Route::get('/products-weeks', [CatalogController::class, 'newWeeks']);
 Route::get('/product/{product_id}', [ProductController::class, 'index']);
 
+Route::get('/receiving', [HomeController::class, 'receiving']);
+
 Route::get('/order', [OrderController::class, 'index']);
 Route::post('/order/create', [OrderController::class, 'create']);
 
