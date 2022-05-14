@@ -181,7 +181,7 @@
               <li class="nav-item">
                 <Link
                   class="nav-link"
-                  href="/admin/product/create"
+                  href="/admin/products/create"
                 >
                   <i class="fa-regular fa-cart-plus pe-3"></i>
                   Создать товар

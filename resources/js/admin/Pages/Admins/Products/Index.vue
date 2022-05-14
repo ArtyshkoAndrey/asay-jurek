@@ -173,9 +173,9 @@ export default {
         if (result.data.payload.products.data.length > 0) {
           setTimeout(() => {
             this.page++;
-            this.products.push(...result.data.products.data);
+            this.products.push(...result.data.payload.products.data);
             $state.loaded()
-            if (this.page > result.data.products.last_page) {
+            if (this.page > result.data.payload.products.last_page) {
               $state.complete()
             }
           }, 1000)
