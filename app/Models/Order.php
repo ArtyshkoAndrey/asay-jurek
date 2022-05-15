@@ -49,6 +49,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Order whereUserName($value)
  * @method static Builder|Order whereUserPhone($value)
  * @mixin Eloquent
+ * @property string                      $payment_method
+ * @property int|null                    $shop_id
+ * @property-read Shop|null              $shop
+ * @property-read User|null              $user
+ * @method static Builder|Order wherePaymentMethod($value)
+ * @method static Builder|Order whereShopId($value)
  */
 class Order extends Model
 {
@@ -81,13 +87,16 @@ class Order extends Model
     // Отдали заказ
   ];
 
-  public const  DELIVERY_IN_SHOP = 'in_shop';
-  public const  MAP_DELIVERY     = [
+  public const  DELIVERY_IN_SHOP  = 'in_shop';
+  public const  DELIVERY_TRANSFER = 'transfer';
+  public const  MAP_DELIVERY      = [
     self::DELIVERY_IN_SHOP,
+    self::DELIVERY_TRANSFER,
   ];
 
   public const MAP_DELIVERY_TRANSLATE = [
-    self::DELIVERY_IN_SHOP => 'Самовывоз',
+    self::DELIVERY_IN_SHOP  => 'Самовывоз',
+    self::DELIVERY_TRANSFER => 'Доставка',
   ];
 
   public const PAYMENT_METHOD_IN_SHOP = 'shop';
@@ -135,7 +144,6 @@ class Order extends Model
       ->count();
   }
 
-
   public function items (): HasMany
   {
     return $this->hasMany(OrderItem::class);
@@ -153,6 +161,7 @@ class Order extends Model
   {
     return self::MAP_STATUS_TRANSLATE[$this->status];
   }
+
 
   public function user (): BelongsTo
   {

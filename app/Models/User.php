@@ -64,6 +64,9 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @method static Builder|User wherePostIndex($value)
  * @method static Builder|User whereStreet($value)
  * @mixin Eloquent
+ * @property bool $is_admin
+ * @property-read bool $admin
+ * @method static Builder|User whereIsAdmin($value)
  */
 class User extends Authenticatable
 {

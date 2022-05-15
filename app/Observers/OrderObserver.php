@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use Carbon\Carbon;
 use App\Models\Order;
-use App\Notifications\users\CreateOrderNotification;
 
 class OrderObserver
 {
@@ -28,7 +28,10 @@ class OrderObserver
    */
   public function updated (Order $order): void
   {
-    //
+    // Если при обновлении заказа его статус доставлен и была оплата в магазине, то дата оплаты ставится перманентно
+    if (($order->status === Order::STATUS_SUCCESS) && $order->type_delivery === Order::DELIVERY_IN_SHOP) {
+      $order->payment_at = Carbon::now();
+    }
   }
 
   /**

@@ -10,12 +10,15 @@ use App\Models\User;
 use Inertia\Response;
 use App\Models\Order;
 use App\Models\Product;
+use App\Jobs\CloseOrder;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Swift_TransportException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\users\UserRegister;
 use Illuminate\Database\Eloquent\Collection;
+use App\Notifications\users\CancelOrderNotification;
 use App\Notifications\users\CreateOrderNotification;
 
 class OrderController extends Controller
@@ -28,7 +31,7 @@ class OrderController extends Controller
     ]);
   }
 
-  public function create (Request $request)
+  public function create (Request $request): RedirectResponse
   {
     // TODO: Чистить корзину юзера
     $request->validate([
@@ -78,11 +81,11 @@ class OrderController extends Controller
         ->associate($user);
       $order->shop()
         ->associate($request->get('shops_id'));
-
+      $order->type_delivery = Order::DELIVERY_TRANSFER;
       $order->save();
 
       $cost = 0;
-//      TODO: В обшее когда буду разные типы оплаты
+//      TODO: В обшей когда буду разные типы оплаты
       foreach ($request->get('items') as $item) {
 
         $product   = $products->where('id', $item['id'])
@@ -112,6 +115,9 @@ class OrderController extends Controller
       } catch (Swift_TransportException $e) {
         \Log::critical('Dont send Email');
       }
+
+      $delay = now()->addMinutes(30);
+      CloseOrder::dispatch($order, $delay);
 
       $user->cart()
         ->delete();
