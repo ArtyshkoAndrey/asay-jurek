@@ -81,7 +81,6 @@ class OrderController extends Controller
         ->associate($user);
       $order->shop()
         ->associate($request->get('shops_id'));
-      $order->type_delivery = Order::DELIVERY_TRANSFER;
       $order->save();
 
       $cost = 0;
