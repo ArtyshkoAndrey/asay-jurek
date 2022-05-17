@@ -77,7 +77,7 @@
                 />
               </td>
               <td @click="open(product)">
-                {{ product.name }}
+                <span :class="{'text-danger': product.category_id === null }">{{ product.name }}</span>
               </td>
               <td @click="open(product)">{{ product.count }}</td>
               <td @click="open(product)">{{ new Intl.NumberFormat('ru-Ru').format(product.cost) }} ₸

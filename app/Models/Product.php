@@ -83,6 +83,20 @@ class Product extends Model implements TranslatableContract
     'image',
   ];
 
+  /********************************************/
+  /**                 Global Scopes           */
+  /********************************************/
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::addGlobalScope('existCategory', static function (Builder $builder) {
+      if (!\Route::currentRouteNamed('admin.*')) {
+        $builder->whereNotNull('category_id');
+        $builder->whereNotNull('status_id');
+      }
+    });
+  }
 
   /********************************************/
   /**                 ATTRIBUTES              */

@@ -85,6 +85,17 @@
               </li>
               <li class="nav-item">
                 <Link
+                  :class="{'active': $page.url === '/admin/categories'}"
+                  aria-current="page"
+                  class="nav-link"
+                  href="/admin/categories"
+                >
+                  <i class="fa-regular fa-bags-shopping pe-3"></i>
+                  Категории
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
                   :class="{'active': $page.url.startsWith('/admin/users')}"
                   aria-current="page"
                   class="nav-link"

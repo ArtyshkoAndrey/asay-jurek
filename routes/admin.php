@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::name('admin.')
   ->group(static function () {
@@ -42,6 +43,7 @@ Route::name('admin.')
       ->except([
         'show',
       ]);
+    Route::resource('/categories', CategoryController::class);
     Route::prefix('/products')
       ->name('products.')
       ->group(static function () {
