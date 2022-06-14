@@ -2,7 +2,8 @@
   "tooltips": {
     "login": "You have successfully logged in",
     "logout": "Goodbye! We are waiting for you again in our store",
-    "addProduct": "Product added to cart"
+    "addProduct": "Product added to cart",
+    "register": "You have successfully registered on the site"
   },
   "locales": {
     "ru": {
@@ -38,10 +39,13 @@
   "login": {
     "inputs": {
       "password": "Password",
-      "remember": "Remember me"
+      "remember": "Remember me",
+      "password_confirmation": "Repeat password",
+      "name": "Name"
     },
     "buttons": {
-      "login": "Login"
+      "login": "Login",
+      "register": "Register"
     }
   },
   "ProductPage": {

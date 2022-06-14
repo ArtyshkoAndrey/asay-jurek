@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -41,7 +42,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
+    public function showRegistrationForm (): \Inertia\Response
+    {
+      return Inertia::render('Users/Register');
+    }
+
+  /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -60,7 +66,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return User
      */
     protected function create(array $data)
     {
