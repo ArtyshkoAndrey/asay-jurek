@@ -2,11 +2,11 @@
   <div class="container">
     <div class="row mt-5 pt-5">
       <div class="col-lg-2 d-lg-block d-none">
-        <img
-          alt="Rectangle 13.png"
-          class="w-100 h-auto first-image"
-          src="/public/img/Rectangle 13.png"
-        >
+<!--        <img-->
+<!--          alt="Rectangle 13.png"-->
+<!--          class="w-100 h-auto first-image"-->
+<!--          src="/public/img/Rectangle 13.png"-->
+<!--        >-->
       </div>
       <div class="col-lg-8">
         <h1>
@@ -45,20 +45,20 @@
           </div>
 
           <div class="col-lg-3 offset-lg-7 d-lg-block d-none">
-            <img
-              alt="Rectangle 13.png"
-              class="w-100 h-auto third-image"
-              src="/public/img/Rectangle 13.png"
-            >
+<!--            <img-->
+<!--              alt="Rectangle 13.png"-->
+<!--              class="w-100 h-auto third-image"-->
+<!--              src="/public/img/Rectangle 13.png"-->
+<!--            >-->
           </div>
         </div>
       </div>
       <div class="col-lg-2 d-lg-block d-none">
-        <img
-          alt="Rectangle 13.png"
-          class="w-100 h-auto second-image"
-          src="/public/img/Rectangle 13.png"
-        >
+<!--        <img-->
+<!--          alt="Rectangle 13.png"-->
+<!--          class="w-100 h-auto second-image"-->
+<!--          src="/public/img/Rectangle 13.png"-->
+<!--        >-->
       </div>
     </div>
   </div>
